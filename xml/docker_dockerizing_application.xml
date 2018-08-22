@@ -234,8 +234,8 @@ ENTRYPOINT ["apache2ctl"]</screen>
 MAINTAINER &exampleuser_plain; <co xml:id="co.dockerfile.apache2.maintainer"/>
 RUN zypper ref -s &amp;&amp; zypper --non-interactive in apache2
 
-# COPY data/* /srv/www/htdocs/ <co xml:id="co.dockerfile.apache2.copy"/>
 RUN echo "The Web Server is running" > /srv/www/htdocs/test.html <co xml:id="co.dockerfile.apache2.echo"/>
+# COPY data/* /srv/www/htdocs/ <co xml:id="co.dockerfile.apache2.copy"/>
 
 EXPOSE 80 <co xml:id="co.dockerfile.apache2.expose"/>
 
@@ -248,21 +248,29 @@ CMD ["-D", "FOREGROUND"]</screen>
              <callout arearefs="co.dockerfile.apache2.maintainer">
               <para>Optional maintainer of the image.</para>
              </callout>
-             <callout arearefs="co.dockerfile.apache2.copy">
-              <para>The copy instruction to copy your own data to the
-               server's directory. Currently, this lien is disabled due to
-               the hash mark in the first colomn.
-              </para>
-             </callout>
              <callout arearefs="co.dockerfile.apache2.echo">
               <para>The test line for debugging purposes; can be removed if everything
-              works as expected.</para>
+               works as expected.</para>
+             </callout>
+             <callout arearefs="co.dockerfile.apache2.copy">
+              <para>The copy instruction to copy your own data to the
+               server's directory. Currently, this line is disabled due to
+               the hash mark in the first colomn.
+              </para>
              </callout>
              <callout arearefs="co.dockerfile.apache2.expose">
               <para>The exposed port for the Apache Web server.</para>
              </callout>
             </calloutlist>
            </example>
+
+           <note>
+            <title>Check for Running Apache2 Instances on Your Host</title>
+            <para>Make sure that you do not have any Apache2 server instances
+    running on your host. The Docker container would not serve any data if you
+    have a host Apache2 server running. Remove or stop any Apache2 servers on
+    your host. </para>
+           </note>
 
            <para>To use the container, proceed as follows:</para>
          <procedure xml:id="pro.docker.apache2">
@@ -309,7 +317,8 @@ CMD ["-D", "FOREGROUND"]</screen>
          </procedure>
          <para>With the last procedure, you have built an image which was used
          to test the build process and the Apache2 Web server. If everything
-         was successful, you can store your own data. Proceed as follows:</para>
+         was successful, use the following steps to serve your data through
+         the Apache2 Web server:</para>
          <procedure>
           <title>Creating a Docker Container with your Own Data</title>
           <step>
@@ -337,9 +346,9 @@ docker rm --force afee0124a0c7</screen>
            <screen>e43fff4ae9832ecdb7677c058a73039d7610c32145a1d9b6ad0a4ed52b5c4dc7</screen>
           </step>
          </procedure>
-         <para>You can now access your data in <uri>http://localhost:80</uri>.
-         If you do not want to copy your data into your Docker container,
-         you can share a specific directory on your host. Refer to
+         <para>You can now access your data at <uri>http://localhost:80</uri>.
+         If you do not want to copy your data into the Docker container,
+         share a specific directory on your host. Refer to
          <link xlink:href="https://docs.docker.com/storage/volumes/"/>
           for more information.
          </para>
