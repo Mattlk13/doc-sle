@@ -9,7 +9,7 @@
   xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink">
-  <title>Ask the User for Values during Installation</title>
+  <title>Ask the user for values during installation</title>
 
  <info>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -41,7 +41,7 @@
 &lt;/general&gt;</screen>
 
    <table>
-    <title>Ask the User for Values: XML representation</title>
+    <title>Ask the user for values: XML representation</title>
     <tgroup cols="3">
      <thead>
       <row>
@@ -157,7 +157,7 @@
          control file at the <literal>config:type="...."</literal>
          attribute. You can also use <literal>static_text</literal> as type.
          A <literal>static_text</literal> is a text that does not
-         require any user input and can be used to show information not
+         require any user input and can show information not
          included in the help text.
         </para>
 <screen>&lt;type&gt;symbol&lt;/type&gt;</screen>
@@ -204,7 +204,7 @@
          you want to change. For example, the LDAP server element can be
          found in the control file in the
          <literal>&lt;ldap&gt;&lt;ldap_server&gt;</literal> section.
-         So if you want to change that value, you need to set the path to
+         So to change that value, you need to set the path to
          <literal>ldap,ldap_server</literal>.
         </para>
         <screen>&lt;pathlist config:type="list"&gt;
@@ -547,7 +547,7 @@
    </table>
 
    <sect2 xml:id="CreateProfile-Ask-default-value">
-    <title>Default Value Scripts</title>
+    <title>Default value scripts</title>
     <para>
      You can run scripts to set the default value for a question. This
      feature is useful if you can <literal>calculate</literal> a default
@@ -568,7 +568,7 @@
   &lt;/ask-list&gt;
 &lt;/general&gt;</screen>
     <table>
-     <title>Default Value Scripts: XML representation</title>
+     <title>Default value scripts: XML representation</title>
      <tgroup cols="3">
       <thead>
        <row>

@@ -10,7 +10,7 @@
   xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Creating an &ay; Control File</title>
+ <title>Creating an &ay; control file</title>
  <info>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
    <dm:bugtracker></dm:bugtracker>
@@ -19,7 +19,7 @@
  </info>
 
   <sect1 xml:id="Autoinstallation-collectInfo">
-   <title>Collecting Information</title>
+   <title>Collecting information</title>
 
    <para>
     To create the control file, you need to collect information about the
@@ -46,9 +46,14 @@
      </para>
     </listitem>
    </itemizedlist>
+   <para>
+    Also verify that both <package>autoyast2-installation</package> and 
+    <package>autoyast2</package> are installed.
+   </para>
   </sect1>
+  
   <sect1 xml:id="CreateProfile-CMS">
-   <title>Using the Configuration Management System (CMS)</title>
+   <title>Using the configuration management system (CMS)</title>
 
    <para>
     To create the control file for one or more computers, a configuration
@@ -65,7 +70,7 @@
    </para>
 
    <figure os="sles;sled">
-    <title>Configuration System</title>
+    <title>Configuration system</title>
     <mediaobject>
      <imageobject role="html">
       <imagedata fileref="autoyast2-maindialog.png"/>
@@ -77,7 +82,7 @@
    </figure>
 
    <figure os="osuse">
-    <title>Configuration System</title>
+    <title>Configuration system</title>
     <mediaobject>
      <imageobject role="html">
       <imagedata fileref="autoyast2-maindialog_kde.png"/>
@@ -89,7 +94,44 @@
    </figure>
 
    <sect2 xml:id="CreateProfile-CMS-new">
-    <title>Creating a New Control File</title>
+    <title>Creating a new control file</title>
+     <para>
+      The easiest way to create an &ay; profile is to use an existing
+      &productname; system as a template. On an already installed system,
+      launch <menuchoice><guimenu>&yast;</guimenu>
+       <guimenu>Miscellaneous</guimenu>
+       <guimenu>Autoinstallation Configuration</guimenu></menuchoice>. Then
+      select <menuchoice><guimenu>Tools</guimenu> <guimenu>Create Reference
+       Profile</guimenu></menuchoice> from the menu. Choose the system
+      components you want to include in the profile. Alternatively, create a
+      profile containing the complete system configuration by launching
+      <menuchoice><guimenu>&yast;</guimenu>
+       <guimenu>Miscellaneous</guimenu>
+       <guimenu>Autoinstallation Cloning System</guimenu></menuchoice> or
+      running <command>sudo yast clone_system</command> from the command line.
+     </para>
+
+     <para>
+      Both methods will create the file
+      <filename>/root/autoinst.xml</filename>. The cloned profile can be used
+      to set up an identical clone of the system it was created from. However,
+      you usually want to adjust the file to allow for installing multiple
+      machines that are very similar, but not identical. This can be done by
+      adjusting the profile with your favorite text/XML editor.
+     </para>
+
+     <warning>
+     <title>Sensitive data in profiles</title>
+      <para>
+       Beware that the profile might contain sensitive information such as
+       password hashes and registration keys.
+      </para>
+      <para>
+       Carefully review the exported profiles and make sure to keep file permissions
+       restrictive.
+      </para>
+     </warning>
+
     <para>
      With some exceptions, almost all resources of the control file can be
      configured using the configuration management system. The system offers
@@ -114,7 +156,7 @@
    </sect2>
   </sect1>
   <sect1 xml:id="CreateProfile-Manual">
-   <title>Creating/Editing a Control File Manually</title>
+   <title>Creating/editing a control file manually</title>
 
    <para>
     If editing the control file manually, make sure it has a valid syntax.  To
@@ -147,6 +189,35 @@
     describes the syntax and classes of an &ay; profile.
    </para>
 
+   <note>
+    <title>Schema extensions</title>
+
+    <para>
+     &ay; can be extended by other products and modules, but the schema does not
+     contain the specification for those extensions. As a consequence, when &ay; 
+     is given a profile that uses one of those extensions, it might report the 
+     profile as invalid.
+    </para>
+
+    <para>
+     Thus, starting in &productname; <phrase os="osuse">15.3</phrase><phrase
+     os="sles;sled">SP3</phrase>, &ay; does not validate top-level unknown
+     sections, and ignores them. For example, in the example below, the
+     <literal>&lt;sap-inst&gt;</literal> is not validated. The rest is validated
+     as usual.
+    </para>
+
+    <screen>&lt;general&gt;
+  &lt;mode&gt;
+    &lt;confirm config:type="boolean"&gt;true&lt;/confirm&gt;
+  &lt;/mode&gt;
+&lt;/general&gt;
+
+&lt;sap-inst&gt;
+  &lt;!-- this section is not validated -->&gt;
+&lt;/sap-inst&gt;
+</screen>
+   </note>
 
    <para>
     Before going on with the autoinstallation, fix any errors resulting from
@@ -163,7 +234,7 @@
    </para>
 
    <tip>
-    <title>Using Emacs as an XML Editor</title>
+    <title>Using emacs as an XML editor</title>
     <para>
      The built-in nxml-mode turns Emacs into a fully-fledged XML editor with
      automatic tag completion and validation. Refer to the Emacs help for
@@ -172,7 +243,7 @@
    </tip>
   </sect1>
   <sect1 xml:id="CreateProfile-XSLT">
-   <title>Creating a Control File via Script with XSLT</title>
+   <title>Creating a control file via script with XSLT</title>
 
    <para>
     If you have a template and want to change a few things via script or
@@ -187,7 +258,7 @@
    </para>
 
    <example>
-    <title>Example File for Replacing the Host Name/Domain by Script</title>
+    <title>Example file for replacing the host name/domain by script</title>
 <screen>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:y2="http://www.suse.com/1.0/yast2ns"
@@ -270,5 +341,105 @@
     For more information about XSLT, go to the official Web page
     <link xlink:href="http://www.w3.org/TR/xslt">www.w3.org/TR/xslt</link>
    </para>
+  </sect1>
+
+  <sect1 xml:id="check-profile">
+   <title>Checking a Control File</title>
+
+   <para>
+    Depending on the use case, creating an &ay; profile can be difficult,
+    especially if you build a dynamic profile using <link
+    xlink:href="part-dynamic-profiles">rules/classes, ERB templates or
+    pre-scripts</link>. To simplify the testing and debugging process, &ay;
+    offers the <literal>check-profile</literal> command, which takes care of
+    fetching, building and, optionally, importing the profile to detect any
+    potential problem.
+   </para>
+
+   <note>
+    <para>
+     Although this command uses the same approach as the installation, the
+     results may vary depending on the differences between the current system
+     and installation media: &yast; package versions, architecture, etc.
+    </para>
+   </note>
+
+   <warning>
+    <para>
+     You must be careful when running this command because pre-installation
+     scripts and ERB code would run as the <literal>root</literal> user.
+     So, please, only use profiles that you trust.
+    </para>
+   </warning>
+
+   <sect2>
+    <title>Basic Checks</title>
+
+    <para>
+     The simplest way to use this command is just to read and validate the profile:
+    </para>
+
+<screen>&prompt.sudo; yast2 autoyast check-profile filename=autoinst.xml output=result.xml</screen>
+
+    <para>
+     The <filename>result.xml</filename> file contains the result of evaluating
+     the profile. Bear in mind that, even if you do not use any advanced
+     feature, the content of <filename>autoinst.xml</filename> and
+     <filename>result.xml</filename> may differ. The reason is that &ay; does
+     some clean-up when it processes the profile.
+    </para>
+
+    <para>
+     <literal>check-profile</literal> can deal with remote files too:
+    </para>
+
+<screen>&prompt.sudo; yast2 autoyast check-profile filename=http://192.168.1.100/autoinst.xml output=result.xml</screen>
+
+   </sect2>
+
+   <sect2>
+    <title>Running pre-scripts</title>
+
+    <para>
+     Optionally, &ay; is able to run the scripts that are included in the
+     profile, reporting any error found during the execution. This is especially
+     relevant if you are using a pre-installation script to modify the profile.
+     To enable this feature, you need to set the <literal>run-scripts</literal>
+     option to <literal>true</literal>.
+    </para>
+
+<screen>&prompt.sudo; yast2 autoyast check-profile filename=http://192.168.1.100/autoinst.xml output=result.xml run-scripts=true</screen>
+
+    <warning>
+     <para>
+      You must be careful when enabling the
+      <literal>run-scripts</literal> option, because the scripts will run as root
+      and they may affect the current system.
+     </para>
+    </warning>
+   </sect2>
+
+   <sect2>
+    <title>Importing the Profile</title>
+
+    <para>
+     It is possible to face some problems when importing a valid profile, even
+     if it is correct. The reason is that &ay; does not perform any logic
+     check when fetching, building and validating the profile.
+    </para>
+
+    <para>
+     To anticipate such problems, the <literal>check-profile</literal> command
+     imports the profile and reports problems that it has detected. As it may take
+     a while, you can disable this behavior setting the
+     <literal>import-all</literal> option to <literal>false</literal>.
+    </para>
+
+<screen>&prompt.sudo; yast2 autoyast check-profile filename=http://192.168.1.100/autoinst.xml output=result.xml import-all=false</screen>
+
+    <para>
+     Importing the profile is a safe operation and does not alter the underlying system in any way.
+    </para>
+   </sect2>
   </sect1>
  </chapter>

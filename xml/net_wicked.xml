@@ -6,7 +6,7 @@
 ]>
 
 <sect1 xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="sec-network-manconf">
- <title>Configuring a Network Connection Manually</title>
+ <title>Configuring a network connection manually</title>
 
  <info>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -28,7 +28,7 @@
       The version of that README used here, I stored at
       background_information/wicked-readme
   -->
-  <title>The <command>wicked</command> Network Configuration</title>
+  <title>The <command>wicked</command> network configuration</title>
   <para>
    The tool and library called <command>wicked</command> provides a new
    framework for network configuration.
@@ -142,7 +142,7 @@
    <systemitem>/org/opensuse/Network/Interfaces</systemitem> list node.
   </para>
   <sect3 xml:id="sec-network-manconf-supported">
-   <title><literal>wicked</literal> Architecture and Features</title>
+   <title><literal>wicked</literal> Architecture and features</title>
    <para>
     The <literal>wicked</literal> service comprises several parts as depicted
     in <xref linkend="wicked-architecture"/>.
@@ -390,7 +390,7 @@ ip route show</screen>
   </sect3>
 <!-- ============================================================== -->
   <sect3 xml:id="sec-network-manconf-multiple">
-   <title>Bringing Up Multiple Interfaces</title>
+   <title>Bringing up multiple interfaces</title>
    <para>
     For bonds and bridges, it may make sense to define the entire device
     topology in one file (ifcfg-bondX), and bring it up in one go. wicked then
@@ -414,7 +414,7 @@ ip route show</screen>
   </sect3>
 <!-- ============================================================== -->
   <sect3 xml:id="sec-network-manconf-tunnel">
-   <title>Using Tunnels with Wicked</title>
+   <title>Using tunnels with wicked</title>
    <para>
     When you need to use tunnels with Wicked, the <envar>TUNNEL_DEVICE</envar>
     is used for this. It permits to specify an optional device name to bind
@@ -427,7 +427,7 @@ ip route show</screen>
   </sect3>
 <!-- ============================================================== -->
   <sect3 xml:id="sec-network-manconf-incremental">
-   <title>Handling Incremental Changes</title>
+   <title>Handling incremental changes</title>
    <para>
     With <command>wicked</command>, there is no need to actually take down an
     interface to reconfigure it (unless it is required by the kernel). For
@@ -452,7 +452,7 @@ ip route show</screen>
   </sect3>
 <!-- ============================================================== -->
   <sect3 xml:id="sec-network-manconf-address-config">
-   <title>Wicked Extensions: Address Configuration</title>
+   <title>Wicked extensions: address configuration</title>
    <para>
     <command>wicked</command> is designed to be extensible with shell scripts.
     These extensions can be defined in the <filename>config.xml</filename>
@@ -511,7 +511,7 @@ ip route show</screen>
   </sect3>
 <!-- ============================================================== -->
   <sect3 xml:id="sec-network-manconf-configuration-files">
-   <title>Wicked Extensions: Configuration Files</title>
+   <title>Wicked extensions: configuration files</title>
    <para>
     You can extend the handling of configuration files with scripts as well.
     For example, DNS updates from leases are ultimately handled by the
@@ -538,7 +538,7 @@ ip route show</screen>
  <xi:include href="net_config_files.xml"/>
 
  <sect2 xml:id="sec-network-manconf-testing">
-  <title>Testing the Configuration</title>
+  <title>Testing the configuration</title>
   <para>
    Before you write your configuration to the configuration files, you can test
    it. To set up a test configuration, use the <command>ip</command> command.
@@ -551,7 +551,7 @@ ip route show</screen>
    configuration is lost on reboot.
   </para>
   <note>
-   <title><command>ifconfig</command> and <command>route</command> Are Obsolete</title>
+   <title><command>ifconfig</command> and <command>route</command> are obsolete</title>
    <para>
     The <command>ifconfig</command> and <command>route</command> tools are
     obsolete. Use <command>ip</command> instead. <command>ifconfig</command>,
@@ -559,65 +559,7 @@ ip route show</screen>
    </para>
   </note>
   <sect3 xml:id="sec-network-manconf-ip">
-   <title>Configuring a Network Interface with <command>ip</command></title>
-   <remark>
-From: Marius Tomaschewski mt@suse.de&gt;
-Subject: Re: Manual Network Config
-To: Karl Eichwalder ke@suse.de&gt;
-Date: Mon, 24 Aug 2009 14:21:44 +0200
-
-Das ifconfig utility ist obsolete und unterstützt nur Interface-
-Namen bis 9 Zeichen, z.B. "foo012345". Die restlichen Zeichen
-werden abgeschnitten und nicht angezeigt.
-Das "ip" utility unterstützt hingegen die derzeit volle Länge von
-15 Zeichen, z.B. "foo012345678901".
-
-Statt "ifconfig" sollte "ip addr" und "ip link" verwendet werden,
-um routing zu konfigurieren, sollte nicht "route", sondern "ip route"
-verwendendet werden.
-
-...
-
-IMO besser wäre es die Beispiel-Ausgaben von route und ifconfig zu
-entfernen und stattdessen Beispiel-Ausgaben von:
-
-"ip link show", "ip addr show",
-"ip -4 route show", "ip -6 route show"
-(und ggf. auch "ip rule show")
-
-im "Configuring a Network Interface with ip" zu bringen. Eventuell
-mit ein Paar Beispielen als eine Art Kurzanleitung, in etwa:
-
-ip link set up dev eth0
-
-ip addr add 192.168.0.100/24 dev eth0
-ip addr add 2001:DB8:cafe::dead/64 dev eth0
-
-ip route add 192.168.1.0/24 via 192.168.0.200 dev eth0
-ip route add 2001:DB8:cafe:1::/64 via 2001:DB8:cafe::feed dev eth0
-
-ip route add default via 192.168.0.254 dev eth0
-ip route add default via 2001:DB8:cafe::beef dev eth0
-
-ip addr show dev eth0
-ip -4 route show # dev eth0
-ip -6 route show # dev eth0
-
-ip route del 192.168.1.0/24 via 192.168.0.200 dev eth0
-ip route del 2001:DB8:cafe:1::/64 via 2001:DB8:cafe::feed dev eth0
-
-ip route del default via 192.168.0.254 dev eth0
-ip route del default via 2001:DB8:cafe::beef dev eth0
-
-ip addr del 192.168.0.100/24 dev eth0
-ip addr del 2001:DB8:cafe::dead/64 dev eth0
-
-ip link set down dev eth0
-</remark>
-   <remark>
- ke 2014-05-15: ifconfig and route is removed sind quite some time.
- Maybe, we should add more ip examples as Marius proposes...
-</remark>
+   <title>Configuring a network interface with <command>ip</command></title>
    <para>
     <command>ip</command> is a tool to show and configure network devices,
     routing, policy routing, and tunnels.
@@ -700,51 +642,98 @@ ip link set down dev eth0
     <command>list</command>).
    </para>
    <para>
-    Change the state of a device with the command <command>ip link
-    set</command>&nbsp;<option><replaceable>DEVICE_NAME</replaceable></option>&nbsp;<command/>
-    . For example, to deactivate device eth0, enter <command>ip link
-    set</command> <option>eth0 down</option>. To activate it again, use
-    <command>ip link set</command> <option>eth0 up</option>.
+    Change the state of a device with the command:
    </para>
+<screen>&prompt.sudo;ip link set <replaceable>DEV_NAME</replaceable></screen>
+   <para>
+    For example, to deactivate device eth0, enter
+    </para>
+<screen>&prompt.sudo;ip link set eth0 down</screen>
+   <para>
+    To activate it again, use
+   </para>
+<screen>&prompt.sudo;ip link set eth0 up</screen>
+   <tip>
+    <title>Disconnecting NIC device</title>
+    <para>
+     If you deactivate a device with
+    </para>
+    <screen>&prompt.sudo;ip link set <replaceable>DEV_NAME</replaceable> down</screen>
+    <para>
+     it disables the network interface on a software level.
+    </para>
+    <para>
+     If you want to simulate losing the link as if the Ethernet cable is unplugged
+     or the connected switch is turned off, run
+    </para>
+    <screen>&prompt.sudo;ip link set <replaceable>DEV_NAME</replaceable> carrier off</screen>
+    <para>
+     For example, while <command>ip link set
+      <replaceable>DEV_NAME</replaceable> down</command> drops all routes using
+     <replaceable>DEV_NAME</replaceable>, <command>ip link set DEV carrier
+      off</command> does not. Be aware that <command>carrier off</command>
+     requires support from the network device driver.
+    </para>
+    <para>
+     To connect the device back to the physical network, run
+    </para>
+    <screen>&prompt.sudo;ip link set <replaceable>DEV_NAME</replaceable> carrier on</screen>
+   </tip>
    <para>
     After activating a device, you can configure it. To set the IP address, use
-    <command>ip addr
-    add</command>&nbsp;<option><replaceable>IP_ADDRESS</replaceable> + dev
-    <replaceable>DEVICE_NAME</replaceable></option>. For example, to set the
-    address of the interface eth0 to 192.168.12.154/30 with standard broadcast
-    (option <option>brd</option>), enter <command>ip
-    addr</command>&nbsp;<option>add 192.168.12.154/30 brd + dev eth0</option>.
    </para>
+<screen>&prompt.sudo;ip addr add <replaceable>IP_ADDRESS</replaceable> + dev <replaceable>DEV_NAME</replaceable></screen>
+   <para>
+    For example, to set the address of the interface eth0 to 192.168.12.154/30
+    with standard broadcast (option <option>brd</option>), enter
+   </para>
+<screen>&prompt.sudo;ip addr add 192.168.12.154/30 brd + dev eth0</screen>
    <para>
     To have a working connection, you must also configure the default gateway.
-    To set a gateway for your system, enter <command>ip route
-    add</command>&nbsp;<option>gateway_ip_address</option>. To translate one IP
-    address to another, use <command>nat</command>: <command>ip route add
-    nat</command>&nbsp;<option>ip_address</option>&nbsp;<command>via</command>&nbsp;<option>other_ip_address</option>.
+    To set a gateway for your system, enter
    </para>
+<screen>&prompt.sudo;ip route add default via gateway_ip_address</screen>
    <para>
-    To display all devices, use <command>ip link ls</command>. To display the
-    running interfaces only, use <command>ip link ls up</command>. To print
-    interface statistics for a device, enter <command>ip -s link
-    ls</command>&nbsp;<option>device_name</option>. To view addresses of your
-    devices, enter <command>ip addr</command>. In the output of the <command>ip
-    addr</command>, also find information about MAC addresses of your devices.
-    To show all routes, use <command>ip route show</command>.
+    To display all devices, use
    </para>
+   <screen>&prompt.sudo;ip link ls</screen>
+   <para>
+    To display the running interfaces only, use
+   </para>
+<screen>&prompt.sudo;ip link ls up</screen>
+   <para>
+    To print interface statistics for a device, enter
+   </para>
+<screen>&prompt.sudo;ip -s link ls <replaceable>DEV_NAME</replaceable></screen>
+    <para>
+     To view additional useful information, specifically about virtual
+     network devices, enter
+    </para>
+<screen>&prompt.sudo;ip -d link ls <replaceable>DEV_NAME</replaceable></screen>
+    <para>
+     Moreover, to view network layer (IPv4, IPv6) addresses of your devices,
+     enter
+    </para>
+<screen>&prompt.sudo;ip addr</screen>
+    <para>
+					In the output, you can find information about MAC addresses of your
+					devices. To show all routes, use
+   </para>
+<screen>&prompt.sudo;ip route show</screen>
    <para>
     For more information about using <command>ip</command>, enter
     <command>ip</command>&nbsp;<option>help</option> or see the
-    <systemitem>ip(8)</systemitem> man page. The <option>help</option> option
-    is also available for all <command>ip</command> subcommands. If, for
-    example, you need help for
-    <command>ip</command>&nbsp;<option>addr</option>, enter
-    <command>ip</command>&nbsp;<option>addr help</option>. Find the
-    <command>ip</command> manual in
+    <command>man 8 ip</command> manual page. The <option>help</option> option
+    is also available for all <command>ip</command> subcommands, such as:
+   </para>
+<screen>&prompt.sudo;ip addr help</screen>
+   <para>
+    Find the <command>ip</command> manual in
     <filename>/usr/share/doc/packages/iproute2/ip-cref.pdf</filename>.
    </para>
   </sect3>
   <sect3 xml:id="sec-network-manconf-testingping">
-   <title>Testing a Connection with ping</title>
+   <title>Testing a connection with ping</title>
    <para>
     The <command>ping</command> command is the standard tool for testing
     whether a TCP/IP connection works. It uses the ICMP protocol to send a
@@ -776,7 +765,7 @@ ip link set down dev eth0
     <command>ping</command>&nbsp;<option>-c 3 &exampledomain;</option>.
    </para>
    <example xml:id="ex-basicnet-manconf-ping">
-    <title>Output of the Command ping</title>
+    <title>Output of the command ping</title>
 <screen>ping -c 3 &exampledomain;
 PING &exampledomain; (&wwwip;) 56(84) bytes of data.
 64 bytes from &exampledomain; (&wwwip;): icmp_seq=1 ttl=49 time=188 ms
@@ -805,7 +794,7 @@ rtt min/avg/max/mdev = 183.417/185.447/188.259/2.052 ms</screen>
     <systemitem>ping (8)</systemitem> man page.
    </para>
    <tip>
-    <title>Pinging IPv6 Addresses</title>
+    <title>Pinging IPv6 addresses</title>
     <para>
      For IPv6 addresses use the <command>ping6</command> command. Note, to ping
      link-local addresses, you must specify the interface with
@@ -818,7 +807,7 @@ rtt min/avg/max/mdev = 183.417/185.447/188.259/2.052 ms</screen>
  </sect2>
 
  <sect2 xml:id="sec-network-manconf-scripts">
-  <title>Unit Files and Start-Up Scripts</title>
+  <title>Unit files and start-up scripts</title>
   <para>
    Apart from the configuration files described above, there are also systemd
    unit files and various scripts that load the network services while the
@@ -832,7 +821,7 @@ rtt min/avg/max/mdev = 183.417/185.447/188.259/2.052 ms</screen>
    systemd.special</command>).
   </para>
   <variablelist xml:id="var-net-start-scripts">
-   <title>Some Unit Files and Start-Up Scripts for Network Programs</title>
+   <title>Some unit files and start-up scripts for network programs</title>
    <varlistentry>
     <term><systemitem>network.target</systemitem>
 

@@ -25,10 +25,10 @@
   </dm:docmanager>
  </info>
  <sect1 xml:id="sec-modules-what">
-  <title>Introduction to Modules and Extensions</title>
+  <title>Introduction to modules and extensions</title>
   <para>
    Starting with &productname; 15, the installation medium consists of only the
-   &leanos;, a minimal system for deploying, updating and registering
+   &leanos;: a minimal system for deploying, updating and registering
    &productname;. During deployment you can add functionality by selecting
    modules and extensions to be installed on top of the &leanos;.
   </para>
@@ -54,19 +54,19 @@
       and Scripting, through a Public Cloud, all the way to the &suse; Package
       Hub, offering community-managed packages.
      </para>
-     <para>Modules enable you to provide just the set of packages required for
+     <para>Modules enable you to provide only the set of packages required for
       the machine's purpose, making the system lean, fast, and more secure.
       This modular approach also makes it easy to provide tailor-made images
       for container and cloud environments.
      </para>
      <para>
-      Modules can be added or removed at any time during the lifecycle of the
-      system, allowing you to easily adjust the system to changing requirements.
+      Modules can be added or removed at any time during the life cycle of the
+      system. This allows you to easily adjust the system to changing requirements.
      </para>
      <para>
       Modules are part of your &productname; subscription and therefore free of
       charge. They differ from the base of &productname; only by their
-      lifecycle. With the exception of the &suse; Package Hub module, &suse;
+      life cycle. Except for the &suse; Package Hub module, &suse;
       provides L3 support for almost all packages provided by modules. For more
       information about the &productname; support statement refer to the <link
       xlink:href="https://www.suse.com/releasenotes/x86_64/SUSE-SLES/15/#Intro.Support">Release
@@ -90,14 +90,20 @@
  </sect1>
 
  <sect1 xml:id="sec-modules-what-modules">
-  <title>Modules for the &sle; Product Family</title>
+  <title>Modules for the &sle; product family</title>
    <para>
     The following modules are available within the &sle; Product Family. Note
     that the availability of modules depends on the product (refer to the
     column <emphasis>Available for</emphasis>). For more information about
-    lifecycle, release frequency, and the overlay support period, see
+    life cycle, release frequency, and the overlay support period, see
     <link xlink:href="https://www.suse.com/lifecycle"/>.
    </para>
+   <note>
+   <title>L3 support</title>
+   <para>
+   L3 support is generally provided for packages in modules. However, this excludes PackageHub and third-party modules. Use the <command>zypper info <replaceable>PACKAGE</replaceable></command> command to check the support level for a specific package.
+   </para>
+   </note>
    <informaltable>
     <tgroup cols="4">
      <colspec colnum="1" colname="name" colwidth="30*"/>
@@ -155,14 +161,11 @@
        <entry>
         <simplelist>
          <member>
-          <emphasis role="bold">Lifecycle:</emphasis> 10 yrs
+          <emphasis role="bold">Life cycle:</emphasis> 10 yrs
          </member>
          <member>
           <emphasis role="bold">Extended:</emphasis> 3 yrs
           LTSS<superscript>1</superscript>
-         </member>
-         <member>
-          <emphasis role="bold">Level:</emphasis> L3
          </member>
         </simplelist>
        </entry>
@@ -179,17 +182,45 @@
         </para>
        </entry>
       </row>
-
-      <!-- Certifications Module is marked as Post-GA - sknorr, 2017-10-20 -->
-      <!-- <row>
-           <entry>
-           <para><emphasis role="bold">Certifications</emphasis></para>
-           <para>FIPS 140-2 certification-specific packages</para>
-           </entry>
-           <entry><para>Base System</para></entry>
-           <entry><para>FIXME</para></entry>
-           <entry><para>FIXME</para></entry>
-           </row> -->
+      <row>
+       <entry morerows="1">
+        <para>
+         <emphasis role="bold">Certifications</emphasis>
+        </para>
+       </entry>
+       <entry>
+        <para>
+         Base System
+        </para>
+       </entry>
+       <entry>
+        <para>
+         All but &sleda;
+        </para>
+       </entry>
+       <entry>
+        <simplelist>
+         <member>
+          <emphasis role="bold">Life cycle:</emphasis> Until release of next SP
+         </member>
+         <member>
+          <emphasis role="bold">Extended:</emphasis> 3 yrs
+          LTSS<superscript>1</superscript>
+         </member>
+        </simplelist>
+       </entry>
+      </row>
+      <row>
+       <entry namest="dependency" nameend="support">
+        <para>
+         Contains the FIPS 140-2 certification packages.
+        </para>
+        <para>
+         Access to the Certifications Module is included in your &sle;
+         subscription.
+        </para>
+       </entry>
+      </row>
       <row>
        <entry morerows="1">
         <para>
@@ -209,13 +240,10 @@
        <entry>
         <simplelist >
          <member>
-          <emphasis role="bold">Lifecycle:</emphasis> 10 yrs
+          <emphasis role="bold">Life cycle:</emphasis> 10 yrs
          </member>
          <member>
           <emphasis role="bold">Extended:</emphasis> No
-         </member>
-         <member>
-          <emphasis role="bold">Level:</emphasis> L3
          </member>
         </simplelist>
        </entry>
@@ -247,13 +275,10 @@
        <entry>
         <simplelist>
          <member>
-          <emphasis role="bold">Lifecycle:</emphasis> 10 yrs
+          <emphasis role="bold">Life cycle:</emphasis> 10 yrs
          </member>
          <member>
           <emphasis role="bold">Extended:</emphasis> No
-         </member>
-         <member>
-          <emphasis role="bold">Level:</emphasis> L3
          </member>
         </simplelist>
        </entry>
@@ -287,14 +312,11 @@
        <entry>
         <simplelist>
          <member>
-          <emphasis role="bold">Lifecycle:</emphasis> 10 yrs
+          <emphasis role="bold">Life cycle:</emphasis> 10 yrs
          </member>
          <member>
           <emphasis role="bold">Extended:</emphasis> 3 yrs
           LTSS<superscript>1</superscript>
-         </member>
-         <member>
-          <emphasis role="bold">Level:</emphasis> L3
          </member>
         </simplelist>
        </entry>
@@ -327,14 +349,11 @@
        <entry>
         <simplelist>
          <member>
-          <emphasis role="bold">Lifecycle:</emphasis> 10 yrs
+          <emphasis role="bold">Life cycle:</emphasis> 10 yrs
          </member>
          <member>
           <emphasis role="bold">Extended:</emphasis> 3 yrs
           LTSS<superscript>1</superscript>
-         </member>
-         <member>
-          <emphasis role="bold">Level:</emphasis> L3
          </member>
         </simplelist>
        </entry>
@@ -371,15 +390,12 @@
        <entry>
         <simplelist>
          <member>
-          <emphasis role="bold">Lifecycle:</emphasis> 10 yrs
+          <emphasis role="bold">Life cycle:</emphasis> 10 yrs
          </member>
          <member>
           <emphasis role="bold">Extended:</emphasis> 3 yrs
           LTSS<superscript>1</superscript>, 1 yr
           ESPOS<superscript>2</superscript>
-         </member>
-         <member>
-          <emphasis role="bold">Level:</emphasis> L3
          </member>
         </simplelist>
        </entry>
@@ -413,7 +429,7 @@
         <!--
         <simplelist>
          <member>
-          <emphasis role="bold">Lifecycle:</emphasis> ??? <remark
+          <emphasis role="bold">Life cycle:</emphasis> ??? <remark
           condition="clarity">2018-06-06 - fs: missing</remark>
          </member>
          <member>
@@ -431,11 +447,79 @@
       <row>
        <entry namest="dependency" nameend="support">
         <para>
-         Contains packages that were available in previous versions of
-         &productname;, but have been discontinued in &slsa;
-         &productnumber;. This module is recommended when migrating from a
-         previous product version.
+         Helps you migrating applications from earlier versions of
+         &productname; and other systems to &slsa; &productnumber;, by
+         providing packages which are discontinued on &sle;. Packages in this
+         module are selected based on the requirement for migration and the
+         level of complexity of configuration.
         </para>
+        <para>
+         This module is recommended when migrating from a previous product
+         version.
+        </para>
+       </entry>
+      </row>
+      <row os="sles">
+       <entry morerows="1">
+        <para>
+         <emphasis role="bold">NVIDIA Compute</emphasis>
+        </para>
+       </entry>
+       <entry>
+        <para>
+         Basesystem
+        </para>
+       </entry>
+       <entry>
+        <para>
+         &slsa; and &slehpca; on &x86-64; and &aarch64;
+        </para>
+       </entry>
+       <entry>
+        <para>
+         Software in this module is provided by NVIDIA and not supported by
+         &suse;
+        </para>
+       </entry>
+      </row>
+      <row os="sles">
+       <entry namest="dependency" nameend="support">
+        <para>
+         Contains the NVIDIA CUDA (Compute Unified Device Architecture) drivers
+        </para>
+        <para>
+         The software in this module is provided by NVIDIA under the <link
+          xlink:href="http://docs.nvidia.com/cuda/eula/">CUDA End User License
+          Agreement</link> and not supported by &suse;.
+        </para>
+        <important>
+         <title>Do not use <command>SUSEConnect</command> to add this module</title>
+         <para>
+          Do not try to add this module with the <command>SUSEConnect</command>
+          CLI tool. <command>SUSEConnect</command> is not capable of handling
+          third-party repositories.
+         </para>
+         <para>
+          During installation, select the module from the <guimenu>Extension and
+           Module Selection</guimenu> screen. Within an installed system, run
+          <command>yast registration</command>, select <guimenu>Select
+           Extensions</guimenu>, then <literal>NVIDIA Compute Module</literal>
+          and continue with <guimenu>Next</guimenu>. Verify and accept the
+          NVIDIA repository GPG key.
+         </para>
+        </important>
+        <important>
+         <title>Combining <literal>Workstation Extension</literal> and
+          <literal>NVIDIA Compute module</literal> is unsupported</title>
+         <para>
+          The <literal>Workstation Extension</literal> provides drivers for
+          NVIDIA graphics cards. These drivers share some of the packages with
+          CUDA, however versions may differ. It is therefore neither recommended
+          nor supported to enable both the <literal>NVIDIA Compute
+          Module</literal> and the <literal>Workstation Extension</literal> at
+          the same time.
+         </para>
+        </important>
        </entry>
       </row>
       <row>
@@ -459,7 +543,7 @@
         <!--
         <simplelist>
          <member>
-          <emphasis role="bold">Lifecycle:</emphasis> ??? <remark
+          <emphasis role="bold">Life cycle:</emphasis> ??? <remark
           condition="clarity">2018-06-06 - fs: missing</remark>
          </member>
          <member>
@@ -477,7 +561,7 @@
        <entry namest="dependency" nameend="support">
         <para>
          Contains all tools required to create images for deploying
-         &productname; in cloud environments such as Amazon Web Services
+         &productname; in cloud environments. For example: Amazon Web Services
          (AWS), Microsoft Azure, Google Compute Platform, or &suse; OpenStack
          Cloud.
         </para>
@@ -504,7 +588,7 @@
         <!--
          <simplelist>
          <member>
-         <emphasis role="bold">Lifecycle:</emphasis> ??? <remark
+         <emphasis role="bold">Life cycle:</emphasis> ??? <remark
          condition="clarity">2018-01-29 - cwickert: missing</remark>
          </member>
          <member>
@@ -527,7 +611,7 @@
         <para>
          Access to the Python 2 Module is included in your &sle; subscription.
          <!--
-          The module has a different lifecycle than &sle; itself. Packages in
+          The module has a different life cycle than &sle; itself. Packages in
           the this module are usually supported for at most three years.
          -->
         </para>
@@ -554,7 +638,7 @@
         <!--
          <simplelist>
          <member>
-         <emphasis role="bold">Lifecycle:</emphasis> ??? <remark
+         <emphasis role="bold">Life cycle:</emphasis> ??? <remark
          condition="clarity">2019-04-03 - cwickert: missing</remark>
          </member>
          <member>
@@ -599,15 +683,12 @@
        <entry>
         <simplelist>
          <member>
-          <emphasis role="bold">Lifecycle:</emphasis> 10 yrs
+          <emphasis role="bold">Life cycle:</emphasis> 10 yrs
          </member>
          <member>
           <emphasis role="bold">Extended:</emphasis> 3.5 yrs
           LTSS<superscript>1</superscript>, 1.5 yr
           ESPOS<superscript>2</superscript>
-         </member>
-         <member>
-          <emphasis role="bold">Level:</emphasis> L3
          </member>
         </simplelist>
        </entry>
@@ -638,14 +719,11 @@
        <entry>
         <simplelist>
          <member>
-          <emphasis role="bold">Lifecycle:</emphasis> 10 yrs
+          <emphasis role="bold">Life cycle:</emphasis> 10 yrs
          </member>
          <member>
           <emphasis role="bold">Extended:</emphasis> 3 yrs
           LTSS<superscript>1</superscript>
-         </member>
-         <member>
-          <emphasis role="bold">Level:</emphasis> L3
          </member>
         </simplelist>
        </entry>
@@ -681,7 +759,7 @@
         <!--
         <simplelist>
          <member>
-          <emphasis role="bold">Lifecycle:</emphasis> ??? <remark
+          <emphasis role="bold">Life cycle:</emphasis> ??? <remark
           condition="clarity">2018-06-06 - fs: missing</remark>
          </member>
          <member>
@@ -723,7 +801,7 @@
        <entry>
         <simplelist>
          <member>
-          <emphasis role="bold">Lifecycle:</emphasis> None
+          <emphasis role="bold">Life cycle:</emphasis> None
          </member>
          <member>
           <emphasis role="bold">Extended:</emphasis> None
@@ -763,21 +841,18 @@
        </entry>
        <entry>
         <para/>
-        <simplelist>
-         <!--
+        <!--<simplelist>
+         
          <member>
-          <emphasis role="bold">Lifecycle:</emphasis> ??? <remark
+          <emphasis role="bold">Life cycle:</emphasis> ??? <remark
           condition="clarity">2019-01-31 - cwickert: missing</remark>
          </member>
          <member>
           <emphasis role="bold">Extended:</emphasis>  ??? <remark
           condition="clarity">2019-01-031 - cwickert: missing</remark>
          </member>
-         -->
-         <member>
-          <emphasis role="bold">Level:</emphasis> L3
-         </member>
-        </simplelist>
+         
+        </simplelist> -->
        </entry>
       </row>
       <row>
@@ -787,14 +862,14 @@
          the operating system and its packages in an entirely ‘atomic’ way.
          Updates are either applied to the system all together in a single
          transaction, or not at all. This happens without influencing the
-         running system. If an update fails, or if the successful update is
-         deemed to be incompatible or otherwise incorrect, it can be discarded
-         to immediately return the system to its previous functioning state.
+         running system. If an update fails, or if a successful update is
+         deemed to be incompatible or incorrect, you can discard it immediately.
+         This returns the system to its previous functioning state.
         </para>
         <para>
          Access to the Transactional Server Module is included in your &sls;
          subscription.
-         <!--  The module has a different lifecycle than &sls; itself: Package
+         <!--  The module has a different life cycle than &sls; itself: Package
           versions in the this module are usually supported for at most three
           years. We (who?) are planning to release more recent versions on a schedule
           of approximately 18 month; the exact dates may differ per package.
@@ -823,7 +898,7 @@
         <!--
          <simplelist>
          <member>
-         <emphasis role="bold">Lifecycle:</emphasis> ??? <remark
+         <emphasis role="bold">Life cycle:</emphasis> ??? <remark
          condition="clarity">2018-06-06 - fs: missing</remark>
          </member>
          <member>
@@ -880,7 +955,7 @@
         <entry>
          <simplelist>
           <member>
-           <emphasis role="bold">Lifecycle:</emphasis> 10 yrs
+           <emphasis role="bold">Life cycle:</emphasis> 10 yrs
           </member>
           <member>
            <emphasis role="bold">Extended:</emphasis> no
@@ -895,7 +970,7 @@
 -->
 
  <sect1 xml:id="sec-modules-what-extensions">
-  <title>Extensions for the &sle; Product Family</title>
+  <title>Extensions for the &sle; product family</title>
    <para>
     The following extensions are available within the &sle; Product Family. Note
     that the availability of extensions depends on the product (refer to the
@@ -1007,15 +1082,15 @@
  </sect1>
 
  <sect1 xml:id="sec-modules-installing">
-  <title>Installing and Managing</title>
+  <title>Installing and managing</title>
   <para>
    Modules and Extensions can be installed when initially setting up
-   the system and also on an existing &productname; installation.
+   the system and on an existing &productname; installation.
   </para>
 
   <sect2 xml:id="sec-modules-installing-scratch">
    <title>
-    Installing Modules and Extensions During the Initial System Setup
+    Installing modules and extensions during the initial system setup
    </title>
    <para>
     Modules &amp; extensions can easily be installed when setting up the
@@ -1031,7 +1106,7 @@
   </sect2>
   <sect2 xml:id="sec-modules-installing-system">
    <title>
-    Installing and Managing Modules and Extensions from the Running System
+    Installing and managing modules and extensions from the running system
    </title>
    <para>
     To install modules &amp; extensions from the running system, you need to
@@ -1048,28 +1123,26 @@
  </sect1>
 
  <sect1 xml:id="sec-modules-find">
-  <title>Module Membership of Packages</title>
+  <title>Module membership of packages</title>
   <para>
-   The default tools for searching software packages (&yast; Software
-   Management or <command>zypper search</command>) are restricted to searching
-   within active repositories. As a consequence, packages that are members of
-   modules currently not installed on &productname; are not found.
+   By default, tools for searching software packages (&yast; Software Management
+   or <command>zypper search</command>) are restricted to searching within
+   active repositories. For an extended search including not yet activated
+   remote repositories, you can run <command>zypper search-packages</command>.
+   To find out which module a package belongs to, run
   </para>
+  <screen>zypper search-packages <replaceable>PACKAGE</replaceable></screen>
   <para>
-   &productname; 15 introduces a new Zypper subcommand,
-   <command>search-packages</command>, which lets you search for packages in
-   all modules and extensions available for &productname;. This command becomes
-   available after installing the package
-   <package>zypper-search-packages-plugin</package>, which is not installed by
-   default. To find out which module a package belongs to, run
+   If the <command>search-packages</command> subcommand is not available on
+   your system, install the package
+   <package>zypper-search-packages-plugin</package>.
   </para>
-  <screen>zypper search-packages <replaceable>PACKAGE_1</replaceable> <replaceable>PACKAGE_2</replaceable></screen>
 
   <tip>
-   <title>Searching for Packages in the &scc;</title>
+   <title>Searching for packages in the &scc;</title>
    <para>
     In case Zypper's package search command is not available on your system,
-    you can also use the &scc; package search Web interface to check the
+    you can also use the &scc; Web interface (package search) to check the
     availability of packages and their respective modules. Visit <link
     xlink:href="https://scc.suse.com/packages"/> for this purpose. A &suse;
     login is <emphasis>not</emphasis> required for this service.
@@ -1126,43 +1199,44 @@
     search-packages</command>.
   </para>
   <example xml:id="ex-modules-find-simple">
-   <title>Simple Search</title>
+   <title>Simple search</title>
    <para>
     The following command searches for the packages <package>nodejs</package>
     and <package>hawk</package>. The first one is available in the <literal>Web
     and Scripting</literal> module, while the second one is part of the &sle;
     &hasi;. Both packages are not yet installed:
    </para>
-   <screen><?dbsuse-fo font-size="0.70em"?>&prompt.user;zypper search-packages hawk2 nodejs
+   <screen><?dbsuse-fo font-size="0.70em"?>&prompt.user;zypper search-packages openjdk nodejs
 Following packages were found in following modules:
 
-Package        Module or Repository
--------------  --------------------------------------------------------------------
-hawk2          SUSE Linux Enterprise High Availability Extension (sle-ha/15/x86_64)
-nodejs8        Web and Scripting Module (sle-module-web-scripting/15/x86_64)
-nodejs8-devel  Web and Scripting Module (sle-module-web-scripting/15/x86_64)
-nodejs8-docs   Web and Scripting Module (sle-module-web-scripting/15/x86_64)
-nodejs-common  Web and Scripting Module (sle-module-web-scripting/15/x86_64)
-
-To activate the respective module or product, use SUSEConnect --product.
-Use SUSEConnect --help for more details.</screen>
+Package          Module or Repository
+---------------  --------------------------------------------------------------------
+java-10-openjdk  Legacy Module (sle-module-legacy/15.2/x86_64)          
+                    SUSEConnect --product sle-module-legacy/15.2/x86_64
+java-11-openjdk  Basesystem Module (sle-module-basesystem/15.2/x86_64)  
+                    SUSEConnect --product sle-module-basesystem/15.2/x86_64                 
+nodejs10         Web and Scripting Module (sle-module-web-scripting/15.2/x86_64)                         
+                    SUSEConnect --product sle-module-web-scripting/15.2/x86_64    
+nodejs12         Web and Scripting Module (sle-module-web-scripting/15.2/x86_64)                         
+                    SUSEConnect --product sle-module-web-scripting/15.2/x86_64 
+[...]</screen>
   </example>
   <example xml:id="ex-modules-find-exact">
-   <title>Searching for Exact Matches</title>
+   <title>Searching for exact matches</title>
    <para>
     If you know the exact package names, you can narrow the results down to
     exact matches by using the option <option>-x</option>:
    </para>
-   <screen><?dbsuse-fo font-size="0.70em"?>&prompt.user;zypper search-packages -x hawk2 nodejs8
+   <screen><?dbsuse-fo font-size="0.70em"?>&prompt.user;zypper search-packages -x java-11-openjdk nodejs12
 Following packages were found in following modules:
 
-Package  Module or Repository
--------  --------------------------------------------------------------------
-hawk2    SUSE Linux Enterprise High Availability Extension (sle-ha/15/x86_64)
-nodejs8  Web and Scripting Module (sle-module-web-scripting/15/x86_64)
-
-To activate the respective module or product, use SUSEConnect --product.
-Use SUSEConnect --help for more details.</screen>
+Package          Module or Repository
+---------------  -----------------------------------------------------------------
+java-11-openjdk  Basesystem Module (sle-module-basesystem/15.2/x86_64)                                          
+                   SUSEConnect --product sle-module-basesystem/15.2/x86_64
+nodejs12         Web and Scripting Module (sle-module-web-scripting/15.2/x86_64)                         
+                   SUSEConnect --product sle-module-web-scripting/15.2/x86_64    
+[...]</screen>
   </example>
   <example xml:id="ex-modules-find-installed">
    <title>

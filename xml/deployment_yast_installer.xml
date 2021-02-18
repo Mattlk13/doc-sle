@@ -8,7 +8,7 @@
   xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Installation Steps</title>
+ <title>Installation steps</title>
  <info>
   <abstract>
    <para>
@@ -46,7 +46,7 @@
  </para>
 
  <tip>
-  <title>Installation Without a Mouse</title>
+  <title>Installation without a mouse</title>
   <para>
    If the installer does not detect your mouse correctly, use
    <keycap function="tab"/> for navigation, arrow keys to scroll, and
@@ -125,7 +125,7 @@
      Configure the online repositories. By adding official &opensuse;
      repositories, you get access to more software and get the latest security
      updates already during installation. For details, see <xref
-     linkend="sec-yast-install-conf-manual-online-repos"/>. This step is
+     linkend="sec-yast-install-online-repos"/>. This step is
      optional and can be skipped.
     </para>
    </step>
@@ -134,7 +134,7 @@
      Select <phrase os="osuse">a desktop or</phrase> a role for your
      system. Among other things, this defines the default list of packages to
      install and makes a suggestion for partitioning the hard disks. For
-     details, see <xref linkend="sec-yast-install-conf-manual-role"/>.
+     details, see <xref linkend="sec-yast-install-system-role"/>.
     </para>
    </step>
    <step>
@@ -146,7 +146,7 @@
    <step>
     <para>
      Choose a time zone. For details, see
-     <xref linkend="sec-yast-install-timezone"/>.
+     <xref linkend="sec-yast-install-date-time"/>.
     </para>
    </step>
    <step>
@@ -178,7 +178,7 @@
  </sect1>
 
  <sect1 xml:id="sec-yast-install-self-update">
-  <title>Installer Self-Update</title>
+  <title>Installer self-update</title>
 
   <para>
    During the installation and upgrade process, &yast; can update itself to
@@ -190,18 +190,18 @@
 
 <!--taroth 2019-09-12: same note used in ay_bigfile.xml-->
   <important>
-   <title>Quarterly Media Update: Self-Update Disabled</title>
+   <title>Quarterly media update: self-update disabled</title>
    <para>
     The installer self-update is only available if you use the <literal>GM</literal>
     images of the &leanos; and Packages ISOs. If you install from the ISOs published
     as quarterly update (they can be identified by the string <literal>QU</literal>
     in the name), the installer cannot update itself, because this feature has
-    been disabled in the updated media.
+    been disabled in the update media.
    </para>
   </important>
 
   <important>
-   <title>Networking during Self-Update</title>
+   <title>Networking during self-update</title>
    <para>
     To download installer updates, &yast; needs network access. By default,
     it tries to use DHCP on all network interfaces. If there is a DHCP server
@@ -215,7 +215,7 @@
   </important>
 
   <tip>
-   <title>Language Selection</title>
+   <title>Language selection</title>
    <para>
     The installer self-update is executed before the language selection step.
     This means that progress and errors which happen during this process are
@@ -238,7 +238,7 @@
   </para>
 
   <sect2 xml:id="sec-yast-install-self-update-process">
-   <title>Self-Update Process</title>
+   <title>Self-update process</title>
 
    <para>
     The process can be broken down into two different parts:
@@ -258,14 +258,14 @@
    </orderedlist>
 
    <sect3 xml:id="sec-yast-install-self-update-determine-repo">
-    <title>Determining the Update Repository Location</title>
+    <title>Determining the update repository location</title>
 
     <para>
      Installer Self-Updates are distributed as regular RPM packages via a
      dedicated repository, so the first step is to find out the repository URL.
     </para>
     <important>
-     <title>Installer Self-Update Repository Only</title>
+     <title>Installer self-update repository only</title>
      <para>
       No matter which of the following options you use, only the installer
       self-update repository URL is expected, for example:
@@ -337,7 +337,7 @@
    </sect3>
 
    <sect3 xml:id="sec-yast-install-self-update-apply-updates">
-    <title>Downloading and Applying the Updates</title>
+    <title>Downloading and applying the updates</title>
 
     <para>
      When the updates repository is determined, &yast; will check whether an
@@ -352,7 +352,7 @@
     </para>
 
     <note>
-     <title>Update Integrity</title>
+     <title>Update integrity</title>
      <para>
       Update signatures will be checked to ensure integrity and
       authorship. If a signature is missing or invalid, you will be asked
@@ -362,7 +362,7 @@
    </sect3>
 
    <sect3 xml:id="sec-yast-install-self-update-temporary-addon-repo">
-    <title>Temporary Self-Update Add-on Repository</title>
+    <title>Temporary self-update add-on repository</title>
 
     <para>
      Some packages distributed in the self-update repository provide additional
@@ -384,7 +384,7 @@
   </sect2>
 
   <sect2 xml:id="sec-yast-install-self-update-custom">
-   <title>Custom Self-Update Repositories</title>
+   <title>Custom self-update repositories</title>
 
    <para>
     &yast; can use a user-defined repository instead of the official one by
@@ -426,7 +426,7 @@
    </itemizedlist>
 
    <note>
-    <title>Only One Repository</title>
+    <title>Only one repository</title>
     <para>
      Currently, it is not possible to use more than one repository as source
      for installer self-updates.
@@ -481,69 +481,64 @@
   <itemizedlist os="sles;sled">
    <listitem>
     <para>
-     &sls; &productnumber; (<phrase os="sles">covered here</phrase><phrase os="sled">refer
-     to <link xlink:href="&dsc-sles;/"/> for
-     installation instructions</phrase>)
+     &sls; &productnumber; (<phrase os="sles">covered here</phrase><phrase os="sled">for
+     installation instructions, refer to <link xlink:href="https://documentation.suse.com/sles/"/></phrase>)
     </para>
    </listitem>
    <listitem>
     <para>
-     &sled; &productnumber; (<phrase os="sled">covered here</phrase><phrase os="sles">refer
-     to <link xlink:href="&dsc-sled;/"/> for
-     installation instructions</phrase>)
+     &sled; &productnumber; (<phrase os="sled">covered here</phrase><phrase os="sles">for
+     installation instructions, refer to <link xlink:href="https://documentation.suse.com/sled/"/></phrase>)
     </para>
    </listitem>
    <listitem>
     <para>
-     &slehpc; &productnumber; <!-- (refer to FIXME for
-     installation instructions) -->
+     &slehpc; &productnumber; <!-- (for installation instructions, refer to FIXME) -->
     </para>
    </listitem>
    <listitem>
     <para>
-     &slert; &productnumber; (refer to <link
-      xlink:href="&dsc-rt;/"/> for
-     installation instructions)
+     &slert; &productnumber; (for installation instructions, refer to <link
+     xlink:href="https://documentation.suse.com/sle-rt/"/>)
     </para>
    </listitem>
    <listitem>
     <para>
-     &sles4sap;  &productnumber; (refer to <link
-      xlink:href="&dsc-sap;/"/> for
-     installation instructions)
+     &sles4sap;  &productnumber; (for installation instructions, refer to <link
+     xlink:href="https://documentation.suse.com/sles-sap"/>)
     </para>
    </listitem>
    <listitem>
     <para>
      <remark>
       cwickert 2019-11-21: Omit version in name and URL once SUMA 3.2 is EOL
-      all SUMA versions can be installed with the unified installer.
+      all SUMA versions can be installed with the unified installer. According
+      to https://www.suse.com/lifecycle EOL will be 2025-03-31.
      </remark>
-     &susemgr; Server 4.0 (refer to <link
-      xlink:href="&dsc-suma;/4.0/"/> for installation
-     instructions)
+     &susemgr; Server 4.2 (for installation instructions, refer to
+     <link xlink:href="https://documentation.suse.com/suma/"/>)
     </para>
    </listitem>
    <listitem>
     <para>
      <remark>
       cwickert 2019-11-21: Omit version in name and URL once SUMA 3.2 is EOL
-      all SUMA versions can be installed with the unified installer.
+      all SUMA versions can be installed with the unified installer. According
+      to https://www.suse.com/lifecycle EOL will be 2025-03-31.
      </remark>
-     &susemgr; Proxy 4.0 (refer to <link
-      xlink:href="&dsc-suma;/4.0/"/> for installation
-     instructions)
+     &susemgr; Proxy 4.2 (for installation instructions, refer to
+     <link xlink:href="https://documentation.suse.com/suma/"/>)
     </para>
    </listitem>
    <listitem>
     <para>
      <remark>
       cwickert 2019-11-21: Omit version in name and URL once SUMA 3.2 is EOL
-      all SUMA versions can be installed with the unified installer.
+      all SUMA versions can be installed with the unified installer. According
+      to https://www.suse.com/lifecycle EOL will be 2025-03-31.
      </remark>
-     &susemgr; Retail Branch Server 4.0 (refer to <link
-      xlink:href="&dsc-suma-retail;/4.0/"/>
-     for installation instructions)
+     &susemgr; Retail Branch Server 4.2 (for installation instructions, refer
+     to <link xlink:href="https://documentation.suse.com/suma-retail"/>)
     </para>
    </listitem>
   </itemizedlist>
@@ -563,9 +558,9 @@
  </sect1>
 
  <sect1 xml:id="sec-yast-install-license-agreement" os="sles;sled">
-  <title>License Agreement</title>
+  <title>License agreement</title>
   <figure os="sles;sled">
-   <title>License Agreement</title>
+   <title>License agreement</title>
    <mediaobject>
     <textobject role="description">
      <phrase>License Agreement</phrase>
@@ -595,13 +590,13 @@
  </sect1>
 
  <sect1 xml:id="sec-yast-install-s390-part" arch="zseries" os="sles">
-  <title>&zseries;: Disk Activation</title>
+  <title>&zseries;: disk activation</title>
   <para>
    When installing on &zseries; platforms, the language selection dialog is
    followed by a dialog to configure the attached hard disks.
   </para>
   <figure>
-   <title>Disk Activation</title>
+   <title>Disk activation</title>
    <mediaobject>
     <textobject role="description">
      <phrase>Disk Activation</phrase>
@@ -630,12 +625,12 @@
   </para>
 
   <sect2 xml:id="sec-yast-install-s390-part-dasd">
-   <title>Configuring DASD Disks</title>
+   <title>Configuring DASD disks</title>
    <para>
     Skip this step if you are not installing on &zseries; hardware.
    </para>
    <figure xml:id="fig-s390-yast2-i-y2-sel-dasd">
-    <title>DASD Disk Management</title>
+    <title>DASD disk management</title>
     <mediaobject>
      <textobject role="description">
       <phrase>DASD Disk Management</phrase>
@@ -668,7 +663,7 @@
    </para>
   </sect2>
   <sect2 xml:id="sec-yast-install-s390-part-zfcp">
-   <title>Configuring zFCP Disks</title>
+   <title>Configuring zFCP disks</title>
    <para>
     To use zFCP disks for the &productname; installation, select
     <guimenu>Configure zFCP Disks</guimenu> in the selection dialog. This opens
@@ -694,7 +689,7 @@
  </sect1>
 
  <sect1 xml:id="sec-yast-install-network">
-  <title>Network Settings</title>
+  <title>Network settings</title>
   <para>
    After booting into the installation, the installation routine is set up.
    During this setup, an attempt to configure at least one network interface
@@ -702,7 +697,7 @@
    Settings</guimenu> dialog launches now.
   </para>
   <figure>
-   <title>Network Settings</title>
+   <title>Network settings</title>
    <mediaobject>
     <textobject role="description">
      <phrase>Network Settings</phrase>
@@ -732,7 +727,7 @@
    change the automatically provided settings.
   </para>
   <note>
-   <title>Network Configuration with Boot Parameters</title>
+   <title>Network configuration with boot parameters</title>
    <para>
     If at least one network interface has been configured via boot parameters
     (see <xref linkend="sec-boot-parameters-list-network"/>), automatic DHCP
@@ -741,7 +736,7 @@
    </para>
   </note>
   <tip>
-   <title>Accessing Network Storage or Local RAID</title>
+   <title>Accessing network storage or local RAID</title>
    <para>
     To access a SAN or a local RAID during the installation,
     you can use the libstorage command line client for this purpose:
@@ -784,14 +779,14 @@
   <title>Registration</title>
   <para>
    To get technical support and product updates, you need to register and
-   activate your product with the &scc; or a local registration
-   server. Registering &productname; at this stage also grants you immediate
-   access to the update repository. This enables you to install the system with
-   the latest updates and patches available.
+   activate &productname; with the &scc; or a local registration server.
+   Registering your product at this stage also grants you immediate access to
+   the update repository. This enables you to install the system with the
+   latest updates and patches available.
   </para>
   <para>
    When registering, repositories and dependencies for the modules and
-   extensions, which you may install with the next step, are loaded from the
+   extensions, which you install with the next step, are loaded from the
    registration server.
   </para>
   <para>
@@ -806,17 +801,30 @@
   </para>
 
   <sect2 xml:id="sec-yast-install-scc-registration-manually">
-   <title>Registering Manually</title>
+   <title>Registering manually</title>
+   <para>
+    To register with the &scc;, enter the <guimenu>E-mail Address</guimenu>
+    associated with your SCC account and the <guimenu>Registration
+     Code</guimenu> for &productname;..
+   </para>
+   <para>
+    If your organization provides a local registration server, you may
+    alternatively register there. Activate <guimenu>Register System via
+     local SMT Server</guimenu> and either choose a URL from the drop-down
+    box or type in an address. Proceed with <guimenu>Next</guimenu>.
+   </para>
    <para>
     To register with the &scc;, enter your <guimenu>Registration
     Code</guimenu> for &productname;. If your organization provides a local
     registration server, you may alternatively register there. Activate
     <guimenu>Register System via local &rmt; Server</guimenu> and either choose a
-    URL from the drop-down box or type in an address. Start the registration
-    process with <guimenu>Next</guimenu>.
+    URL from the drop-down box or type in an address.
+   </para>
+   <para>
+    Start the registration process with <guimenu>Next</guimenu>.
    </para>
    <figure>
-    <title>&scc; Registration</title>
+    <title>&scc; registration</title>
     <mediaobject>
      <textobject role="description">
       <phrase>&scc; Registration</phrase>
@@ -833,7 +841,7 @@
    </figure>
 
    <note os="sled">
-    <title>Trusting Repositories</title>
+    <title>Trusting repositories</title>
     <para>
      Depending on your hardware, additional repositories containing hardware
      drivers may be added during the registration. If so, you will be asked
@@ -842,7 +850,7 @@
    </note>
 
    <tip>
-    <title>Installing Product Patches at Installation Time</title>
+    <title>Installing product patches at installation time</title>
     <para>
      After &productname; has been successfully registered, you
      are asked whether to install the latest available online updates during
@@ -861,7 +869,7 @@
    </para>
   </sect2>
   <sect2 xml:id="sec-yast-install-scc-registration-usb">
-   <title>Loading Registration Codes from USB Storage</title>
+   <title>Loading registration codes from USB storage</title>
    <para>
     To make the registration more convenient, you can also store your
     registration codes on a USB storage device such as a flash disk. &yast;
@@ -934,18 +942,24 @@ sle-live-patching 8c541494</screen>
   </sect2>
 
   <sect2 xml:id="sec-yast-install-scc-registration-none">
-   <title>Installing without Registration</title>
-
+   <title>Installing without registration</title>
    <para>
-    To install the system without registration activate <guimenu>Skip
-    Registration</guimenu>. Accept the warning with <guimenu>OK</guimenu> and
-    proceed with <guimenu>Next</guimenu>. The installation follows the same
-    workflow as when registering, only the step for choosing the modules and
-    extensions differs.
+    If you are offline or want to skip registration, activate <guimenu>Skip
+     Registration</guimenu>. Accept the warning with <guimenu>OK</guimenu> and
+    proceed with <guimenu>Next</guimenu>.
    </para>
+   <important>
+    <title>Skipping the registration</title>
+    <para>
+     Your system and extensions need to be registered to retrieve
+     updates and to be eligible for support. Skipping the registration is
+     only possible when installing from the
+     <filename>&packagemedia;</filename> image.
+    </para>
+   </important>
 
    <figure>
-    <title>Installing without Registration</title>
+    <title>Installing without registration</title>
     <mediaobject>
      <textobject role="description">
       <phrase>Installing without Registration</phrase>
@@ -977,6 +991,8 @@ sle-live-patching 8c541494</screen>
     </para>
    </note>
 
+   <!-- cwickert 2020-03-18: Old content from the 'offline' section -->
+   <!--
    <para>
     If you perform an installation without connecting to a registration server,
     you cannot register your system during the installation. Therefore you
@@ -992,47 +1008,47 @@ sle-live-patching 8c541494</screen>
     disk or by making it available in the local
     network. Choose a method that is supported by your hardware.
    </para>
+   -->
 
    <tip>
     <title>
-     Copying Data from the &packagemedia; Image to a Removable Flash Disk
+     Copying the Installation Media Image to a Removable Flash Disk
     </title>
     <para>
-     To copy the contents of the image available on a removable flash disk,
-     use the following command.
+     Use the following command to copy the contents of the installation image
+     to a removable flash disk.
     </para>
-    <screen>&prompt.sudo;dd if=<replaceable>PATH_TO_IMAGE</replaceable>
-    of=<replaceable>FLASH_STORAGE_PARTITION</replaceable> bs=4M &amp;&amp; sync</screen>
+    <screen>&prompt.sudo;dd if=<replaceable>IMAGE</replaceable> of=<replaceable>FLASH_DISK</replaceable> bs=4M &amp;&amp; sync</screen>
     <para>
-     <replaceable>PATH_TO_IMAGE</replaceable> needs to be replaced with the
-     relative or absolute path to this image
-     file. <replaceable>FLASH_STORAGE_PARTITION</replaceable> needs to be
-     replaced with the path to a partition on the flash device (usually there
-     is just one). To identify the device, and its partition(s), insert it and
-     use the commands shown in the example below:
+     <replaceable>IMAGE</replaceable> needs to be replaced with the path to the
+     <filename>&installmedia;</filename> or <filename>&packagemedia;</filename>
+     image file. <replaceable>FLASH_DISK</replaceable> needs to be replaced
+     with the flash device. To identify the device, insert it and run:
     </para>
     <screen>&prompt.root;grep -Ff &lt;(hwinfo --disk --short) &lt;(hwinfo --usb --short)
-disk:
-  /dev/sdc             General USB Flash Disk
-&prompt.root;fdisk -l /dev/sdc | grep -e "^/dev"
-/dev/sdc1  *     2048 31490047 31488000  15G 83 Linux</screen>
+     disk:
+     /dev/sdc             General USB Flash Disk</screen>
     <para>
-     In this case the command to use would be for example:
+     Make sure the size of the device is sufficient for the desired image. You
+     can check the size of the device with:
     </para>
-    <screen>dd if=/tmp/&packagemedia;-x86_64-GM-DVD1.iso \
- of=/dev/sdc1 bs=4M &amp;&amp; sync</screen>
+    <screen>&prompt.root;fdisk -l /dev/sdc | grep -e "^/dev"
+     /dev/sdc1  *     2048 31490047 31488000  15G 83 Linux</screen>
     <para>
-     Make sure a partition with sufficient size (8 GB or more) exists
-     on the device. It also must not be mounted when running the
-     <command>dd</command> command. Note that all data on the partition
-     will be erased!
+     In this example, the device has a capacity of 15 GB. The command to use for
+     the <filename>&packagemedia;</filename> would be:
+    </para>
+    <screen>dd if=&packagemedia; of=/dev/sdc1 bs=4M &amp;&amp; sync</screen>
+    <para>
+     The device must not be mounted when running the <command>dd</command>
+     command. Note that all data on the partition will be erased!
     </para>
    </tip>
   </sect2>
  </sect1>
 
  <sect1 xml:id="sec-yast-install-modules" os="sles;sled">
-  <title>Extension and Module Selection</title>
+  <title>Extension and module selection</title>
   <para>
    In this dialog the installer lists modules and extensions that are available
    for &productname;. Modules are components which allow you to shape the
@@ -1043,7 +1059,7 @@ disk:
   <para>
    The availability of certain modules or extensions depends on the product you
    chose in the first step of this installation. For a description of the
-   modules and their lifecycles, select a module to see the accompanying
+   modules and their life cycles, select a module to see the accompanying
    text. More detailed information is available in the <link
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xlink:href="https://www.suse.com/releasenotes/x86_64/SUSE-SLES/15/#Intro.Module">Release
@@ -1054,144 +1070,35 @@ disk:
    because it defines which software sources (repositories) are available for
    installation and in the running system.
   </para>
-  <para>
-   The way you select modules and extensions depends on whether you
-   registered your system in the previous step:
-  </para>
-  <itemizedlist>
-   <listitem>
-    <para>
-     <xref xrefstyle="HeadingOnPage" linkend="sec-yast-install-modules-online"/>
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     <xref xrefstyle="HeadingOnPage" linkend="sec-yast-install-modules-offline"/>
-    </para>
-   </listitem>
-  </itemizedlist>
 
-  <sect2 xml:id="sec-yast-install-modules-online">
-   <title>Selecting Extensions and Modules with Registration</title>
+  <figure>
+   <title>Extension and module selection</title>
+   <mediaobject>
+    <textobject role="description">
+     <phrase>Extension and Module Selection</phrase>
+    </textobject>
+    <imageobject role="fo">
+     <imagedata os="sled" fileref="install_extensions_sled.png"
+                width="100%"/>
+     <imagedata os="sles" fileref="install_extensions_sles.png"
+                width="100%"/>
+    </imageobject>
+    <imageobject role="html">
+     <imagedata os="sled" fileref="install_extensions_sled.png"
+                width="100%"/>
+     <imagedata os="sles" fileref="install_extensions_sles.png"
+                width="100%"/>
+    </imageobject>
+   </mediaobject>
+  </figure>
 
-   <figure>
-    <title>Extension and Module Selection</title>
-    <mediaobject>
-     <textobject role="description">
-      <phrase>Extension and Module Selection</phrase>
-     </textobject>
-     <imageobject role="fo">
-      <imagedata os="sled" fileref="install_extensions_sled.png"
-                 width="100%"/>
-      <imagedata os="sles" fileref="install_extensions_sles.png"
-                 width="100%"/>
-     </imageobject>
-     <imageobject role="html">
-      <imagedata os="sled" fileref="install_extensions_sled.png"
-                 width="100%"/>
-      <imagedata os="sles" fileref="install_extensions_sles.png"
-                 width="100%"/>
-     </imageobject>
-    </mediaobject>
-   </figure>
+  &extension_module_selection;
 
-   &extension_module_selection;
-  </sect2>
 
-  <sect2 xml:id="sec-yast-install-modules-offline">
-   <title>Selecting Extensions and Modules without Registration</title>
-
-   <para>
-    If you have skipped the registration you need to access the &packagemedia;
-    ISO image via the <guimenu>Add-On Product</guimenu> dialog:
-   </para>
-
-   <figure>
-    <title>Add-On Product</title>
-    <mediaobject>
-     <textobject role="description">
-      <phrase>Add-On Product</phrase>
-     </textobject>
-     <imageobject role="fo">
-      <imagedata fileref="install_addon_offline.png" width="100%"/>
-     </imageobject>
-     <imageobject role="html">
-      <imagedata fileref="install_addon_offline.png" width="100%"/>
-     </imageobject>
-    </mediaobject>
-   </figure>
-
-   <para>
-    On the <guimenu>Add-On Product</guimenu> dialog, activate <guimenu>I would
-    like to Install an Add-On Product</guimenu> and specify the source for the
-    &packagemedia; image. Check <guimenu>Download repository description
-    files</guimenu> to download the files describing the repository now. If
-    deactivated, they will be downloaded after the installation
-    starts. Proceed with <guimenu>Next</guimenu>. If you chose <guimenu>DVD</guimenu> as the
-    data source, you will be prompted to insert the media.
-   </para>
-
-   <para>
-    On the <guimenu>Extension and Module Selection</guimenu> you need to
-    select a product, at least one module, and optionally, one or more
-    extensions.
-   </para>
-
-   <figure>
-    <title>Extension and Module Selection</title>
-    <mediaobject>
-     <textobject role="description">
-      <phrase>Extension and Module Selection</phrase>
-     </textobject>
-     <imageobject role="fo">
-      <imagedata fileref="install_extensions_offline.png" width="100%"/>
-     </imageobject>
-     <imageobject role="html">
-      <imagedata fileref="install_extensions_offline.png" width="100%"/>
-     </imageobject>
-    </mediaobject>
-   </figure>
-
-   &extension_module_selection_offline;
-
-   <figure>
-    <title>Add-On Product Installation</title>
-    <mediaobject>
-     <textobject role="description">
-      <phrase>Add-On Product Installation</phrase>
-     </textobject>
-     <imageobject role="fo">
-      <imagedata os="sles" fileref="install_modlist_offline_sles.png"
-                 width="100%"/>
-      <imagedata os="sled" fileref="install_modlist_offline_sled.png"
-                 width="100%"/>
-     </imageobject>
-     <imageobject role="html">
-      <imagedata os="sles" fileref="install_modlist_offline_sles.png"
-                 width="100%"/>
-      <imagedata os="sled" fileref="install_modlist_offline_sled.png"
-                 width="100%"/>
-     </imageobject>
-    </mediaobject>
-   </figure>
-   <para>
-    All modules selected for installation are listed on the <guimenu>Add-On
-    Product Installation</guimenu> dialog. To change the list, use the
-    <guimenu>Add</guimenu> or <guimenu>Delete</guimenu> options. Using
-    <guimenu>Add</guimenu> you may optionally add other add-on products from
-    different sources. Refer to <xref linkend="sec-yast-install-addons"/> for
-    details.
-   </para>
-   <para>
-    To proceed with the installation, choose <guimenu>Next</guimenu>. Skip the
-    following chapter and continue reading at <xref
-    linkend="sec-yast-install-conf-manual-role"/>.
-   </para>
-  </sect2>
  </sect1>
 
  <sect1 xml:id="sec-yast-install-addons" os="sles;sled">
-  <title>Add-On Product</title>
+  <title>Add-on product</title>
   <para>
    The <guimenu>Add On Product</guimenu> dialog allows you to add additional
    software sources (so-called <quote>repositories</quote>) to &productname;,
@@ -1199,7 +1106,7 @@ disk:
    third-party products and drivers or additional software for your system.
   </para>
   <figure>
-   <title>Add-On Product</title>
+   <title>Add-on product</title>
    <mediaobject>
     <textobject role="description">
      <phrase>Add-On Product</phrase>
@@ -1218,7 +1125,7 @@ disk:
    <xref linkend="sec-network-yast"/>.
   </para>
   <tip>
-   <title>Adding Drivers during the Installation</title>
+   <title>Adding drivers during the installation</title>
    <para>
     You can also add driver update repositories via the <guimenu>Add On
     Product</guimenu> dialog. Driver updates for &sle; are provided at <link
@@ -1244,8 +1151,8 @@ disk:
   </para>
  </sect1>
 
- <sect1 xml:id="sec-yast-install-conf-manual-online-repos" os="osuse">
-  <title>Online Repositories</title>
+ <sect1 xml:id="sec-yast-install-online-repos" os="osuse">
+  <title>Online repositories</title>
   <para>
    A system analysis is performed, where the installer probes for storage
    devices, and tries to find other installed systems. If a network
@@ -1331,15 +1238,15 @@ disk:
   </para>
  </sect1>
 
- <sect1 xml:id="sec-yast-install-conf-manual-role">
-  <title>System Role</title>
+ <sect1 xml:id="sec-yast-install-system-role">
+  <title>System role</title>
   <para>
    &productname; supports a broad range of features. To simplify the
    installation, the installer offers predefined use cases which adjust the system to
    be installed so it is tailored for the selected scenario.
   </para>
   <figure>
-   <title>System Role</title>
+   <title>System role</title>
    <mediaobject>
     <textobject role="description">
      <phrase>System Role</phrase>
@@ -1577,9 +1484,9 @@ disk:
  <sect1 xml:id="sec-yast-install-partitioning">
   <title>Partitioning</title>
   <sect2 xml:id="sec-yast-install-partitioning-important">
-   <title>Important Information</title>
+   <title>Important information</title>
    <warning>
-    <title>Read this Section Carefully</title>
+    <title>Read this section carefully</title>
     <para>
      Read this section carefully before continuing with
      <xref linkend="sec-yast-install-partitioning-suggested"/>.
@@ -1587,7 +1494,7 @@ disk:
    </warning>
    <variablelist>
     <varlistentry>
-     <term>Custom Partitioning on UEFI Machines</term>
+     <term>Custom partitioning on UEFI machines</term>
      <listitem>
       <para>
        A UEFI machine <emphasis>requires</emphasis> an EFI system partition
@@ -1608,7 +1515,7 @@ disk:
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>Custom Partitioning and Snapper</term>
+     <term>Custom partitioning and <systemitem>Snapper</systemitem></term>
      <listitem>
       <para os="sles;osuse">
        If the root partition is larger than 16 GB, &productname; by
@@ -1647,12 +1554,12 @@ disk:
       </para>
 
       <important>
-       <title>Btrfs Snapshots and Root Partition Size</title>
+       <title>Btrfs snapshots and root partition size</title>
        <para>
         Snapshots occupy space on their partition. As a rule of thumb, the
         older a snapshot is, or the bigger the changeset they cover is, the
         bigger the snapshot. Plus, the more snapshots you keep, the more
-        diskspace you need.
+        disk space you need.
        </para>
        <para>
         To prevent the root partition running full with snapshot data, you need to make
@@ -1667,7 +1574,7 @@ disk:
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>Btrfs Data Volumes</term>
+     <term>Btrfs data volumes</term>
      <listitem>
       <para>
        Using Btrfs for data volumes is supported on &productname;
@@ -1678,7 +1585,7 @@ disk:
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>Btrfs on an Encrypted Root Partition</term>
+     <term>Btrfs on an encrypted root partition</term>
      <listitem>
       <para>
        The default partitioning setup suggests the root partition as Btrfs. To
@@ -1689,7 +1596,7 @@ disk:
      </listitem>
     </varlistentry>
     <varlistentry os="sles" arch="zseries">
-     <term>&zseries;: Using Minidisks in z/VM</term>
+     <term>&zseries;: using minidisks in z/VM</term>
      <listitem>
       <para>
        If &productname; is installed on minidisks in z/VM, which reside
@@ -1705,7 +1612,7 @@ disk:
      </listitem>
     </varlistentry>
     <varlistentry os="sles" arch="zseries">
-     <term>&zseries;: LVM Root File System</term>
+     <term>&zseries;: LVM root file system</term>
      <listitem>
       <para>
        If you configure the system with a root file system on LVM or software
@@ -1718,12 +1625,12 @@ disk:
     </varlistentry>
     <varlistentry os="sles" arch="power">
      <!-- this warning is duplicated in sec.power.prep -->
-     <term>IBM &power;: Installing on Systems with Multiple Fibre Channel Disks</term>
+     <term>IBM &power;: installing on systems with multiple Fibre Channel disks</term>
      <listitem>
       <para>
        If more than one disk is available, the partitioning scheme suggested during
        the installation puts the PReP and BOOT partitions on different disks. If
-       these disks are Fibre Channel Disks, the GRUB boot loader is not able to
+       these disks are Fibre Channel disks, the GRUB boot loader is not able to
        find the BOOT partition and the system cannot be booted.
       </para>
       <para>
@@ -1731,13 +1638,13 @@ disk:
        choose <guimenu>Guided Setup</guimenu> and verify that only one disk is
        selected for installation. Alternatively, run the <guimenu>Expert
        Partitioner</guimenu> and manually set up a partitioning scheme that has
-       PRep and BOOT on a single disk.
+       PReP and BOOT on a single disk.
       </para>
      </listitem>
     </varlistentry>
 
     <varlistentry>
-     <term>Supported Software RAID Volumes</term>
+     <term>Supported software RAID volumes</term>
      <listitem>
       <para>
        Installing to and booting from existing software RAID volumes is
@@ -1770,7 +1677,7 @@ disk:
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>Mount Points for FCoE and iSCSI Devices</term>
+     <term>Mount points for FCoE and iSCSI devices</term>
      <listitem>
       <para>
        FCoE and iSCSI devices will appear asynchronously during the
@@ -1785,7 +1692,7 @@ disk:
      </listitem>
     </varlistentry>
     <varlistentry os="sled;osuse">
-     <term>Handling of Windows Partitions in Proposals</term>
+     <term>Handling of Windows partitions in proposals</term>
      <listitem>
       <para>
        In case the disk selected for the suggested partitioning proposal
@@ -1818,7 +1725,7 @@ disk:
      </listitem>
     </varlistentry>
     <varlistentry os="osuse">
-     <term>Proposal with a Separate Home Partition</term>
+     <term>Proposal with a separate home partition</term>
      <listitem>
       <para>
        The default proposal no longer suggests to create a separate partition
@@ -1842,12 +1749,12 @@ disk:
    </variablelist>
   </sect2>
   <sect2 xml:id="sec-yast-install-partitioning-suggested">
-   <title>Suggested Partitioning</title>
+   <title>Suggested partitioning</title>
    <para>
     Define a partition setup for &productname; in this step.
    </para>
    <figure>
-    <title>Suggested Partitioning</title>
+    <title>Suggested partitioning</title>
     <mediaobject>
      <textobject role="description">
       <phrase>Suggested Partitioning</phrase>
@@ -1892,14 +1799,14 @@ disk:
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term><guimenu>Guided Setup</guimenu>
+     <term><guimenu>Guided setup</guimenu>
      </term>
      <listitem>
       <para>
        To adjust the proposal, choose <guimenu>Guided Setup</guimenu>. First,
        choose which hard disks and partitions to use. In the
        <guimenu>Partitioning Scheme</guimenu> screen, you can enable Logical
-       Volume Management (LVM) and activate disk encryption. Afterwards specify
+       Volume Management (LVM) and activate disk encryption. Afterward specify
        the <guimenu>Filesystem Options</guimenu>. You can adjust the file
        system for the root partition and create a separate home and swap
        partitions. If you plan to suspend your machine, make sure to create a
@@ -1923,19 +1830,19 @@ disk:
        <guimenu>Resize</guimenu>, or <guimenu>Delete</guimenu> partitions.
       </para>
       <para>
-       You can also set up Logical Volumes (LVM), configure software RAID and
-       device mapping (DM), encrypt Partitions, mount NFS shares and manage
-       tmpfs volumes with the Expert Partitioner. To fine-tune settings such as
-       the subvolume and snapshot handling for each Btrfs partition, choose
-       <guimenu>Btrfs</guimenu>. For more information about custom partitioning
-       and configuring advanced features, refer to
+       You can also set up logical volume management (LVM), configure software
+       RAID and device mapping (DM), encrypt partitions, mount NFS shares and
+       manage tmpfs volumes with the <guimenu>Expert Partitioner</guimenu>. To
+       fine-tune settings such as the subvolume and snapshot handling for each
+       Btrfs partition, choose <guimenu>Btrfs</guimenu>. For more information
+       about custom partitioning and configuring advanced features, refer to
        <xref linkend="sec-expert-partitioner"/>.
       </para>
      </listitem>
     </varlistentry>
    </variablelist>
    <warning>
-    <title>Disk Space Units</title>
+    <title>Disk space units</title>
     <para>
      Note that for partitioning purposes, disk space is measured in binary
      units, rather than in decimal units. For example, if you enter sizes of
@@ -1976,14 +1883,14 @@ disk:
   </sect2>
  </sect1>
 
- <sect1 xml:id="sec-yast-install-timezone">
-  <title>Clock and Time Zone</title>
+ <sect1 xml:id="sec-yast-install-date-time">
+  <title>Clock and time zone</title>
   <para>
    In this dialog, select your region and time zone. Both are preselected
    according to the installation language.
   </para>
   <figure>
-   <title>Clock and Time Zone</title>
+   <title>Clock and time zone</title>
    <mediaobject>
     <textobject role="description">
      <phrase>Clock and Time Zone</phrase>
@@ -2013,7 +1920,7 @@ disk:
    switch from standard time to daylight saving time performed automatically.
   </para>
   <important>
-   <title>Set the Hardware Clock to UTC</title>
+   <title>Set the hardware clock to UTC</title>
    <para>
     The switch from standard time to daylight saving time (and vice versa) can
     only be performed automatically when the hardware clock (CMOS clock) is set
@@ -2055,7 +1962,7 @@ disk:
    avoid saving unsynchronized time into the hardware clock.
   </para>
   <note arch="zseries" os="sles">
-   <title>Time Cannot Be Changed on &zseries;</title>
+   <title>Time cannot be changed on &zseries;</title>
    <para>
     Since the operating system is not allowed to change time and date directly,
     the <guimenu>Other Settings</guimenu> option is not available on
@@ -2065,12 +1972,12 @@ disk:
  </sect1>
 
  <sect1 xml:id="sec-yast-install-user">
-  <title>Create New User</title>
+  <title>Create new user</title>
   <para>
    Create a local user in this step.
   </para>
   <figure>
-   <title>Create New User</title>
+   <title>Create new user</title>
    <mediaobject>
     <textobject role="description">
      <phrase>Create New User</phrase>
@@ -2104,7 +2011,7 @@ disk:
    good security practice to use strong passwords.
   </para>
   <important>
-   <title>User Name and Password</title>
+   <title>User name and password</title>
    <para>
     Remember both your user name and the password because they are needed each
     time you log in to the system.
@@ -2129,7 +2036,7 @@ disk:
   </para>
   <variablelist>
    <varlistentry>
-    <term><guimenu>Use this Password for System Administrator</guimenu>
+    <term><guimenu>Use this password for system administrator</guimenu>
     </term>
     <listitem>
      <para>
@@ -2143,7 +2050,7 @@ disk:
     </listitem>
    </varlistentry>
    <varlistentry>
-    <term><guimenu>Automatic Login</guimenu>
+    <term><guimenu>Automatic login</guimenu>
     </term>
     <listitem>
      <para>
@@ -2156,7 +2063,7 @@ disk:
    </varlistentry>
   </variablelist>
   <warning>
-   <title>Automatic Login</title>
+   <title>Automatic login</title>
    <para>
     With the automatic login enabled, the system boots straight into your
     desktop with no authentication. If you store sensitive data on your system,
@@ -2166,13 +2073,13 @@ disk:
   </warning>
   <para>
    In an environment where users are centrally managed (for example by NIS or
-   LDAP) you may want to skip the creation of local users. Select <guimenu>Skip
+   LDAP) you should skip the creation of local users. Select <guimenu>Skip
    User Creation</guimenu> in this case.
   </para>
  </sect1>
 
  <sect1 xml:id="sec-yast-install-user-root">
-  <title>Authentication for the System Administrator <quote>root</quote></title>
+  <title>Authentication for the system administrator &rootuser;</title>
   <para>
    If you have not chosen <guimenu>Use this Password for System
    Administrator</guimenu> in the previous step, you will be prompted to enter
@@ -2180,7 +2087,7 @@ disk:
    key. Otherwise this configuration step is skipped.
   </para>
   <figure>
-   <title>Authentication for the System Administrator &rootuser;</title>
+   <title>Authentication for the system administrator &rootuser;</title>
    <mediaobject>
     <textobject role="description">
      <phrase>Authentication for the System Administrator &rootuser;</phrase>
@@ -2211,7 +2118,7 @@ disk:
    this password cannot be retrieved.
   </para>
   <tip>
-   <title>Passwords and Keyboard Layout</title>
+   <title>Passwords and keyboard layout</title>
    <para>
     It is recommended to only use characters that are available on an English
     keyboard. In case of a system error or when you need to start your system
@@ -2224,7 +2131,7 @@ disk:
    Users</guimenu> <guimenu>User and Group Management</guimenu> </menuchoice>.
   </para>
   <important>
-   <title>The <systemitem class="username">root</systemitem> User</title>
+   <title>The <systemitem class="username">root</systemitem> user</title>
    <para>
     The user &rootuser; has all the permissions needed to make changes to the
     system. To carry out such tasks, the &rootuser; password is required. You
@@ -2243,7 +2150,7 @@ disk:
    from an existing partition. Proceed as follows:
   </para>
   <procedure xml:id="pro-yast-install-user-root-sshkey">
-   <title>Adding a Public SSH Key for User &rootuser;</title>
+   <title>Adding a public SSH key for user &rootuser;</title>
    <step>
     <para>
      Insert into your computer the USB storage device containing the public SSH key.
@@ -2281,7 +2188,7 @@ disk:
  </sect1>
 
  <sect1 xml:id="sec-yast-install-proposal">
-  <title>Installation Settings</title>
+  <title>Installation settings</title>
   <para>
    On the last step before the real installation takes place, you can alter
    installation settings suggested by the installer. To modify the suggestions,
@@ -2296,7 +2203,7 @@ disk:
    settings.
   </para>
   <figure>
-   <title>Installation Settings</title>
+   <title>Installation settings</title>
    <mediaobject>
     <textobject role="description">
      <phrase>Installation Settings</phrase>
@@ -2338,7 +2245,7 @@ disk:
     to the &yast; Software Manager.
    </para>
    <figure>
-    <title>Software Selection and System Tasks</title>
+    <title>Software selection and system tasks</title>
     <mediaobject>
      <textobject role="description">
       <phrase>Software Selection and System Tasks</phrase>
@@ -2371,7 +2278,7 @@ disk:
     By default, &productname; uses the Wayland display server protocol.
    </para>
    <tip os="sles" arch="zseries">
-    <title>&zseries;: Hardware Cryptography Support</title>
+    <title>&zseries;: hardware cryptography support</title>
     <para>
      The hardware cryptography stack is not installed by default. To install
      it, select <guimenu>System z HW crypto support</guimenu> in the
@@ -2379,7 +2286,7 @@ disk:
     </para>
    </tip>
    <tip xml:id="ann-sec-yast-install-proposal-sofware-language">
-    <title>Adding Secondary Languages</title>
+    <title>Adding secondary languages</title>
     <para>
      The language you selected with the first step of the installation will be
      used as the primary (default) language for the system. You can add
@@ -2419,7 +2326,7 @@ disk:
    <para>
     The <guimenu>CPU Mitigations</guimenu> refer to kernel boot command line
     parameters for software mitigations that have been deployed to prevent CPU
-    side-channel attacks. Click the highlighted entry to choose a different
+    side-channel attacks. Click the selected entry to choose a different
     option. For details, see <xref linkend="vle-grub2-yast2-cpu-mitigations"/>.
    </para>
    <para>
@@ -2428,7 +2335,7 @@ disk:
     <guimenu>Disable</guimenu> (not recommended).
    </para>
    <note>
-    <title>Firewall Settings</title>
+    <title>Firewall settings</title>
     <para>
      If the firewall is activated, all interfaces are configured to be in the
      <quote>External Zone</quote>, where all ports are closed by default,
@@ -2445,7 +2352,7 @@ disk:
     port</literal> is open.
    </para>
    <tip>
-    <title>Existing SSH Host Keys</title>
+    <title>Existing SSH host keys</title>
     <para>
      If you install &productname; on a machine with existing Linux
      installations, the installation routine imports an SSH host key. It
@@ -2462,11 +2369,11 @@ disk:
    </para>
   </sect2>
   <sect2 xml:id="sec-yast-install-proposal-network">
-   <title><guimenu>Network Configuration</guimenu></title>
+   <title><guimenu>Network configuration</guimenu></title>
    <para>
-    This category displays the current network settings (as automatically
-    configured after booting into the installation, see <xref
-     linkend="sec-yast-install-network" xrefstyle="select:label"/>) or as manually
+    This category displays the current network settings, as automatically
+    configured after booting into the installation (see <xref
+    linkend="sec-yast-install-network" xrefstyle="select:label"/>) or as manually
     configured from the <guimenu>Registration</guimenu> or
     <guimenu>Add-On Product</guimenu> dialog during the respective steps of
     the installation process. If you want to check or adjust the network settings
@@ -2485,7 +2392,7 @@ disk:
    </para>
   </sect2>
   <sect2 xml:id="sec-yast-install-proposal-blacklist" os="sles" arch="zseries">
-   <title><guimenu>&zseries;: Blacklist Devices</guimenu></title>
+   <title><guimenu>&zseries;: blacklist devices</guimenu></title>
    <para>
     To save memory, all channels for devices currently not in use are
     blacklisted by default (each channel that is not blacklisted occupies
@@ -2501,7 +2408,7 @@ disk:
    </para>
   </sect2>
   <sect2 xml:id="sec-yast-install-proposal-runlevel">
-   <title><guimenu>Default systemd Target</guimenu></title>
+   <title><guimenu>Default systemd target</guimenu></title>
    <para>
     &productname; can boot into two different targets (formerly known as
     <quote>runlevels</quote>). The <guimenu>graphical</guimenu> target starts a
@@ -2516,7 +2423,7 @@ disk:
    </para>
   </sect2>
   <sect2 xml:id="sec-yast-install-proposal-sshimport">
-   <title><guimenu>Import SSH Host Keys and Configuration</guimenu></title>
+   <title><guimenu>Import SSH host keys and configuration</guimenu></title>
    <para>
     If an existing Linux installation on your computer was detected, &yast;
     will import the most recent SSH host key found in
@@ -2572,7 +2479,7 @@ disk:
    </para>
    <variablelist>
     <varlistentry>
-     <term><guimenu>PCI ID Setup</guimenu>
+     <term><guimenu>PCI ID setup</guimenu>
      </term>
      <listitem>
       <para>
@@ -2594,7 +2501,7 @@ disk:
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term><guimenu>Kernel Settings</guimenu>
+     <term><guimenu>Kernel settings</guimenu>
      </term>
      <listitem>
       <para>
@@ -2619,7 +2526,7 @@ disk:
  </sect1>
 
  <sect1 xml:id="sec-yast-install-perform">
-  <title>Performing the Installation</title>
+  <title>Performing the installation</title>
   <para>
    After configuring all installation settings, click
    <guimenu>Install</guimenu> in the Installation Settings window to start the
@@ -2645,7 +2552,7 @@ disk:
   </para>
 
   <sect2 xml:id="sec-s390-inst-reipl" arch="zseries" os="sles">
-   <title>&zseries;: IPLing the Installed System</title>
+   <title>&zseries;: IPLing the installed system</title>
    <para>
     &yast; usually reboots into the installed system on the &zseries;
     platform. Exceptions are installations where the boot loader
@@ -2661,7 +2568,7 @@ disk:
    </para>
    <variablelist>
     <varlistentry>
-     <term>LPAR Installation</term>
+     <term>LPAR installation</term>
      <listitem>
       <para>
        In the &zseries; HMC, select <guimenu>Load</guimenu>, select
@@ -2675,7 +2582,7 @@ disk:
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>z/VM Installation</term>
+     <term>z/VM installation</term>
      <listitem>
       <para>
        Log in to the VM guest (see
@@ -2706,7 +2613,7 @@ disk:
      </listitem>
     </varlistentry>
     <varlistentry>
-     <term>KVM Guest Installation</term>
+     <term>KVM guest installation</term>
      <listitem>
       <para>
        After the installation has finished, the virtual machine is shut
@@ -2740,7 +2647,7 @@ disk:
        </step>
       </procedure>
       <note>
-       <title><literal>cio_ignore</literal> Is Disabled for KVM Installations</title>
+       <title><literal>cio_ignore</literal> Is disabled for KVM installations</title>
        <para>
         The kernel parameter <literal>cio_ignore</literal> prevents the kernel
         from looking at all the available hardware devices. However, for KVM
@@ -2755,7 +2662,7 @@ disk:
    </variablelist>
   </sect2>
   <sect2 xml:id="sec-s390-inst-reipl-reconnect" arch="zseries" os="sles">
-   <title>&zseries;: Connecting to the Installed System</title>
+   <title>&zseries;: connecting to the installed system</title>
    <para>
     After IPLing the system, establish a connection via VNC, SSH, or X to log
     in to the installed system. Using either VNC or SSH is recommended. To
@@ -2763,7 +2670,7 @@ disk:
     packages, start &yast;.
    </para>
    <sect3 xml:id="sec-s390-inst-reipl-reconnect-vnc">
-    <title>Using VNC to Connect</title>
+    <title>Using VNC to connect</title>
     <para>
      A message in the 3270&nbsp;terminal asks you to connect to the Linux
      system using a VNC client. However, this message is easily missed, because
@@ -2780,7 +2687,7 @@ disk:
 <screen>http://<replaceable>IP_OF_INSTALLED_SYSTEM</replaceable>:5801/</screen>
    </sect3>
    <sect3 xml:id="sec-s390-inst-reipl-reconnect-ssh">
-    <title>Using SSH to Connect</title>
+    <title>Using SSH to connect</title>
     <para>
      A message in the 3270&nbsp;terminal asks you to connect to the Linux
      system with an SSH client. This message is easily missed, however, because
@@ -2795,7 +2702,7 @@ disk:
     </para>
    </sect3>
    <sect3 xml:id="sec-s390-inst-reipl-reconnect-x">
-    <title>Using X to Connect</title>
+    <title>Using X to connect</title>
     <para>
      When IPLing the installed system, make sure that the X server used for the
      first phase of the installation is up and still available before booting

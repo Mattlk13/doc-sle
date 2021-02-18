@@ -13,7 +13,7 @@
  xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
  xml:id="app-ay-faq">
 
- <title>&ay; FAQ - Frequently Asked Questions</title>
+ <title>&ay; FAQ&mdash;frequently asked questions</title>
  <info>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
    <dm:bugtracker>
@@ -191,7 +191,7 @@
    <qandaentry xml:id="qa-ay-zypper">
     <question>
      <para>
-      May I call Zypper from scripts?
+      Can I call Zypper from scripts?
      </para>
     </question>
     <answer>
@@ -228,7 +228,7 @@ mv /var/run/zypp.sav /var/run/zypp.pid
     <answer>
      <para>
       Actually the order is not important. The order of sections in the profile
-      has no influence on the &ay; workflow. However, if you want to
+      has no influence on the &ay; workflow. However, to
       <emphasis>merge</emphasis> different profiles, sections need to be in
       alphabetical order.
      </para>

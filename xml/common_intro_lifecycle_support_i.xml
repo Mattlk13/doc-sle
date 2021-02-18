@@ -7,7 +7,7 @@
 <sect1 version="5.0" xmlns="http://docbook.org/ns/docbook"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Product Life Cycle and Support</title>
+ <title>Product life cycle and support</title>
 
  <info>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -74,7 +74,7 @@
  </para>
 
  <sect2>
-  <title>Support Statement for &productname;</title>
+  <title>Support statement for &productname;</title>
   <para>
    To receive support, you need an appropriate subscription with &suse;. To
    view the specific support offerings available to you, go to
@@ -124,28 +124,28 @@
   <itemizedlist>
    <listitem>
     <para>
-     Technology Previews
+     technology previews.
     </para>
    </listitem>
    <listitem>
     <para>
-     Sound, graphics, fonts and artwork.
+     sound, graphics, fonts, and artwork.
     </para>
    </listitem>
    <listitem>
     <para>
-     Packages that require an additional customer contract.
+     packages that require an additional customer contract.
     </para>
    </listitem>
    <listitem>
     <para>
-     Some packages shipped as part of the module <emphasis>Workstation
+     some packages shipped as part of the module <emphasis>Workstation
      Extension</emphasis> are L2-supported only.
     </para>
    </listitem>
    <listitem>
     <para>
-     Packages with names ending in <package>-devel</package> (containing header
+     packages with names ending in <package>-devel</package> (containing header
      files and similar developer resources) will only be supported together
      with their main packages.
     </para>
@@ -158,7 +158,7 @@
  </sect2>
 
  <sect2>
-  <title>Technology Previews</title>
+  <title>Technology previews</title>
    <para>
     Technology previews are packages, stacks, or features delivered by &suse;
     to provide glimpses into upcoming innovations. The previews are included for

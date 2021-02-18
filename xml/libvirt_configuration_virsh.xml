@@ -5,7 +5,7 @@
     %entities;
 ]>
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" xml:base="libvirt_configuration_virsh.xml" version="5.0" xml:id="cha-libvirt-config-virsh">
- <title>Configuring Virtual Machines with &virsh;</title>
+ <title>Configuring virtual machines with &virsh;</title>
  <info>
   <abstract>
    <para>
@@ -21,7 +21,7 @@
   </dm:docmanager>
  </info>
  <sect1 xml:id="sec-libvirt-config-editing-virsh">
-  <title>Editing the VM Configuration</title>
+  <title>Editing the VM configuration</title>
 
   <para>
    The configuration of a VM is stored in an XML file in
@@ -29,7 +29,7 @@
   </para>
 
   <example>
-   <title>Example XML Configuration File</title>
+   <title>Example XML configuration file</title>
 <screen>
 &lt;domain type='kvm'&gt;
   &lt;name&gt;sles15&lt;/name&gt;
@@ -80,70 +80,8 @@
    schema.
   </para>
  </sect1>
- <sect1 xml:id="sec-libvirt-config-maxgrantframes-virsh">
-  <title>Managing Guest Memory Allocation (&xen; only)</title>
-
-  <para>
-   <command>libvirt</command> now includes support for adjusting memory
-   allocation per guest with &virsh;. &xen; paravirtual devices connect to the
-   <literal>xenbus</literal> controller, which is analogous to a physical
-   device bus such as a PCI controller. &xen;'s
-   <literal>max_grant_frames</literal> attribute sets how many frames, which
-   are analogous to memory, are allocated to the <literal>xenbus </literal>
-   controller for each guest.
-  </para>
-
-  <para>
-   The default is 32, and this can be increased as needed, up to the amount set
-   for dom0, or decreased. How much is enough? This depends on the number of
-   devices and workload demand, such as a saturated network interface or heavy
-   I/O. Use <command>xen-diag</command> to see your current used and maximum
-   <literal>max_grant_frames</literal> values for dom0 and your guests. The
-   guests must be running:
-  </para>
-
-<screen>&prompt.sudo;virsh list
- Id   Name             State
---------------------------------
- 0    Domain-0         running
- 3    sle15sp1         running
-
- &prompt.sudo;xen-diag gnttab_query_size 0
-domid=0: nr_frames=1, max_nr_frames=256
-
-&prompt.sudo;xen-diag gnttab_query_size 3
-domid=3: nr_frames=3, max_nr_frames=32
-</screen>
-
-  <para>
-   The sle15sp1 guest is using only 3 frames out of 32. If you are seeing
-   performance issues, and log entries that point to insufficient frames,
-   increase the value with &virsh;. Look for the <literal>&lt;controller
-   type='xenbus'</literal> line in the guest's configuration file and add the
-   <literal>maxGrantFrames</literal> control element:
-  </para>
-
-<screen>&prompt.sudo;virsh edit sle15sp1
- &lt;controller type='xenbus' index='0' maxGrantFrames='40'/>
-</screen>
-
-  <para>
-   Save your changes and restart the guest. Now it should show your change:
-  </para>
-
-<screen>&prompt.sudo;xen-diag gnttab_query_size 3
-domid=3: nr_frames=3, max_nr_frames=40
-</screen>
-
-  <para>
-   See the <citetitle>Controllers</citetitle> section of the libvirt
-   <citetitle>Domain XML format</citetitle> manual at
-   <link xlink:href="https://libvirt.org/formatdomain.html#elementsControllers"/>
-   for more information.
-  </para>
- </sect1>
  <sect1 xml:id="sec-libvirt-config-machinetype-virsh">
-  <title>Changing the Machine Type</title>
+  <title>Changing the machine type</title>
 
   <para>
    When installing with the <command>virt-install</command> tool, the machine
@@ -166,7 +104,7 @@ domid=3: nr_frames=3, max_nr_frames=40
   </para>
 
   <procedure>
-   <title>Changing Machine Type</title>
+   <title>Changing machine type</title>
    <step>
     <para>
      Check whether your &vmguest; is inactive:
@@ -206,7 +144,7 @@ Product Name: Standard PC (Q35 + ICH9, 2009)</screen>
   </procedure>
 
   <tip>
-   <title>Machine Type Update Recommendations</title>
+   <title>Machine type update recommendations</title>
    <para>
     Whenever the QEMU version on the host system is upgraded (for example, when
     upgrading the &vmhost; to a new service pack), upgrade the machine type of
@@ -224,8 +162,41 @@ Product Name: Standard PC (Q35 + ICH9, 2009)</screen>
    </para>
   </tip>
  </sect1>
+ <sect1 xml:id="sec-libvirt-hypervisor-features-virsh">
+  <title>Configuring hypervisor features</title>
+
+  <para>
+   <command>libvirt</command> automatically enables a default set of hypervisor features that
+   are sufficient in most circumstances, but also allows enabling and disabling
+   features as needed. As an example, Xen does not support enabling PCI
+   passthrough by default. It must be enabled with the
+   <literal>passthrough</literal> setting. Hypervisor features can be configured
+   with &virsh;. Look for the <tag>&lt;features&gt;</tag> element in the
+   &vmguest;'s configuration file and adjust the various features as required.
+   Continuing with the &xen; passthrough example:
+  </para>
+
+<screen>&prompt.sudo;virsh edit sle15sp1
+ &lt;features&gt;
+    &lt;xen&gt;
+      &lt;passthrough/&gt;
+    &lt;/xen&gt;
+ &lt;/features&gt;
+</screen>
+
+  <para>
+   Save your changes and restart the &vmguest;.
+  </para>
+
+  <para>
+   See the <citetitle>Hypervisor features</citetitle> section of the libvirt
+   <citetitle>Domain XML format</citetitle> manual at
+   <link xlink:href="https://libvirt.org/formatdomain.html#elementsFeatures"/>
+   for more information.
+  </para>
+ </sect1>
  <sect1 xml:id="libvirt-cpu-virsh">
-  <title>Configuring CPU Allocation</title>
+  <title>Configuring CPU allocation</title>
 
   <para>
    The number of allocated CPUs is stored in the &vmguest;'s XML configuration
@@ -291,7 +262,7 @@ CPU Affinity:   yy
   </procedure>
  </sect1>
  <sect1 xml:id="sec-libvirt-config-boot-menu-virsh">
-  <title>Changing Boot Options</title>
+  <title>Changing boot options</title>
 
   <para>
    The boot menu of the &vmguest; can be found in the <tag>os</tag> element and
@@ -317,7 +288,7 @@ CPU Affinity:   yy
   </para>
 
   <sect2 xml:id="sec-libvirt-config-bootorder-virsh">
-   <title>Changing Boot Order</title>
+   <title>Changing boot order</title>
    <para>
     The &vmguest;'s boot order is represented through the order of devices in
     the XML configuration file. As the devices are interchangeable, it is
@@ -351,7 +322,7 @@ CPU Affinity:   yy
   </sect2>
 
   <sect2 xml:id="sec-libvirt-config-directkernel-virsh">
-   <title>Using Direct Kernel Boot</title>
+   <title>Using direct kernel boot</title>
    <para>
     Direct Kernel Boot allows you to boot from a kernel and initrd stored on
     the host. Set the path to both files in the <tag>kernel</tag> and
@@ -401,7 +372,7 @@ CPU Affinity:   yy
   </sect2>
  </sect1>
  <sect1 xml:id="sec-libvirt-config-memory-virsh">
-  <title>Configuring Memory Allocation</title>
+  <title>Configuring memory allocation</title>
 
   <para>
    The amount of memory allocated for the &vmguest; can also be configured with
@@ -433,7 +404,7 @@ CPU Affinity:   yy
   </procedure>
  </sect1>
  <sect1 xml:id="sec-libvirt-config-pci-virsh">
-  <title>Adding a PCI Device</title>
+  <title>Adding a PCI device</title>
 
   <para>
    To assign a PCI device to &vmguest; with &virsh;, follow these steps:
@@ -493,7 +464,7 @@ CPU Affinity:   yy
 <screen>&prompt.sudo;<command>virsh nodedev-detach pci_0000_03_07_0</command>
   Device pci_0000_03_07_0 detached</screen>
     <tip>
-     <title>Multi-Function PCI Devices</title>
+     <title>Multi-function PCI devices</title>
      <para>
       When using a multi-function PCI device that does not support FLR
       (function level reset) or PM (power management) reset, you need to detach
@@ -571,9 +542,37 @@ CPU Affinity:   yy
 <screen>&prompt.sudo;<command>virsh start sles15</command></screen>
    </step>
   </procedure>
+  <important>
+    <title>&slsa;11 SP4 &kvm; guests</title>
+    <para>
+    On a newer &qemu; machine type (pc-i440fx-2.0 or higher) with &slsa;11
+    SP4 &kvm; guests, the <systemitem class="resource">acpiphp</systemitem>
+    module is not loaded by default in the guest. This module must be loaded to
+    enable hotplugging of disk and network devices. To load the module manually,
+    use the command <command>modprobe acpiphp</command>. It is also possible to
+    autoload the module by adding <literal>install acpiphp /bin/true</literal>
+    to the <filename>/etc/modprobe.conf.local</filename> file.
+    </para>
+  </important>
+  <important>
+    <title>&kvm; guests using &qemu; Q35 machine type</title>
+    <para>
+    &kvm; guests using the &qemu; Q35 machine type have a PCI topology that
+    includes a <literal>pcie-root</literal> controller and seven
+    <literal>pcie-root-port</literal> controllers. The
+    <literal>pcie-root</literal> controller does not support hotplug. Each
+    <literal>pcie-root-port</literal> controller supports hotplugging a single
+    PCIe device. PCI controllers cannot be hotplugged, so plan accordingly and
+    add more <literal>pcie-root-port</literal>s if more than seven PCIe
+    devices will be hotplugged. A <literal>pcie-to-pci-bridge</literal>
+    controller can be added to support hotplugging legacy PCI devices.
+    See <link xlink:href="https://libvirt.org/pci-hotplug.html"/> for more
+    information about PCI topology between &qemu; machine types.
+    </para>
+  </important>
  </sect1>
  <sect1 xml:id="sec-libvirt-config-usb-virsh">
-  <title>Adding a USB Device</title>
+  <title>Adding a USB device</title>
 
   <para>
    To assign a USB device to &vmguest; using &virsh;, follow these steps:
@@ -606,7 +605,7 @@ Bus 001 Device 003: ID <emphasis role="bold">0557:2221</emphasis> ATEN Internati
   &lt;/source&gt;
 &lt;/hostdev&gt;</screen>
     <tip>
-     <title>Vendor/Product or Device's Address</title>
+     <title>Vendor/product or device's address</title>
      <para>
       Instead of defining the host device with
       <tag class="emptytag">vendor</tag> and
@@ -631,7 +630,7 @@ Bus 001 Device 003: ID <emphasis role="bold">0557:2221</emphasis> ATEN Internati
   </procedure>
  </sect1>
  <sect1 xml:id="sec-libvirt-config-io">
-  <title>Adding SR-IOV Devices</title>
+  <title>Adding SR-IOV devices</title>
 
   <para>
    Single Root I/O Virtualization (<xref linkend="vt-io-sriov"/>) capable
@@ -710,7 +709,7 @@ Bus 001 Device 003: ID <emphasis role="bold">0557:2221</emphasis> ATEN Internati
     </listitem>
    </itemizedlist>
    <tip>
-    <title>Checking if a Device is SR-IOV-Capable</title>
+    <title>Checking if a device is SR-IOV-capable</title>
     <para>
      The information whether a device is SR-IOV-capable can be obtained from
      its PCI descriptor by running <command>lspci</command>. A device that
@@ -720,7 +719,7 @@ Bus 001 Device 003: ID <emphasis role="bold">0557:2221</emphasis> ATEN Internati
 <screen>Capabilities: [160 v1] Single Root I/O Virtualization (<xref linkend="vt-io-sriov"/>)</screen>
    </tip>
    <note>
-    <title>Adding an SR-IOV Device at &vmguest; Creation</title>
+    <title>Adding an SR-IOV device at &vmguest; creation</title>
     <para>
      Before adding an SR-IOV device to a &vmguest; when initially setting it
      up, the &vmhost; already needs to be configured as described in
@@ -730,7 +729,7 @@ Bus 001 Device 003: ID <emphasis role="bold">0557:2221</emphasis> ATEN Internati
   </sect2>
 
   <sect2 xml:id="sec-libvirt-config-io-config">
-   <title>Loading and Configuring the SR-IOV Host Drivers</title>
+   <title>Loading and configuring the SR-IOV host drivers</title>
    <para>
     To access and initialize VFs, an SR-IOV-capable driver needs to be loaded
     on the host system.
@@ -896,14 +895,14 @@ virsh nodedev-detach pci_0000_06_08_0</screen>
   </sect2>
 
   <sect2 xml:id="sec-libvirt-config-io-attach">
-   <title>Adding a VF Network Device to a &vmguest;</title>
+   <title>Adding a VF network device to a &vmguest;</title>
    <para>
     When the <xref linkend="vt-io-sriov"/> hardware is properly set up on the
     &vmhost;, you can add VFs to &vmguest;s. To do so, you need to collect some
     data first.
    </para>
    <procedure>
-    <title>Adding a VF Network Device to an Existing &vmguest;</title>
+    <title>Adding a VF network device to an existing &vmguest;</title>
     <para>
      The following procedure uses example data. Make sure to replace it by
      appropriate data from your setup.
@@ -1091,7 +1090,7 @@ pci_0000_04_11_5</screen>
   </sect2>
 
   <sect2 xml:id="libvirt-config-io-pool">
-   <title>Dynamic Allocation of VFs from a Pool</title>
+   <title>Dynamic allocation of VFs from a pool</title>
    <para>
     If you define the PCI address of a VF into a &vmguest;'s configuration
     statically as described in <xref linkend="sec-libvirt-config-io-attach"/>,
@@ -1107,7 +1106,7 @@ pci_0000_04_11_5</screen>
     the VF is returned to the pool, available for another guest.
    </para>
    <sect3 xml:id="libvirt-config-io-pool-host">
-    <title>Defining Network with Pool of VFs on &vmhost;</title>
+    <title>Defining network with pool of VFs on &vmhost;</title>
     <para>
      The following example of network definition creates a pool of all VFs for
      the <xref linkend="vt-io-sriov"/> device with its physical function (PF)
@@ -1131,7 +1130,7 @@ pci_0000_04_11_5</screen>
 &prompt.sudo;<command>virsh net-start passthrough</command></screen>
    </sect3>
    <sect3 xml:id="libvirt-config-io-pool-guest">
-    <title>Configuring &vmguest;s to Use VF from the Pool</title>
+    <title>Configuring &vmguest;s to use VF from the pool</title>
     <para>
      The following example of &vmguest; device interface definition uses a VF
      of the <xref linkend="vt-io-sriov"/> device from the pool created in
@@ -1164,8 +1163,49 @@ pci_0000_04_11_5</screen>
    </sect3>
   </sect2>
  </sect1>
+ <sect1 xml:id="libvirt-config-listing-host-devs">
+  <title>Listing attached devices</title>
+  <para>
+   Although there is no mechanism in &virsh; to list all &vmhost;'s devices
+   that have already been attached to its &vmguest;s, you can list all devices
+   attached to a specific &vmguest; by running the following command:
+  </para>
+<screen>virsh dumpxml <replaceable>VMGUEST_NAME</replaceable> | xpath -e /domain/devices/hostdev</screen>
+  <para>
+   For example:
+  </para>
+<screen>
+&prompt.sudo;virsh dumpxml sles12 | -e xpath /domain/devices/hostdev
+Found 2 nodes:
+-- NODE --
+&lt;hostdev mode="subsystem" type="pci" managed="yes">
+  &lt;driver name="xen" />
+  &lt;source>
+    &lt;address domain="0x0000" bus="0x0a" slot="0x10" function="0x1" />
+  &lt;/source>
+  &lt;address type="pci" domain="0x0000" bus="0x00" slot="0x0a" function="0x0" />
+  &lt;/hostdev>
+-- NODE --
+&lt;hostdev mode="subsystem" type="pci" managed="yes">
+  &lt;driver name="xen" />
+  &lt;source>
+    &lt;address domain="0x0000" bus="0x0a" slot="0x10" function="0x2" />
+  &lt;/source>
+  &lt;address type="pci" domain="0x0000" bus="0x00" slot="0x0b" function="0x0" />
+&lt;/hostdev>
+</screen>
+  <tip xml:id="libvirt-config-listing-host-devs-sriov">
+   <title>Listing SR-IOV devices attached via <literal>&lt;interface type='hostdev'&gt;</literal></title>
+   <para>
+    For SR-IOV devices that are attached to the &vmhost; by means of
+    <literal>&lt;interface type='hostdev'&gt;</literal>, you need to use a
+    different XPath query:
+   </para>
+<screen>virsh dumpxml <replaceable>VMGUEST_NAME</replaceable> | xpath -e /domain/devices/interface/@type</screen>
+  </tip>
+ </sect1>
  <sect1 xml:id="libvirt-config-storage-virsh">
-  <title>Configuring Storage Devices</title>
+  <title>Configuring storage devices</title>
 
   <para>
    Storage devices are defined within the <tag>disk</tag> element. The usual
@@ -1273,8 +1313,95 @@ pci_0000_04_11_5</screen>
    Your new storage device should be available in the &vmguest; OS.
   </para>
  </sect1>
+ <sect1 xml:id="sec-libvirt-config-controllers-virsh">
+  <title>Configuring controller devices</title>
+
+  <para>
+   <command>libvirt</command> generally manages controllers automatically
+   based on the type of virtual devices used by the &vmguest;. If the &vmguest;
+   contains PCI and SCSI devices, PCI and SCSI controllers will be created and
+   managed automatically. <command>libvirt</command> will also model controllers
+   that are hypervisor-specific, for example, a <literal>virtio-serial</literal> controller for KVM
+   &vmguest;s or a <literal>xenbus</literal> controller for Xen &vmguest;s. Although the default
+   controllers and their configuration are generally fine, there may be use cases
+   where controllers or their attributes need to be adjusted manually. For example,
+   a virtio-serial controller may need more ports, or a xenbus controller may need
+   more memory or more virtual interrupts.
+  </para>
+
+  <para>
+   The xenbus controller is unique in that it serves as the controller for
+   all Xen paravirtual devices. If a &vmguest; has many disk and/or network
+   devices, the controller may need more memory. Xen's
+   <literal>max_grant_frames</literal> attribute sets how many grant frames, or
+   blocks of shared memory, are allocated to the <literal>xenbus</literal>
+   controller for each &vmguest;.
+  </para>
+
+  <para>
+   The default of 32 is enough in most circumstances, but a &vmguest; with a large
+   number of I/O devices and an I/O-intensive workload may experience performance
+   issues due to grant frame exhaustion. The <command>xen-diag</command> can be
+   used to check the current and maximum <literal>max_grant_frames</literal>
+   values for dom0 and your &vmguest;s. The &vmguest;s must be running:
+  </para>
+
+<screen>&prompt.sudo;virsh list
+ Id   Name             State
+--------------------------------
+ 0    Domain-0         running
+ 3    sle15sp1         running
+
+ &prompt.sudo;xen-diag gnttab_query_size 0
+domid=0: nr_frames=1, max_nr_frames=256
+
+&prompt.sudo;xen-diag gnttab_query_size 3
+domid=3: nr_frames=3, max_nr_frames=32
+</screen>
+
+  <para>
+   The <literal>sle15sp1</literal> guest is using only three frames out of 32. If you are seeing
+   performance issues, and log entries that point to insufficient frames,
+   increase the value with &virsh;. Look for the <literal>&lt;controller
+   type='xenbus'&gt;</literal> line in the guest's configuration file, and add the
+   <literal>maxGrantFrames</literal> control element:
+  </para>
+
+<screen>&prompt.sudo;virsh edit sle15sp1
+ &lt;controller type='xenbus' index='0' maxGrantFrames='40'/>
+</screen>
+
+  <para>
+   Save your changes and restart the guest. Now it should show your change:
+  </para>
+
+<screen>&prompt.sudo;xen-diag gnttab_query_size 3
+domid=3: nr_frames=3, max_nr_frames=40
+</screen>
+
+  <para>
+   Similar to maxGrantFrames, the xenbus controller also supports
+   <option>maxEventChannels</option>. Event channels are like paravirtual interrupts, and in
+   conjunction with grant frames, form a data transfer mechanism for paravirtual
+   drivers. They are also used for inter-processor interrupts. &vmguest;s
+   with a large number of vCPUs and/or many paravirtual devices may need to
+   increase the maximum default value of 1023. maxEventChannels can be changed
+   similarly to maxGrantFrames:
+  </para>
+
+<screen>&prompt.sudo;virsh edit sle15sp1
+ &lt;controller type='xenbus' index='0' maxGrantFrames='128' maxEventChannels='2047'/>
+</screen>
+
+  <para>
+   See the <citetitle>Controllers</citetitle> section of the libvirt
+   <citetitle>Domain XML format</citetitle> manual at
+   <link xlink:href="https://libvirt.org/formatdomain.html#elementsControllers"/>
+   for more information.
+  </para>
+ </sect1>
  <sect1 xml:id="libvirt-video-virsh">
-  <title>Configuring Video Devices</title>
+  <title>Configuring video devices</title>
 
   <para>
    When using the Virtual Machine Manager, only the Video device model can be
@@ -1283,7 +1410,7 @@ pci_0000_04_11_5</screen>
   </para>
 
   <sect2 xml:id="libvirt-video-vram-virsh">
-   <title>Changing the Amount of Allocated VRAM</title>
+   <title>Changing the amount of allocated VRAM</title>
    <procedure>
     <step>
      <para>
@@ -1311,7 +1438,7 @@ pci_0000_04_11_5</screen>
   </sect2>
 
   <sect2 xml:id="libvirt-video-accel-virsh">
-   <title>Changing the State of 2D/3D Acceleration</title>
+   <title>Changing the state of 2D/3D acceleration</title>
    <procedure>
     <step>
      <para>
@@ -1332,7 +1459,7 @@ pci_0000_04_11_5</screen>
     </step>
    </procedure>
    <tip>
-    <title>Enabling 2D/3D Acceleration</title>
+    <title>Enabling 2D/3D acceleration</title>
     <para>
      Only <literal>vbox</literal> video devices are capable of 2D/3D
      acceleration. You cannot enable it on other video devices.
@@ -1341,7 +1468,7 @@ pci_0000_04_11_5</screen>
   </sect2>
  </sect1>
  <sect1 xml:id="virsh-network-devices">
-  <title>Configuring Network Devices</title>
+  <title>Configuring network devices</title>
 
   <para>
    This section describes how to configure specific aspects of virtual network
@@ -1354,11 +1481,11 @@ pci_0000_04_11_5</screen>
   </para>
 
   <sect2 xml:id="virsh-multiqueue">
-   <title>Scaling Network Performance with Multiqueue virtio-net</title>
+   <title>Scaling network performance with multiqueue virtio-net</title>
    <para>
     The multiqueue virtio-net feature scales the network performance by
-    allowing &vmguest;'s virtual CPUs to transfer packets in parallel. Refer to
-    <xref linkend="kvm-qemu-multiqueue"/> more general information.
+    allowing the &vmguest;'s virtual CPUs to transfer packets in parallel. Refer to
+    <xref linkend="kvm-qemu-multiqueue"/> for more general information.
    </para>
    <para>
     To enable multiqueue virtio-net for a specific &vmguest;, edit its XML
@@ -1376,7 +1503,7 @@ pci_0000_04_11_5</screen>
   </sect2>
  </sect1>
  <sect1 xml:id="sec-libvirt-config-direct">
-  <title>Using Macvtap to Share &vmhost; Network Interfaces</title>
+  <title>Using macvtap to share &vmhost; network interfaces</title>
 
   <para>
    Macvtap provides direct attachment of a &vmguest; virtual interface to a
@@ -1387,7 +1514,7 @@ pci_0000_04_11_5</screen>
   </para>
 
   <note>
-   <title>Macvtap Cannot Be Used with a Linux Bridge</title>
+   <title>Macvtap cannot be used with a Linux bridge</title>
    <para>
     Macvtap cannot be used with network interfaces already connected to a Linux
     bridge. Before attempting to create the macvtap interface, remove the
@@ -1396,7 +1523,7 @@ pci_0000_04_11_5</screen>
   </note>
 
   <note>
-   <title>&vmguest; to &vmhost; Communication with Macvtap</title>
+   <title>&vmguest; to &vmhost; communication with macvtap</title>
    <para>
     When using macvtap, a &vmguest; can communicate with other &vmguest;s, and
     with other external hosts on the network. But it cannot communicate with
@@ -1470,7 +1597,7 @@ pci_0000_04_11_5</screen>
   </itemizedlist>
  </sect1>
  <sect1 xml:id="sec-libvirt-config-disable-virtio-mellon">
-  <title>Disabling a Memory Balloon Device</title>
+  <title>Disabling a memory balloon device</title>
 
   <para>
    Memory Balloon has become a default option for KVM. The device will be added
@@ -1485,7 +1612,7 @@ pci_0000_04_11_5</screen>
 &lt;/device&gt;</screen>
  </sect1>
  <sect1 xml:id="virsh-video-dual-head">
-  <title>Configuring Multiple Monitors (Dual Head)</title>
+  <title>Configuring multiple monitors (dual head)</title>
 
   <para>
    &libvirt; supports a dual head configuration to display the video output of
@@ -1493,14 +1620,14 @@ pci_0000_04_11_5</screen>
   </para>
 
   <important>
-   <title>No Support for &xen;</title>
+   <title>No support for &xen;</title>
    <para>
     The &xen; hypervisor does not support dual head configuration.
    </para>
   </important>
 
   <procedure>
-   <title>Configuring Dual Head</title>
+   <title>Configuring dual head</title>
    <step>
     <para>
      While the virtual machine is running, verify that the
@@ -1510,7 +1637,7 @@ pci_0000_04_11_5</screen>
    </step>
    <step>
     <para>
-     Shutdown the &vmguest; and start editing its configuration XML as
+     Shut down the &vmguest; and start editing its configuration XML as
      described in <xref linkend="sec-libvirt-config-editing-virsh"/>.
     </para>
    </step>
@@ -1526,7 +1653,7 @@ pci_0000_04_11_5</screen>
    <step>
     <para>
      Increase the <option>heads</option> parameter in the graphics card model
-     specification from the default '1' to for example '2':
+     specification from the default <literal>1</literal> to <literal>2</literal>, for example:
     </para>
 <screen>
 &lt;video>

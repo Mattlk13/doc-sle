@@ -9,7 +9,7 @@
   xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>About This Manual</title>
+ <title>About this manual</title>
  <info>
       <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
         <dm:bugtracker>
@@ -18,8 +18,8 @@
     </info>
     <para>
   This manual offers an introduction to setting up and managing
-  virtualization with &kvm; (Kernel-based Virtual Machine), &xen;, and
-  Linux Containers (LXC) on &productname;. The first part introduces the
+  virtualization with &kvm; (Kernel-based Virtual Machine) and &xen;
+  on &productname;. The first part introduces the
   different virtualization solutions by describing their requirements, their
   installations and &suse;'s support status. The second part deals with
   managing &vmguest;s and &vmhost;s with &libvirt;. The following
@@ -29,5 +29,5 @@
  <xi:include href="common_intro_available_doc_i.xml"/>
  <xi:include href="common_intro_feedback_i.xml"/>
  <xi:include href="common_intro_typografie_i.xml"/>
- <xi:include href="common_intro_lifecycle_support_i.xml"/>
+ <xi:include href="common_intro_lifecycle_support_i.xml" os="sles;sled"/>
 </preface>

@@ -9,7 +9,7 @@
   xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink">
-  <title>Network Configuration</title>
+  <title>Network configuration</title>
 
  <info>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -19,18 +19,12 @@
  </info>
 
    <para>
-    Network configuration is used to connect a single workstation to an
-    Ethernet-based LAN or to configure a dial-up connection. More complex
-    configurations (multiple network cards, routing, etc.) are also
-    provided.
+    Network configuration is mainly used to connect a single workstation to an
+    Ethernet-based LAN. It is commonly configured before &ay; even starts,
+    in order to fetch the profile from a network location. This network
+    configuration is usually done through <command>linuxrc</command>
    </para>
 
-   <para>
-    If the following setting is set to <literal>true</literal>, &yast;
-    will keep network settings created during the installation (via
-    <command>linuxrc</command>) and/or merge it with network settings from the
-    &ay; control file (if defined).
-   </para>
    <note>
     <title>The <command>linuxrc</command> program</title>
     <para>
@@ -38,102 +32,121 @@
      keywords, see <xref linkend="appendix-linuxrc"/>.
     </para>
    </note>
+
    <para>
-    &ay; settings have higher priority than any configuration files already
-    present. &yast; will write ifcfg-* files based on the entries in the control
-    file without removing old ones. If there is an empty or absent DNS and
-    routing section, &yast; will keep any pre-existing values. Otherwise,
-    settings from the control file will be applied.
+    By default &yast; copies the network settings that were used during the
+    installation into the final, installed system. This configuration is merged with the
+    one defined in the &ay; profile. To skip copying the network configuration,
+    set the <literal>keep_install_network</literal> option to <literal>false</literal>.
    </para>
 
 <screen>&lt;keep_install_network
-config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
+config:type="boolean"&gt;false&lt;/keep_install_network&gt;</screen>
 
    <para>
-    During the second stage, installation of additional packages will take
-    place before the network, as described in the profile, is configured.
-    <literal>keep_install_network</literal> is set by default to
-    <literal>true</literal> to ensure that a network is available
-    in case it is needed to install those packages. If all packages
-    are installed during the first stage and the network is not needed early
-    during the second one, setting <literal>keep_install_network</literal>
-    to <literal>false</literal> will avoid copying the configuration.
+    &ay; settings have higher priority than any existing configuration files.
+    &yast; will write <filename>ifcfg-*</filename> files based on the entries in the profile
+    without removing old ones. If the DNS and routing section is empty or missing,
+    &yast; will keep any pre-existing values. Otherwise, it applies the settings from
+    the profile file.
    </para>
 
+   <note>
+     <title>Use &ay; network settings during installation</title>
+
+    <para>
+      Since &productname; 15.3, writing the configuration based on the
+      profile happens at the end of the first stage.
+    </para>
+    <para>
+      However, if network settings are needed during the installation, you
+      can force &ay; to write and apply them before registration takes
+      place by setting the <literal>setup_before_proposal</literal> option to
+      <literal>true</literal>.
+      Asking &ay; to setup the network in the early stages is useful when
+      installation on a network is needed, but the configuration is too complex to
+      define it using linuxrc (see <xref linkend="autoinstall-singlesystem"/>)
+    </para>
+
+<screen>&lt;setup_before_proposal
+  config:type="boolean"&gt;true&lt;/setup_before_proposal&gt;</screen>
+
+    <para>
+      If the configuration is written at the end of installation, it will
+      not be applied until the system is rebooted.
+    </para>
+   </note>
+
    <para>
-    To configure network settings and activate networking automatically, one
-    global resource, <literal>&lt;networking&gt;</literal> is used to store the
-    whole network configuration.
+    Network settings and service activation are defined under the <literal>profile</literal>
+    <literal>networking</literal> global resource.
    </para>
 
    <example xml:id="ex-ay-network-config-general">
     <title>Network configuration</title>
-<screen><![CDATA[<networking>
-  <dns>
-    <dhcp_hostname config:type="boolean">true</dhcp_hostname>
-    <domain>site</domain>
-    <hostname>linux-bqua</hostname>
-    <nameservers config:type="list">
-      <nameserver>&dnsip;</nameserver>
-      <nameserver>&dnsip117;</nameserver>
-      <nameserver>&dnsip118;</nameserver>
-    </nameservers>
-    <resolv_conf_policy>auto</resolv_conf_policy>
-    <searchlist config:type="list">
-      <search>&exampledomain;</search>
-      <search>&exampledomain1;</search>
-    </searchlist>
-  </dns>
-  <interfaces config:type="list">
-    <interface>
-      <bootproto>dhcp</bootproto>
-      <device>eth0</device>
-      <startmode>auto</startmode>
-    </interface>
-  </interfaces>
-  <ipv6 config:type="boolean">true</ipv6>
-  <keep_install_network config:type="boolean">false</keep_install_network>
+<screen>&lt;networking&gt;
+  &lt;dns&gt;
+    &lt;dhcp_hostname config:type="boolean"&gt;true&lt;/dhcp_hostname&gt;
+    &lt;domain&gt;site&lt;/domain&gt;
+    &lt;hostname&gt;linux-bqua&lt;/hostname&gt;
+    &lt;nameservers config:type="list"&gt;
+      &lt;nameserver&gt;&dnsip;&lt;/nameserver&gt;
+      &lt;nameserver&gt;&dnsip117;&lt;/nameserver&gt;
+      &lt;nameserver&gt;&dnsip118;&lt;/nameserver&gt;
+    &lt;/nameservers&gt;
+    &lt;resolv_conf_policy&gt;auto&lt;/resolv_conf_policy&gt;
+    &lt;searchlist config:type="list"&gt;
+      &lt;search&gt;&exampledomain;&lt;/search&gt;
+      &lt;search&gt;&exampledomain1;&lt;/search&gt;
+    &lt;/searchlist&gt;
+  &lt;/dns&gt;
+  &lt;interfaces config:type="list"&gt;
+    &lt;interface&gt;
+      &lt;bootproto&gt;dhcp&lt;/bootproto&gt;
+      &lt;name&gt;eth0&lt;/name&gt;
+      &lt;startmode&gt;auto&lt;/startmode&gt;
+    &lt;/interface&gt;
+  &lt;/interfaces&gt;
+  &lt;ipv6 config:type="boolean"&gt;true&lt;/ipv6&gt;
+  &lt;keep_install_network config:type="boolean"&gt;false&lt;/keep_install_network&gt;
   #false means use Wicked, true means use NetworkManager
-  <managed config:type="boolean">false</managed>       
-  <net-udev config:type="list">
-    <rule>
-      <name>eth0</name>
-      <rule>ATTR{address}</rule>
-      <value>&wsImac;</value>
-    </rule>
-  </net-udev>
-  <s390-devices config:type="list">
-    <listentry>
-      <chanids>0.0.0800 0.0.0801 0.0.0802</chanids>
-      <type>qeth</type>
-    </listentry>
-  </s390-devices>
-  <routing>
-    <ipv4_forward config:type="boolean">false</ipv4_forward>
-    <ipv6_forward config:type="boolean">false</ipv6_forward>
-    <routes config:type="list">
-      <route>
-        <destination>&routerintipII;</destination>
-        <device>eth0</device>
-        <extrapara>foo</extrapara>
-        <gateway>-</gateway>
-        <netmask>-</netmask>
-      </route>
-      <route>
-        <destination>default</destination>
-        <device>eth0</device>
-        <gateway>&routerintipI;</gateway>
-        <netmask>-</netmask>
-      </route>
-      <route>
-        <destination>default</destination>
-        <device>lo</device>
-        <gateway>&gateip;</gateway>
-        <netmask>-</netmask>
-      </route>
-    </routes>
-  </routing>
-</networking>]]></screen>
+  &lt;managed config:type="boolean"&gt;false&lt;/managed&gt;
+  &lt;net-udev config:type="list"&gt;
+    &lt;rule&gt;
+      &lt;name&gt;eth0&lt;/name&gt;
+      &lt;rule&gt;ATTR{address}&lt;/rule&gt;
+      &lt;value&gt;&wsImac;&lt;/value&gt;
+    &lt;/rule&gt;
+  &lt;/net-udev&gt;
+  &lt;s390-devices config:type="list"&gt;
+    &lt;listentry&gt;
+      &lt;chanids&gt;0.0.0800:0.0.0801:0.0.0802&lt;/chanids&gt;
+      &lt;type&gt;qeth&lt;/type&gt;
+    &lt;/listentry&gt;
+  &lt;/s390-devices&gt;
+  &lt;routing&gt;
+    &lt;ipv4_forward config:type="boolean"&gt;false&lt;/ipv4_forward&gt;
+    &lt;ipv6_forward config:type="boolean"&gt;false&lt;/ipv6_forward&gt;
+    &lt;routes config:type="list"&gt;
+      &lt;route&gt;
+        &lt;destination&gt;&routerintipII;/24&lt;/destination&gt;
+        &lt;name&gt;eth0&lt;/name&gt;
+        &lt;extrapara&gt;foo&lt;/extrapara&gt;
+        &lt;gateway&gt;-&lt;/gateway&gt;
+      &lt;/route&gt;
+      &lt;route&gt;
+        &lt;destination&gt;default&lt;/destination&gt;
+        &lt;name&gt;eth0&lt;/name&gt;
+        &lt;gateway&gt;&routerintipI;&lt;/gateway&gt;
+      &lt;/route&gt;
+      &lt;route&gt;
+        &lt;destination&gt;default&lt;/destination&gt;
+        &lt;name&gt;lo&lt;/name&gt;
+        &lt;gateway&gt;&gateip;&lt;/gateway&gt;
+      &lt;/route&gt;
+    &lt;/routes&gt;
+  &lt;/routing&gt;
+&lt;/networking&gt;</screen>
    </example>
 
    <para>
@@ -143,59 +156,38 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
 
    <itemizedlist>
     <listitem>
-     <para><literal>interfaces</literal> describes the configuration of the
+     <para>
+      <literal>interfaces</literal> describes the configuration of the
      network interfaces, including their IP addresses, how they are started,
-     etc.</para>
+     etc.
+     </para>
     </listitem>
     <listitem>
-     <para><literal>dns</literal> specifies DNS related settings, as the
-     host name, the list of name servers, etc.</para>
+     <para>
+      <literal>dns</literal> specifies DNS related settings, such as the
+     host name, the list of name servers, etc.
+     </para>
     </listitem>
     <listitem>
-     <para><literal>routing</literal> defines the routing rules.</para>
+     <para>
+      <literal>routing</literal> defines the routing rules.
+     </para>
     </listitem>
     <listitem>
-     <para><literal>s390-devices</literal> s390-specific devices settings.</para>
+     <para>
+      <literal>s390-devices</literal> covers s390-specific device settings.
+     </para>
     </listitem>
     <listitem>
-     <para><literal>net-udev</literal> enumerates the udev rules used to set
-     persistent names.</para>
+     <para>
+      <literal>net-udev</literal> enumerates the udev rules used to set
+     persistent names.
+     </para>
     </listitem>
    </itemizedlist>
 
-   <example xml:id="ex-ay-network-config-bridge">
-     <title>Bridge Interface Configuration</title>
-<screen>
-&lt;interfaces config:type="list"&gt;
-  &lt;interface&gt;
-    &lt;device&gt;br0&lt;/device&gt;
-    &lt;bootproto&gt;static&lt;/bootproto&gt;
-    &lt;bridge&gt;yes&lt;/bridge&gt;
-    &lt;bridge_forwarddelay&gt;0&lt;/bridge_forwarddelay&gt;
-    &lt;bridge_ports&gt;eth0 eth1&lt;/bridge_ports&gt;
-    &lt;bridge_stp&gt;off&lt;/bridge_stp&gt;
-    &lt;ipaddr&gt;192.168.122.100&lt;/ipaddr&gt;
-    &lt;netmask&gt;255.255.255.0&lt;/netmask&gt;
-    &lt;network&gt;192.168.122.0&lt;/network&gt;
-    &lt;prefixlen&gt;24&lt;/prefixlen&gt;
-    &lt;startmode&gt;auto&lt;/startmode&gt;
-  &lt;/interface&gt;
-  &lt;interface&gt;
-    &lt;device&gt;eth0&lt;/device&gt;
-    &lt;bootproto&gt;none&lt;/bootproto&gt;
-    &lt;startmode&gt;hotplug&lt;/startmode&gt;
-  &lt;/interface&gt;
-  &lt;interface&gt;
-    &lt;device&gt;eth1&lt;/device&gt;
-    &lt;bootproto&gt;none&lt;/bootproto&gt;
-    &lt;startmode&gt;hotplug&lt;/startmode&gt;
-  &lt;/interface&gt;
-&lt;/interfaces&gt;
-</screen>
-   </example>
-
    <tip>
-    <title>IPv6 Address Support</title>
+    <title>IPv6 address support</title>
     <para>
      Using IPv6 addresses in &ay; is fully supported. To disable IPv6
      Address Support, set &lt;ipv6
@@ -207,7 +199,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
     <title>Interfaces</title>
     <para>
      The <literal>interfaces</literal> section allows the user to define the
-     interfaces configuration, including how they are started, their IP
+     configuration of interfaces, including how they are started, their IP
      addresses, networks, and more. The following elements must be enclosed
      in <literal>&lt;interfaces&gt;...&lt;/interfaces&gt;</literal>
      tags.
@@ -341,6 +333,23 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
           Required.
          </para>
         </entry>
+      </row>
+      <row>
+        <entry>
+         <para>
+          <literal>lladdr</literal>
+         </para>
+        </entry>
+        <entry>
+         <para>
+          Link layer address (MAC address).
+         </para>
+        </entry>
+        <entry>
+          <para>
+            Optional.
+         </para>
+        </entry>
        </row>
        <row>
         <entry>
@@ -368,7 +377,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          Remote IP address for Point-to-Point connections.
+          Remote IP address for point-to-point connections.
          </para>
         </entry>
         <entry>
@@ -467,8 +476,8 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
            <listitem>
             <para>
              <literal>nfsroot</literal> when the device is needed to mount the
-             root file system, for example, when <literal>/</literal> is on a NFS
-             volume.
+             root file system, for example, when <literal>/</literal> is on an
+             NFS volume.
             </para>
            </listitem>
            <listitem>
@@ -618,7 +627,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          Used only with <literal>vlan</literal> device.
+          Used only with a <literal>vlan</literal> device.
          </para>
         </entry>
        </row>
@@ -669,7 +678,8 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          Used only with <literal>bridge</literal> device and required for it.
+          Used only with a <literal>bridge</literal> device and required for
+          it.
          </para>
         </entry>
        </row>
@@ -711,96 +721,125 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
        <!-- TODO: all wireless attributes, but not so many users configure wireless with autoyast -->
       </tbody>
      </tgroup>
-    </informaltable>
-   </sect2>
+   </informaltable>
+
+    <example xml:id="ex-ay-network-config-bond">
+     <title>Bonding interface configuration</title>
+<screen>
+&lt;networking&gt;
+  &lt;setup_before_proposal config:type="boolean"&gt;false&lt;/setup_before_proposal&gt;
+  &lt;keep_install_network config:type="boolean"&gt;false&lt;/keep_install_network&gt;
+  &lt;interfaces config:type="list"&gt;
+    &lt;interface&gt;
+      &lt;bonding_master&gt;yes&lt;/bonding_master&gt;
+      &lt;bonding_module_opts&gt;mode=active-backup miimon=100&lt;/bonding_module_opts&gt;
+      &lt;bonding_slave0&gt;eth1&lt;/bonding_slave0&gt;
+      &lt;bonding_slave0&gt;eth2&lt;/bonding_slave0&gt;
+      &lt;bondoption&gt;mode=balance-rr miimon=100&lt;/bondoption&gt;
+      &lt;bootproto&gt;static&lt;/bootproto&gt;
+      &lt;name&gt;bond0&lt;/name&gt;
+      &lt;ipaddr&gt;&subnetI;.61&lt;/ipaddr&gt;
+      &lt;prefixlen&gt;24&lt;/prefixlen&gt;
+      &lt;startmode&gt;auto&lt;/startmode&gt;
+    &lt;/interface&gt;
+    &lt;interface&gt;
+      &lt;bootproto&gt;none&lt;/bootproto&gt;
+      &lt;name&gt;eth1&lt;/name&gt;
+      &lt;startmode&gt;auto&lt;/startmode&gt;
+    &lt;/interface&gt;
+    &lt;interface&gt;
+      &lt;bootproto&gt;none&lt;/bootproto&gt;
+      &lt;name&gt;eth2&lt;/name&gt;
+      &lt;startmode&gt;auto&lt;/startmode&gt;
+    &lt;/interface&gt;
+  &lt;/interfaces&gt;
+  &lt;net-udev config:type="list"&gt;
+    &lt;rule&gt;
+      &lt;name&gt;eth1&lt;/name&gt;
+      &lt;rule&gt;ATTR{address}&lt;/rule&gt;
+      &lt;value&gt;dc:e4:cc:27:94:c7&lt;/value&gt;
+    &lt;/rule&gt;
+    &lt;rule&gt;
+      &lt;name&gt;eth2&lt;/name&gt;
+      &lt;rule&gt;ATTR{address}&lt;/rule&gt;
+      &lt;value&gt;dc:e4:cc:27:94:c8&lt;/value&gt;
+    &lt;/rule&gt;
+  &lt;/net-udev&gt;
+&lt;/networking&gt;
+</screen>
+    </example>
+
+   <example xml:id="ex-ay-network-config-bridge">
+     <title>Bridge interface configuration</title>
+<screen>
+&lt;interfaces config:type="list"&gt;
+  &lt;interface&gt;
+    &lt;name&gt;br0&lt;/name&gt;
+    &lt;bootproto&gt;static&lt;/bootproto&gt;
+    &lt;bridge&gt;yes&lt;/bridge&gt;
+    &lt;bridge_forwarddelay&gt;0&lt;/bridge_forwarddelay&gt;
+    &lt;bridge_ports&gt;eth0 eth1&lt;/bridge_ports&gt;
+    &lt;bridge_stp&gt;off&lt;/bridge_stp&gt;
+    &lt;ipaddr&gt;&subnetI;.100&lt;/ipaddr&gt;
+    &lt;prefixlen&gt;24&lt;/prefixlen&gt;
+    &lt;startmode&gt;auto&lt;/startmode&gt;
+  &lt;/interface&gt;
+  &lt;interface&gt;
+    &lt;name&gt;eth0&lt;/name&gt;
+    &lt;bootproto&gt;none&lt;/bootproto&gt;
+    &lt;startmode&gt;hotplug&lt;/startmode&gt;
+  &lt;/interface&gt;
+  &lt;interface&gt;
+    &lt;name&gt;eth1&lt;/name&gt;
+    &lt;bootproto&gt;none&lt;/bootproto&gt;
+    &lt;startmode&gt;hotplug&lt;/startmode&gt;
+  &lt;/interface&gt;
+&lt;/interfaces&gt;
+</screen>
+   </example>
+  </sect2>
 
    <sect2 xml:id="CreateProfile-Network-names">
-    <title>Persistent Names of Network Interfaces</title>
+    <title>Persistent names of network interfaces</title>
     <para>
-     The <literal>net-udev</literal> element allows to specify a set of udev rules that can be used to
-     assign persistent names to interfaces.
+     The <literal>net-udev</literal> element allows to specify a set of udev
+     rules that can be used to assign persistent names to interfaces.
     </para>
-    <informaltable>
-     <tgroup cols="3">
-      <thead>
-       <row>
-        <entry>
-         <para>
-          Element
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Description
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Comment
-         </para>
-        </entry>
-       </row>
-      </thead>
-      <tbody>
-       <row>
-        <entry>
-         <para>
-          <literal>name</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Network interface name, for example <literal>eth3</literal>.
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Required.
-         </para>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          <literal>rule</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>
-          <literal>ATTR{address}</literal> for a MAC based rule,
-          <literal>KERNELS</literal> for a bus ID based rule.
-         </para>
-        </entry>
-        <entry>
-         <para>
-          required
-         </para>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          <literal>value</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>
-          for example <literal>f0:de:f1:6b:da:69</literal> for a MAC rule,
-          <literal>0000:00:1c.1 or 0.0.0700</literal> for a bus ID rule
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Required.
-         </para>
-        </entry>
-       </row>
-      </tbody>
-     </tgroup>
-    </informaltable>
 
+    <variablelist>
+     <varlistentry>
+      <term>name</term>
+      <listitem>
+       <para>
+        Network interface name, for example <literal>eth3</literal>. (Required.)
+       </para>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>rule</term>
+      <listitem>
+       <para>
+        <literal>ATTR{address}</literal> for a MAC-based rule,
+        <literal>KERNELS</literal> for a bus-ID-based rule. (Required.)
+       </para>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>value</term>
+      <listitem>
+       <para>
+        For example: <literal>f0:de:f1:6b:da:69</literal> for a MAC rule,
+        <literal>0000:00:1c.1 or 0.0.0700</literal> for a bus ID rule.
+        (Required.)
+       </para>
+      </listitem>
+     </varlistentry>
+     
+    </variablelist>
     <tip>
-     <title>Handling Collisions in Device Names</title>
+     <title>Handling collisions in device names</title>
      <para>
       When creating an incomplete <emphasis>udev</emphasis> rule set, the
       chosen device name can collide with existing device names. For
@@ -812,7 +851,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
     </tip>
 
     <example>
-     <title>Assigning a Persistent Name Using the MAC Address</title>
+     <title>Assigning a persistent name using the MAC address</title>
 <screen>&lt;net-udev config:type="list"&gt;
   &lt;rule&gt;
   &lt;name&gt;eth1&lt;/name&gt;
@@ -824,400 +863,224 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
    </sect2>
 
    <sect2 xml:id="CreateProfile-Network-DNS">
-    <title>Domain Name System</title>
+    <title>Domain name system</title>
     <para>
      The <literal>dns</literal> section is used to define name-service related
-     settings, such as the host name, or name servers.
+     settings, such as the host name or name servers.
     </para>
-
-    <informaltable>
-     <tgroup cols="3">
-      <thead>
-       <row>
-        <entry>
-         <para>
-          Element
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Description
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Comment
-         </para>
-        </entry>
-       </row>
-      </thead>
-      <tbody>
-       <row>
-        <entry>
-         <para>
-          <literal>hostname</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Host name, excluding the domain name part. For example:
-          <literal>foo</literal> (instead of <literal>foo.bar</literal>).
-          </para>
-        </entry>
-        <entry>
-         <para>
-          If a host name is not specified and is not taken from a DHCP server (see <literal>dhcp_hostname</literal>),
-          &ay; will generate a random one.
-         </para>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          <literal>nameservers</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>
-          List of name servers. Example:
+    
+    <variablelist>
+     <varlistentry>
+      <term>hostname</term>
+      <listitem>
+       <para>
+        Host name, excluding the domain name part. For example:
+        <literal>foo</literal> (instead of <literal>foo.bar</literal>).
+       </para>
+        <para>
+         If a host name is not specified and is not taken from a DHCP server
+         (see <literal>dhcp_hostname</literal>), &ay; will generate a random one.
         </para>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>nameservers</term>
+      <listitem>
+       <para>
+        List of name servers. Example:
+       </para>
 <screen>&lt;nameservers config:type="list"&gt;
   &lt;nameserver&gt;&dnsip;&lt;/nameserver&gt;
   &lt;nameserver&gt;&dnsip117;&lt;/nameserver&gt;
 &lt;/nameservers&gt;</screen>
-        </entry>
-        <entry>
-         <para>
-         </para>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          <literal>searchlist</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Search list for host name lookup.
-         </para>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>searchlist</term>
+      <listitem>
+       <para>
+        Search list for host name lookup.
+       </para>
 <screen>&lt;searchlist config:type="list"&gt;
   &lt;search&gt;&exampledomain;&lt;/search&gt;
 &lt;/searchlist&gt;</screen>
-        </entry>
-        <entry>
-         <para>
-          Optional.
-         </para>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          <literal>dhcp_hostname</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Specifies whether the host name must be taken from DHCP or not.
-         </para>
+       <para>
+        Optional.
+       </para>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>dhcp_hostname</term>
+      <listitem>
+       <para>
+        Specifies whether the host name must be taken from DHCP or not.
+       </para>
 <screen>&lt;dhcp_hostname config:type="boolean"&gt;true&lt;/dhcp_hostname&gt;</screen>
-        </entry>
-        <entry>
-         <para>
-         </para>
-        </entry>
-       </row>
-      </tbody>
-     </tgroup>
-    </informaltable>
+      </listitem>
+     </varlistentry>
+     
+    </variablelist>
    </sect2>
 
    <sect2 xml:id="CreateProfile-Network-Routing">
     <title>Routing</title>
     <para>
-     The <literal>routing</literal> table allows to specify a list of routes and
-     the packets forwarding settings for IPv4 and IPv6.
+     The <literal>routing</literal> table allows specification of a list of
+     routes and the packet-forwarding settings for IPv4 and IPv6.
     </para>
-
-    <informaltable>
-     <tgroup cols="3">
-      <thead>
-       <row>
-        <entry>
-         <para>
-          Element
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Description
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Comment
-         </para>
-        </entry>
-       </row>
-      </thead>
-      <tbody>
-       <row>
-        <entry>
-         <para>
-          <literal>ipv4_forward</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>Whether IP forwarding must be enabled for IPv4.</para>
-        </entry>
-        <entry>
-         <para>Optional.</para>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          <literal>ipv6_forward</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>Whether IP forwarding must be enabled for IPv6.</para>
-        </entry>
-        <entry>
-         <para>Optional.</para>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          <literal>routes</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>List of routes.</para>
-        </entry>
-        <entry>
-         <para>Optional.</para>
-        </entry>
-       </row>
-      </tbody>
-     </tgroup>
-    </informaltable>
+   
+    <variablelist>
+     <varlistentry>
+      <term>ipv4_forward</term>
+      <listitem>
+       <para>
+        Optional: Whether IP forwarding must be enabled for IPv4.
+       </para>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>ipv6_forward</term>
+      <listitem>
+       <para>
+        Optional: Whether IP forwarding must be enabled for IPv6.
+       </para>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>routes</term>
+      <listitem>
+       <para>
+        Optional: List of routes.
+       </para>
+      </listitem>
+     </varlistentry>
+     
+     
+    </variablelist>
 
     <para>
-     The following table describes how routes are defined.
+     The following settings describe how routes are defined.
     </para>
-
-    <informaltable>
-     <tgroup cols="3">
-      <thead>
-       <row>
-        <entry>
-         <para>
-          Element
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Description
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Comment
-         </para>
-        </entry>
-       </row>
-      </thead>
-      <tbody>
-       <row>
-        <entry>
-         <para>
-          <literal>destination</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>Route destination. An address prefix can be specified, for
-          example: <literal>192.168.122.0/24</literal>.</para>
-        </entry>
-        <entry>
-         <para>Required.</para>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          <literal>device</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>Interface associated to the route.</para>
-        </entry>
-        <entry>
-         <para>Required.</para>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          <literal>gateway</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>Gateway's IP address.</para>
-        </entry>
-        <entry>
-         <para>Optional.</para>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          <literal>netmask</literal>
-         </para>
-        </entry>
-        <entry>
-         <para>Destination's netmask.</para>
-        </entry>
-        <entry>
-         <para>Deprecated. Specifying the prefix as part of the <literal>destination</literal> value
-         is preferred.</para>
-        </entry>
-       </row>
-      </tbody>
-     </tgroup>
-    </informaltable>
+    
+    <variablelist>
+     <varlistentry>
+      <term>destination</term>
+      <listitem>
+       <para>
+        Required: Route destination. An address prefix can be specified, for
+        example: <literal>192.168.122.0/24</literal>.
+       </para>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>device</term>
+      <listitem>
+       <para>
+        Required: Interface associated to the route.
+       </para>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>gateway</term>
+      <listitem>
+       <para>
+        Optional: Gateway's IP address.
+       </para>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>netmask</term>
+      <listitem>
+       <para>
+        (Deprecated.) Destination's netmask.
+       </para>
+       <para>
+        Specifying the prefix as part of the <literal>destination</literal>
+        value is preferred.
+       </para>
+      </listitem>
+     </varlistentry>
+     
+    </variablelist>
    </sect2>
 
    <sect2 xml:id="CreateProfile-Network-s390">
-    <title>s390 Options</title>
+    <title>s390 options</title>
     <para>
      The following elements must be between the
-     &lt;s390-devices&gt;...&lt;/s390-devices&gt; tags.
+     &lt;<literal>s390-devices</literal>&gt;...
+     &lt;/<literal>s390-devices</literal>&gt; tags.
     </para>
-    <informaltable>
-     <tgroup cols="3">
-      <thead>
-       <row>
-        <entry>
-         <para>
-          Element
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Description
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Comment
-         </para>
-        </entry>
-       </row>
-      </thead>
-      <tbody>
-       <row>
-        <entry>
-         <para>
-          type
-         </para>
-        </entry>
-        <entry>
-         <para>
-          qeth, ctc or iucv
-         </para>
-        </entry>
-        <entry>
-         <para/>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          chanids
-         </para>
-        </entry>
-        <entry>
-         <para>
-          channel ids separated by spaces
-         </para>
-<screen>&lt;chanids&gt;0.0.0700 0.0.0701 0.0.0702&lt;/chanids&gt;</screen>
-        </entry>
-        <entry>
-         <para/>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          layer2
-         </para>
-        </entry>
-        <entry>
-         <para/>
+ 
+    <variablelist>
+     <varlistentry>
+      <term>type</term>
+      <listitem>
+       <para>
+        <literal>qeth</literal>, <literal>ctc</literal> or
+        <literal>iucv</literal>.
+       </para>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>chanids</term>
+      <listitem>
+       <para>
+        channel IDs, separated by a colon (preferred) or a space
+       </para>
+<screen>&lt;chanids&gt;0.0.0700:0.0.0701:0.0.0702&lt;/chanids&gt;</screen>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>layer2</term>
+      <listitem>
 <screen>&lt;layer2 config:type="boolean"&gt;true&lt;/layer2&gt;</screen>
-        </entry>
-        <entry>
-         <para>
-          boolean; default: false
-         </para>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          portname
-         </para>
-        </entry>
-        <entry>
-         <para>
-          QETH port name (deprecated since <phrase os="sles;sled">SLE 12
-          SP2</phrase><phrase os="osuse">openSUSE 42.2</phrase>)
-         </para>
-        </entry>
-        <entry>
-         <para/>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          protocol
-         </para>
-        </entry>
-        <entry>
-         <para>
-          CTC / LCS protocol, a small number (as a string)
-         </para>
+        <para>
+         boolean; default: <literal>false</literal>
+        </para>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>portname</term>
+      <listitem>
+       <para>
+        QETH port name (deprecated since <phrase os="sles;sled">SLE 12
+        SP2</phrase><phrase os="osuse">openSUSE 42.2</phrase>)
+       </para>
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>protocol</term>
+      <listitem>
+       <para>
+        Optional: CTC / LCS protocol, a small number (as a string)
+       </para>
 <screen>&lt;protocol&gt;1&lt;/protocol&gt;</screen>
-        </entry>
-        <entry>
-         <para>
-          optional
-         </para>
-        </entry>
-       </row>
-       <row>
-        <entry>
-         <para>
-          router
-         </para>
-        </entry>
-        <entry>
-         <para>
-          IUCV router/user
-         </para>
-        </entry>
-        <entry>
-         <para/>
-        </entry>
-       </row>
-      </tbody>
-     </tgroup>
-    </informaltable>
-
+      </listitem>
+     </varlistentry>
+     
+     <varlistentry>
+      <term>router</term>
+      <listitem>
+       <para>
+        IUCV router/user
+       </para>
+      </listitem>
+     </varlistentry>
+     
+    </variablelist>
     <para>
      In addition to the options mentioned above, &ay; also supports
      &zseries;-specific options in other sections of the configuration file.
@@ -1250,7 +1113,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
      <literal>proxy_user</literal> and <literal>proxy_password</literal>,
     </para>
     <example>
-     <title>Network configuration: Proxy</title>
+     <title>Network configuration: proxy</title>
 <screen>&lt;proxy&gt;
   &lt;enabled config:type="boolean"&gt;true&lt;/enabled&gt;
   &lt;ftp_proxy&gt;http://192.168.1.240:3128&lt;/ftp_proxy&gt;
@@ -1265,8 +1128,8 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
    <sect2 xml:id="Configuration-Network-Inetd">
     <title>(X)Inetd</title>
     <para>
-     The control file has elements to specify which superserver should be
-     used (netd_service), whether it should be enabled (netd_status) and how
+     The profile has elements to specify which superserver should be used
+     (netd_service), whether it should be enabled (netd_status) and how
      the services should be configured (netd_conf).
     </para>
     <para>
@@ -1290,7 +1153,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
     </para>
 
     <example>
-     <title>Inetd Example</title>
+     <title>Inetd example</title>
 <screen>&lt;profile&gt;
   &lt;inetd&gt;
     &lt;netd_service config:type="symbol"&gt;xinetd&lt;/netd_service&gt;

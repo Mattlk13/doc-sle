@@ -7,7 +7,7 @@
 
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="chap-virtualization-introduction">
 <!-- I/O virtualization -->
- <title>Virtualization Technology</title>
+ <title>Virtualization technology</title>
  <info>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
    <dm:bugtracker>
@@ -59,7 +59,7 @@
    Both hypervisors support virtualization on the &x86-64; architecture. For the
    &power; architecture, &kvm; is supported. Both &xen; and &kvm; support full
    virtualization mode. In addition, &xen; supports paravirtualized
-   mode, and you can run both paravirtualized and fully-virtualized guests
+   mode, and you can run both paravirtualized and fully virtualized guests
    on the same host.
    </para>
    <para>
@@ -77,56 +77,8 @@
    acts as the hypervisor, the management components run directly on the VHS.
   </para>
  </sect1>
- <sect1 xml:id="sec-virtualization-introduction-capabilities">
-  <title>Virtualization Capabilities</title>
-
-  <para>
-   Virtualization design provides many capabilities to your
-   organization. Virtualization of operating systems is used in many
-   computing areas:
-  </para>
-
-  <itemizedlist mark="bullet" spacing="normal">
-   <listitem>
-    <para>
-     Server consolidation: Many servers can be replaced by one big physical
-     server, so hardware is consolidated, and Guest Operating Systems are
-     converted to virtual machine. It provides the ability to run legacy
-     software on new hardware.
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Isolation: guest operating system can be fully isolated from the Host
-     running it. So if the virtual machine is corrupted, the Host system is
-     not harmed.
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Migration: A process to move a running virtual machine to another
-     physical machine. Live migration is an extended feature that allows
-     this move without disconnection of the client or the application.
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Disaster recovery: <xref linkend="gloss-vt-virtualized"/> guests are
-     less dependent on the hardware, and the Host server provides snapshot
-     features to be able to restore a known running system without any
-     corruption.
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     Dynamic load balancing: A migration feature that brings a simple way to
-     load-balance your service across your infrastructure.
-    </para>
-   </listitem>
-  </itemizedlist>
- </sect1>
  <sect1 xml:id="sec-virtualization-introduction-benefits">
-  <title>Virtualization Benefits</title>
+  <title>Virtualization benefits</title>
 
   <para>
    Virtualization brings a lot of advantages while providing the same
@@ -176,7 +128,7 @@
   </itemizedlist>
  </sect1>
  <sect1 xml:id="sec-virtualization-introduction-fvpv">
-  <title>Virtualization Modes</title>
+  <title>Virtualization modes</title>
 
   <para>
    Guest operating systems are hosted on virtual machines in either full

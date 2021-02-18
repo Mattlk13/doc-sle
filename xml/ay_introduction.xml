@@ -30,9 +30,9 @@
    <para>
     To avoid this, you could do mass deployments by copying the hard disk of
     the first successful installation. Unfortunately, that leads to the issue
-    that even minute configuration changes between each machine have to later
+    that even minute configuration changes between each machine need to later
     be dealt with individually. For example, when using static IP addresses,
-    these IP addresses would have to be reset for each machine.
+    these IP addresses would need to be reset for each machine.
    </para>
 
    <para>
@@ -48,10 +48,9 @@
 
    <para>
     &ay; can be used where no user intervention is required or where
-    customization is required. Using an &ay; control file, &yast;
-    prepares the system for a custom installation and does not interact
-    with the user, unless specified in the file controlling the
-    installation.
+    customization is required. Using an &ay; profile, &yast; prepares
+    the system for a custom installation and does not interact with
+    the user, unless specified in the file controlling the installation.
    </para>
 
    <para>
@@ -63,16 +62,16 @@
    </para>
   </sect1>
 <sect1 xml:id="overviewandconcept">
-   <title>Overview and Concept</title>
+   <title>Overview and concept</title>
 
    <para>
     Using &ay;, multiple systems can easily be installed in parallel and
     quickly. They need to share the same environment and similar, but not
     necessarily identical, hardware. The installation is defined by an XML
     configuration file (usually named <filename>autoinst.xml</filename>)
-    called the <quote>&ay; control file</quote>. It can initially be
-    created using existing configuration resources easily be tailored for
-    any specific environment.
+    called the <quote>&ay; profile</quote>. You can create this 
+    using existing configuration resources, and easily tailor it for any
+    specific environment.
    </para>
 
    <para>
@@ -92,45 +91,47 @@
     <listitem>
      <para>
       Preparation: All relevant information about the target system is
-      collected and turned into the appropriate directives of the control
-      file. The control file is transferred onto the target system where its
+      collected and turned into the appropriate directives in the profile.
+      The profile is transferred onto the target system where its
       directives will be parsed and fed into &yast;.
      </para>
     </listitem>
     <listitem>
      <para>
-      Installation: &yast; performs the installation of the basic system
-      using the data from the &ay; control file.
+      Installation: &yast; performs the installation and basic configuration
+      (e.g. partitioning, networking, firewall) of the target system using the
+      data from the &ay; profile.
      </para>
     </listitem>
     <listitem>
      <para>
-      Configuration: After the installation of the basic system, the system
-      configuration is performed in the second stage of the installation.
-      User-defined post-installation scripts from the &ay; control file
-      will also be executed at this stage.
-     </para>
+      Post-configuration: After the installation and configuration of the
+      basic system, the system can run a second stage in order to perform
+      any aditional configuration that requires the target system to be already
+      running, such as post-installation scripts, third party modules or even
+      some &yast; module.
+    </para>
     </listitem>
    </itemizedlist>
 
    <note>
-    <title>Second Stage</title>
+    <title>Second stage</title>
     <para>
      A regular installation of &productname; &productnumber; is
      performed in a single stage. The auto-installation process, however, is
-     divided into two stages. After the installation of the basic system the
-     system boots into the second stage where the system configuration is
-     done.
+     divided into two stages. After the installation and main configuration
+     of the basic system, it is booted into a second stage in order to perform
+     any post-installation configuration steps.
     </para>
     <para>
      The packages <literal>autoyast2</literal> and
-     <literal>autoyast2-installation</literal> have to be installed to run
+     <literal>autoyast2-installation</literal> need to be installed to run
      the second stage in the installed system correctly. Otherwise an error
      will be shown before booting into the installed system.
     </para>
     <para>
-     The second stage can be turned off with the
-     <literal>second_stage</literal> parameter:
+     The second stage runs only if it is strictly necessary, and the second stage can be turned
+     off completely with the <literal>second_stage</literal> parameter:
     </para>
 <screen>&lt;general&gt;
   &lt;mode&gt;
@@ -139,22 +140,5 @@
   &lt;/mode&gt;
 &lt;/general&gt;</screen>
    </note>
-
-   <para>
-    The complete and detailed process is illustrated in the following
-    figure:
-   </para>
-
-   <figure xml:id="process">
-    <title>Auto-installation process</title>
-    <mediaobject>
-     <imageobject role="html">
-      <imagedata fileref="autoyast-oview.png"/>
-     </imageobject>
-     <imageobject role="fo">
-      <imagedata fileref="autoyast-oview.png" width="75%"/>
-     </imageobject>
-    </mediaobject>
-   </figure>
   </sect1>
  </chapter>

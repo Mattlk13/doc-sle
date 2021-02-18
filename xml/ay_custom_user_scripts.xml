@@ -9,7 +9,7 @@
   xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink">
-  <title>Custom User Scripts</title>
+  <title>Custom user scripts</title>
 
  <info>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -67,7 +67,7 @@
    </itemizedlist>
 
    <sect2 xml:id="pre-install-scripts">
-    <title>Pre-Install Scripts</title>
+    <title>Pre-install scripts</title>
     <para>
      Executed before &yast; does any real change to the system (before
      partitioning and package installation but after the hardware
@@ -88,7 +88,7 @@
      pre-install scripts.
     </para>
     <note>
-     <title>Pre-Install Scripts with Confirmation</title>
+     <title>Pre-install scripts with confirmation</title>
      <para>
       Pre-scripts are executed at an early stage of the installation. This
       means if you have requested to confirm the installation, the
@@ -97,7 +97,7 @@
      </para>
     </note>
     <note>
-     <title>Pre-Install and Zypper</title>
+     <title>Pre-install and Zypper</title>
      <para>
       To call <emphasis>zypper</emphasis> in the pre-install
       script you will need to set the environment variable <emphasis>ZYPP_LOCKFILE_ROOT="/var/run/autoyast"</emphasis>
@@ -117,7 +117,7 @@
    </sect2>
 
    <sect2 xml:id="postpartitioning-install-scripts">
-    <title>Post-partitioning Scripts</title>
+    <title>Post-partitioning scripts</title>
     <para>
      Executed after &yast; has done the partitioning and written
      <filename>/etc/fstab</filename>. The empty system is already mounted to
@@ -136,7 +136,7 @@
    </sect2>
 
    <sect2 xml:id="chroot-scripts">
-    <title>Chroot Environment Scripts</title>
+    <title>Chroot environment scripts</title>
     <para>
      Chroot scripts are executed before the machine reboots for the first
      time. You can execute chroot scripts before the installation chroots
@@ -157,7 +157,7 @@
    </sect2>
 
    <sect2 xml:id="post-install-scripts">
-    <title>Post-Install Scripts</title>
+    <title>Post-install scripts</title>
     <para>
      These scripts are executed after &ay; has completed the system
      configuration and after it has booted the system for the first time.
@@ -175,7 +175,7 @@
    </sect2>
 
    <sect2 xml:id="init-scripts">
-    <title>Init Scripts</title>
+    <title>Init scripts</title>
     <para>
      These scripts are executed when &yast; has finished, during the
      initial boot process after the network has been initialized. These
@@ -185,11 +185,20 @@
      <emphasis>init-scripts</emphasis>.
     </para>
     <para>
-     The following elements must be between the
-     &lt;scripts&gt;&lt;init-scripts
-     config:type="list"&gt;&lt;script&gt; ...
-     &lt;/script&gt;&lt;/init-scripts&gt;...&lt;/scripts&gt;
-     tags
+     Init scripts elements must be placed as follows:
+    </para>
+<screen>&lt;scripts&gt;
+    &lt;init-scripts config:type="list"&gt;
+      &lt;script&gt;
+        ...
+      &lt;/script&gt;
+    &lt;/init-scripts&gt;
+&lt;/scripts&gt;</screen>
+
+    <para>
+     Init scripts are different from the rest of script types because they are
+     not executed by &yast;, but after &yast; has finished. For this reason,
+     their XML representation is different from other script types.
     </para>
     <table>
      <title>Init script XML representation</title>
@@ -315,14 +324,25 @@ echo "Testing the init script" &gt;
    </sect2>
 
    <sect2 xml:id="scripts-syntax">
-    <title>Script XML Representation</title>
+    <title>Script XML representation</title>
     <para>
-     The XML elements described below can be used for all the script types
-     described above, except for the <literal>chrooted</literal> element,
-     which can only be used in chroot scripts.
+     Most of the XML elements described below can be used for all the script
+     types described above, except for <emphasis>init scripts</emphasis>, whose
+     definitions can contain only a subset of these elements. See <xref
+     linkend="init-scripts" /> for further information about them.
     </para>
+    <important>
+      <title>Deprecated elements</title>
+      <para>
+       <literal>debug</literal> is a deprecated element and can be removed in future
+       releases. To adapt, use an interpreter-specific debugging parameter in <literal>interpreter</literal>.
+       E.g. instead of "&lt;interpreter&gt;shell&lt;/interpreter&gt; use
+       &lt;interpreter&gt;/bin/sh -x&lt;/interpreter&gt; for the same result
+       as having enabled the <literal>debug</literal> flag.
+      </para>
+    </important>
     <table>
-     <title>Script XML Representation</title>
+     <title>Script XML representation</title>
      <tgroup cols="3">
       <colspec colwidth="1*"/>
       <colspec colwidth="3*"/>
@@ -357,6 +377,9 @@ echo "Testing the init script" &gt;
          <para>
           Define a location from where the script gets fetched. Locations
           can be the same as for the control file (HTTP, FTP, NFS, etc.).
+          Additionally a relative URL can be used that defines a path relative to
+          the directory with the control file, using the
+          syntax <literal>relurl://script.sh</literal>.
          </para>
 <screen>&lt;location
 &gt;http://10.10.0.1/myPreScript.sh&lt;/location&gt;</screen>
@@ -402,10 +425,12 @@ echo "Testing the pre script" &gt; /tmp/pre-script_out.txt
         <entry>
          <para>
           Specify the interpreter that must be used for the script.
-          Supported options are <literal>shell</literal> and
-          <literal>perl</literal>.
+          Any interpreter available in the given environment can be specified.
+          It is possible to provide a full path to the interpreter, including parameters.
+          There are also deprecated keywords interpreter "shell", "perl" and "python" that are
+          supported by <literal>debug</literal> flag.
          </para>
-<screen>&lt;interpreter&gt;perl&lt;/interpreter&gt;</screen>
+<screen>&lt;interpreter&gt;/bin/bash -x&lt;/interpreter&gt;</screen>
         </entry>
         <entry>
          <para>
@@ -430,7 +455,9 @@ echo "Testing the pre script" &gt; /tmp/pre-script_out.txt
          <para>
           Optional; default is the type of the script (pre-scripts in this
           case). If you have more than one script, you should define
-          different names for each script.
+          different names for each script. If <literal>filename</literal>
+          is not defined and <literal>location</literal> is defined,
+          the filename from the location path will be used.
          </para>
         </entry>
        </row>
@@ -484,6 +511,9 @@ echo "Testing the pre script" &gt; /tmp/pre-script_out.txt
          <para>
           If this is <literal>true</literal>, every single line of a shell
           script is logged. Perl scripts are run with warnings turned on.
+          This only works for the deprecated keyword <literal>interpreter</literal>.
+          For other languages, give the path to the interpreter as a parameter in the 
+          <literal>interpreter</literal> value, for example "&lt;interpreter&gt;ruby -w&lt;/interpreter&gt;".
          </para>
 <screen>&lt;debug config:type="boolean"&gt;true&lt;/debug&gt;</screen>
         </entry>
@@ -573,7 +603,7 @@ echo "Testing the pre script" &gt; /tmp/pre-script_out.txt
           run <command>chroot</command> and does not install the boot loader
           at this stage. If the parameter is set to <literal>true</literal>, &ay;
           performs a <command>chroot</command> into <filename>/mnt</filename> and
-          installs the boot loader. The result is that if you want to change
+          installs the boot loader. The result is that to change
           anything in the newly-installed system, you no longer need to use the
           <filename>/mnt</filename> prefix.
          </para>
@@ -593,9 +623,9 @@ echo "Testing the pre script" &gt; /tmp/pre-script_out.txt
    </sect2>
 
    <sect2 xml:id="script-examples">
-    <title>Script Example</title>
+    <title>Script example</title>
     <example>
-     <title>Script Configuration</title>
+     <title>Script configuration</title>
 <screen>&lt;?xml version="1.0"?&gt;
 &lt;!DOCTYPE profile&gt;
 &lt;profile xmlns="http://www.suse.com/1.0/yast2ns" xmlns:config="http://www.suse.com/1.0/configns"&gt;
@@ -603,20 +633,18 @@ echo "Testing the pre script" &gt; /tmp/pre-script_out.txt
   &lt;chroot-scripts config:type="list"&gt;
     &lt;script&gt;
       &lt;chrooted config:type="boolean"&gt;true&lt;/chrooted&gt;
-      &lt;filename&gt;chroot.sh&lt;/filename&gt;
+      &lt;filename&gt;chroot-post.sh&lt;/filename&gt;
       &lt;interpreter&gt;shell&lt;/interpreter&gt;
       &lt;source&gt;&lt;![CDATA[
-#!/bin/sh
 echo "Testing chroot (chrooted) scripts"
 ls
 ]]&gt;
       &lt;/source&gt;
     &lt;/script&gt;
     &lt;script&gt;
-      &lt;filename&gt;chroot.sh&lt;/filename&gt;
-        &lt;interpreter&gt;shell&lt;/interpreter&gt;
+      &lt;filename&gt;chroot-pre.sh&lt;/filename&gt;
+        &lt;interpreter&gt;/bin/bash -x&lt;/interpreter&gt;
         &lt;source&gt;&lt;![CDATA[
-#!/bin/sh
 echo "Testing chroot scripts"
 df
 cd /mnt
@@ -630,8 +658,6 @@ ls
         &lt;filename&gt;post.sh&lt;/filename&gt;
         &lt;interpreter&gt;shell&lt;/interpreter&gt;
         &lt;source&gt;&lt;![CDATA[
-#!/bin/sh
-
 echo "Running Post-install script"
 systemctl start portmap
 mount -a 192.168.1.1:/local /mnt
@@ -644,9 +670,7 @@ umount /mnt
         &lt;filename&gt;post.pl&lt;/filename&gt;
         &lt;interpreter&gt;perl&lt;/interpreter&gt;
         &lt;source&gt;&lt;![CDATA[
-#!/usr/bin/perl
 print "Running Post-install script";
-
 ]]&gt;
         &lt;/source&gt;
       &lt;/script&gt;
@@ -660,7 +684,6 @@ print "Running Post-install script";
         &lt;filename&gt;pre.sh&lt;/filename&gt;
         &lt;interpreter&gt;shell&lt;/interpreter&gt;
         &lt;source&gt;&lt;![CDATA[
-#!/bin/sh
 echo "Running pre-install script"
 ]]&gt;
         &lt;/source&gt;
@@ -689,9 +712,14 @@ echo Hi
      and the output logs in the <filename>log</filename> directory.
     </para>
     <para>
-     The log consists of the output produced when executing the shell
-     scripts using the following command:
+     The log consists of the output produced when executing the
+     scripts, containing a combination of both the standard output
+     and the standard error output.
     </para>
-<screen>/bin/sh -x <replaceable>SCRIPT_NAME</replaceable> 2&amp;&gt;/var/adm/autoinstall/logs/<replaceable>SCRIPT_NAME</replaceable>.log</screen>
+    <para>
+     If the script ends with a non-zero exit code, then a warning will
+     be shown with the content of the logs, unless the <literal>feedback</literal>
+     option was provided.
+    </para>
    </sect2>
   </sect1>

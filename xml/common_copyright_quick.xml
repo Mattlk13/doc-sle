@@ -6,7 +6,7 @@
 ]>
 
 <sect1 xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
- <title>Legal Notice</title>
+ <title>Legal notice</title>
 
  <info>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -31,7 +31,7 @@
 
  <para>
   For &suse; trademarks, see
-  <link xlink:href="http://www.suse.com/company/legal/"/>. All other
+  <link xlink:href="https://www.suse.com/company/legal/"/>. All other
   third-party trademarks are the property of their respective owners. Trademark
   symbols (&reg;, &trade; etc.) denote trademarks of &suse; and its affiliates.
   Asterisks (*) denote third-party trademarks.

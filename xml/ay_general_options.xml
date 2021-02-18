@@ -9,7 +9,7 @@
   xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink">
-  <title>General Options</title>
+  <title>General options</title>
 
  <info>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -120,7 +120,7 @@
   </calloutlist>
 
   <sect2 xml:id="CreateProfile-General-mode">
-   <title>The Mode Section</title>
+   <title>The mode section</title>
 
    <para>
     The mode section configures the behavior of &ay; with regard to user
@@ -160,7 +160,7 @@
        finally start the installation, the user needs to confirm the settings.
        By setting this value to <literal>false</literal> the settings are
        automatically accepted and the installation starts. Only set to
-       <literal>false</literal> if you want to carry out a fully unattended
+       <literal>false</literal> to carry out a fully unattended
        installation. Setting this value is optional. The default is
        <literal>true</literal>.
       </para>
@@ -201,12 +201,11 @@
      </term>
      <listitem>
       <para>
-       If you set this to <literal>true</literal>, the machine will shut down
-       at the very end of the installation (when everything is installed and
-       configured at the end of the second stage). Setting this value is
-       optional. The default is <literal>true</literal>. It makes no sense to
-       set both this and <literal>final_reboot</literal> to
-       <literal>true</literal>.
+       When set to <literal>true</literal>, the machine shuts down
+       after everything is installed and configured at the end of the
+       second stage. If you enable <literal>final_halt</literal>, you
+       do not need to set the <literal>final_reboot</literal> option
+       to <literal>true</literal>.
       </para>
 <screen><![CDATA[<general>
  <mode>
@@ -221,11 +220,11 @@
      </term>
      <listitem>
       <para>
-       If you set this to <literal>true</literal>, the machine will reboot at
-       the end of the installation (when everything is installed and configured
-       at the end of the second stage). Setting this value is optional. The
-       default is <literal>true</literal>. It makes no sense to set both this
-       and <literal>final_halt</literal> to <literal>true</literal>.
+	When set to <literal>true</literal>, the machine reboots after
+	everything is installed and configured at the end of the
+	second stage. If you enable <literal>final_reboot</literal>,
+	you do not need to set the <literal>final_halt</literal>
+	option to <literal>true</literal>.
       </para>
 <screen><![CDATA[<general>
  <mode>
@@ -273,7 +272,7 @@
  ...
 </general>]]></screen>
       <important>
-       <title>Drivers May Need a Reboot</title>
+       <title>Drivers may need a reboot</title>
        <para>
         <remark>2013-03-18 - fs: bnc #802387</remark>
         Some drivers, for example the proprietary drivers for Nvidia and ATI
@@ -367,7 +366,7 @@
   </sect2>
 
   <sect2 xml:id="CreateProfile-General-proposal">
-   <title>Configuring the Installation Settings Screen</title>
+   <title>Configuring the installation settings screen</title>
 
    <para>
     &ay; allows you to configure the <guimenu>Installation Settings</guimenu>
@@ -389,7 +388,7 @@
   </sect2>
 
   <sect2 xml:id="CreateProfile-General-self-update">
-   <title>The Self-Update Section</title>
+   <title>The self-update section</title>
 
    <para>
     During the installation, &yast; can update itself to solve bugs in the
@@ -398,13 +397,13 @@
    </para>
 <!--taroth 2019-09-12: same note used in deployment_yast_installer.xml-->
   <important>
-   <title>Quarterly Media Update: Self-Update Disabled</title>
+   <title>Quarterly media update: self-update disabled</title>
    <para>
     The installer self-update is only available if you use the <literal>GM</literal>
     images of the &leanos; and Packages ISOs. If you install from the ISOs published
-    as quarterly update (they can be identified by the string <literal>QU</literal>
+    as quarterly updates (they can be identified by the string <literal>QU</literal>
     in the name), the installer cannot update itself, because this feature has
-    been disabled in the updated media.
+    been disabled in the update media.
    </para>
   </important>
    <para>
@@ -440,7 +439,7 @@
        For more information, refer to the &deploy;.
       </para>
       <important>
-       <title>Installer Self-Update Repository Only</title>
+       <title>Installer self-update repository only</title>
        <para>
         The <option>self_update_url</option> parameter expects only the
         installer self-update repository URL. Do not supply any other
@@ -471,11 +470,11 @@
   </sect2>
 
   <sect2 xml:id="CreateProfile-General-semi-automatic">
-   <title>The Semi-Automatic Section</title>
+   <title>The semi-automatic section</title>
 
    <para>
     &ay; offers to start some &yast; modules during the installation. This is
-    useful if you want to give the administrators installing the machine the
+    useful to give the administrators installing the machine the
     possibility to manually configure some aspects of the installation while at
     the same time automating the rest of the installation. Within the
     semi-automatic section, you can start the following &yast; modules:
@@ -511,7 +510,7 @@
   </sect2>
 
   <sect2 xml:id="CreateProfile-General-signature">
-   <title>The Signature Handling Section</title>
+   <title>The signature handling section</title>
 
    <para>
     By default &ay; will only install signed packages from sources with known
@@ -519,7 +518,7 @@
    </para>
 
    <warning>
-    <title>Overwriting the Signature Handling Defaults</title>
+    <title>Overwriting the signature handling defaults</title>
     <para>
      Installing unsigned packages, packages with failing checksum checks, or
      packages from sources you do not trust is a major security
@@ -650,7 +649,7 @@
   </sect2>
 
   <sect2 xml:id="CreateProfile-General-wait">
-   <title>The Wait Section</title>
+   <title>The wait section</title>
 
    <para>
     In the second stage of the installation the system is configured by running
@@ -726,7 +725,7 @@
   </sect2>
 
   <sect2 xml:id="CreateProfile-General-cio-ignore" arch="zseries">
-   <title>Blacklisting Unused Devices on &zseries;</title>
+   <title>Blacklisting unused devices on &zseries;</title>
 
    <para>
     On &zseries;, you can prevent the kernel from looking at unused hardware
@@ -743,14 +742,14 @@
   </sect2>
 
   <sect2 xml:id="CreateProfile-General-example-common">
-   <title>Examples for the <tag class="element">general</tag> Section</title>
+   <title>Examples for the <tag class="element">general</tag> section</title>
 
    <para>
     Find examples covering several use cases in this section.
    </para>
 
    <example xml:id="ex-general-common">
-    <title>General Options</title>
+    <title>General options</title>
     <para>
      This example shows the most commonly used options in the general section.
      The scripts in the pre- and post-modules sections are only dummy scripts
@@ -797,11 +796,6 @@
    true
    </accept_non_trusted_gpg_key>
   </signature-handling>
-  <storage>
-   <partition_alignment config:type="symbol">
-    align_cylinder
-   </partition_alignment>
-  </storage>
   <wait>
    <pre-modules config:type="list">
     <module>

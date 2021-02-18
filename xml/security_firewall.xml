@@ -6,7 +6,7 @@
 ]>
 
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="cha-security-firewall">
- <title>Masquerading and Firewalls</title>
+ <title>Masquerading and firewalls</title>
  <info>
       <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
         <dm:bugtracker>
@@ -24,18 +24,20 @@
   pass a network interface. Such a packet filter can be set up using
   &firewalld; and its graphical interface <command>firewall-config</command>.
  </para>
- <!--idx-->
  <para>
-     &sle; 15 introduces &firewalld; as the new software firewall, replacing &susefirewall;.
-      &susefirewall; has not been removed from &sle; 15 and is still in the Main
-      repository. However, it is not included in the default installation, and &firewalld;
-      is installed by default in new installations. This chapter provides guidance for 
-      configuring &firewalld;, and migrating from &susefirewall; for users who have 
-      upgraded from older &sle; releases.
-  </para>     
+  &productname; <phrase os="sles;sled">15 GA</phrase><phrase os="osuse">15.0</phrase>
+  introduces &firewalld; as the new default software firewall, replacing
+  &susefirewall;.
+  &susefirewall; has not been removed from &productname;
+  <phrase os="sles;sled">15 GA</phrase><phrase os="osuse">15.0</phrase>
+  and is still part of the main repository, though not installed by default.
+  This chapter provides guidance for configuring &firewalld;, and migrating
+  from &susefirewall; for users who have upgraded from older &productname;
+  releases.
+ </para>
 
  <sect1 xml:id="sec-security-firewall-iptables">
-  <title>Packet Filtering with iptables</title>
+  <title>Packet filtering with iptables</title>
 
   <para>
    This section discusses the low-level details of packet filtering. The
@@ -159,7 +161,7 @@
   </para>
 
   <figure xml:id="fig-fire-table">
-   <title>iptables: A Packet's Possible Paths</title>
+   <title>iptables: a packet's possible paths</title>
    <mediaobject>
     <imageobject role="fo">
      <imagedata width="75%" fileref="fire_tables.svg" format="SVG"/>
@@ -171,7 +173,7 @@
   </figure>
  </sect1>
  <sect1 xml:id="sec-security-firewall-masq">
-  <title>Masquerading Basics</title>
+  <title>Masquerading basics</title>
 
   <para>
    Masquerading is the Linux-specific form of NAT (network address
@@ -193,7 +195,7 @@
   </para>
 
   <important>
-   <title>Using the Correct Network Mask</title>
+   <title>Using the correct network mask</title>
    <para>
     When configuring your network, make sure both the broadcast address and
     the netmask are the same for all local hosts. Failing to do so prevents
@@ -238,7 +240,7 @@
   </para>
  </sect1>
  <sect1 xml:id="sec-security-firewall-fw">
-  <title>Firewalling Basics</title>
+  <title>Firewalling basics</title>
 
   <para>
    <emphasis>Firewall</emphasis> is probably the term most widely used to
@@ -280,17 +282,22 @@
  </sect1>
  <sect1 xml:id="sec-security-firewall-firewalld">
   <title>&firewalld;</title>
-      <note>
-      <title>&firewalld; Replaces &susefirewall;</title>
-  <para>
-      &sle; 15 introduces &firewalld;, replacing &susefirewall;.
-      &susefirewall; has not been removed from &sle; 15 and is still in the Main
-      repository. However, it is not included in the default installation, and &firewalld;
-      is installed by default in new installations. If you are upgrading from a &sle; 
-      release older than &slea; 15.0, &susefirewall; will be unchanged and you must 
-      manually upgrade to  &firewalld; (see <xref linkend="sec-security-firewall-upgrade"/>).
-  </para>
-</note>
+  <note>
+   <title>&firewalld; replaces &susefirewall;</title>
+   <para>
+
+    &productname; <phrase os="sles;sled">15 GA</phrase><phrase os="osuse">15.0</phrase>
+    introduces &firewalld; as the new default software firewall, replacing
+    &susefirewall;.
+    &susefirewall; has not been removed from &productname;
+    <phrase os="sles;sled">15 GA</phrase><phrase os="osuse">15.0</phrase>
+    and is still part of the main repository, though not installed by default.
+    If you are upgrading from a release older than &productname;
+    <phrase os="sles;sled">15 GA</phrase><phrase os="osuse">15.0</phrase>,
+    &susefirewall; will be unchanged and you must manually upgrade to
+    &firewalld; (see <xref linkend="sec-security-firewall-upgrade"/>).
+   </para>
+  </note>
   <para>
    &firewalld; is a daemon that maintains the system's
    <command>iptables</command> rules and offers a D-Bus interface for
@@ -302,7 +309,7 @@
    rules, for example to set up virtual machine networking.
   </para>
   <para>
-   &firewalld; implements different security zones. A number of predefined
+   &firewalld; implements different security zones. Several predefined
    zones like <literal>internal</literal> and <literal>public</literal> exist.
    The administrator can define additional custom zones if desired. Each
    zone contains its own set of iptables rules. Each network interface is a
@@ -328,7 +335,7 @@
   </para>
 
   <note>
-    <title>No Zone Assigned Behavior</title>
+    <title>No zone assigned behavior</title>
     <para>
      The initial state for network interfaces is to be assigned to no zone at
      all. In this case the network interface will be implicitly handled in the
@@ -358,14 +365,14 @@
    &firewalld;. This allows to add temporary rules that will be discarded after
    restarting &firewalld;, or to experiment with new rules while being able to
    revert back to the original state. When you are changing the configuration,
-   you need to be aware of which configuration you're editing. How this is done
+   you need to be aware of which configuration you are editing. How this is done
    is discussed in <xref
    linkend="sec-security-firewall-firewalld-configurations"/>.
   </para>
 
   <para>
-   If you want to perform the &firewalld; configuration using the graphical
-   user interface <command>firewall-config</command> then refer to its <link
+   To perform the &firewalld; configuration using the graphical
+   user interface <command>firewall-config</command> refer to its <link
    xlink:href="http://www.firewalld.org/documentation/utilities/firewall-config.html">documentation</link>.
    In the following section we will be looking at how to perform typical
    &firewalld; configuration tasks using <command>firewall-cmd</command> on the
@@ -373,7 +380,7 @@
   </para>
 
   <sect2 xml:id="sec-security-firewall-firewalld-nm" os="sles;sled">
-   <title>Configuring the Firewall with &nm;</title>
+   <title>Configuring the firewall with &nm;</title>
    <para>
     The &nm; supports a basic configuration of <emphasis>firewalld</emphasis>
     by selecting zones.
@@ -386,9 +393,9 @@
   </sect2>
 
   <sect2 xml:id="sec-security-firewall-firewalld-cmd">
-   <title>Configuring the Firewall on the Command Line</title>
+   <title>Configuring the firewall on the command line</title>
    <sect3>
-    <title>Firewall Startup</title>
+    <title>Firewall startup</title>
 
     <para>
      &firewalld; will be installed and enabled by default. It is a regular
@@ -397,7 +404,7 @@
     </para>
 
     <important>
-     <title>Automatic Firewall Configuration</title>
+     <title>Automatic firewall configuration</title>
      <para> After the installation, &yast; automatically starts &firewalld; and
      leaves all interfaces in the default <literal>public</literal> zone. If a
      server application is configured and activated on the system, &yast; can
@@ -411,7 +418,7 @@
    </sect3>
 
    <sect3 xml:id="sec-security-firewall-firewalld-configurations">
-    <title>Runtime Versus Permanent Configuration</title>
+    <title>Runtime versus permanent configuration</title>
 
     <para>
      By default all <command>firewall-cmd</command> commands operate on the
@@ -431,7 +438,7 @@
     <para>
      This will write all current runtime rules into the permanent configuration.
      Any temporary modifications you or other programs may have made to the
-     firewall in other contexts are made permanent this way. If you're unsure
+     firewall in other contexts are made permanent this way. If you are unsure
      about this, you can also take the opposite approach to be on the safe side:
      Add new rules to the permanent configuration and reload &firewalld; to
      make them active.
@@ -457,13 +464,13 @@
 
     <para>
      For brevity the examples in the following sections will always operate on
-     the runtime configuration, if applicable. Adjust them accordingly if you
-     want to make them permanent.
+     the runtime configuration, if applicable. Adjust them accordingly to make
+     them permanent.
     </para>
    </sect3>
 
    <sect3>
-    <title>Assignment of Interfaces to Zones</title>
+    <title>Assignment of interfaces to zones</title>
 
     <para>
      You can list all network interfaces currently assigned to a zone like this:
@@ -521,7 +528,7 @@ dmz
    </sect3>
 
    <sect3 xml:id="sec-security-firewall-firewalld-cmd-ports">
-    <title>Making Network Services Accessible</title>
+    <title>Making network services accessible</title>
 
     <para>
      &firewalld; has a concept of <emphasis>services</emphasis>. A service
@@ -569,7 +576,7 @@ dhcp
     </para>
 
     <tip>
-     <title>Temporarily Opening a Service or Port</title>
+     <title>Temporarily opening a service or port</title>
      <para>
       &firewalld; supports a <literal>--timeout</literal> parameter that allows
       to open a service or port for a limited time duration. This can be helpful
@@ -583,7 +590,7 @@ dhcp
    </sect3>
 
    <sect3>
-    <title>Lockdown Mode</title>
+    <title>Lockdown mode</title>
 
     <para>
      &firewalld; offers a <emphasis>lockdown mode</emphasis> that prevents
@@ -607,7 +614,7 @@ dhcp
    </sect3>
 
    <sect3>
-    <title>Adding Custom <command>iptables</command> Rules</title>
+    <title>Adding custom <command>iptables</command> rules</title>
 
     <para>
      &firewalld; claims exclusive control over the host's
@@ -644,7 +651,7 @@ dhcp
    </sect3>
 
    <sect3>
-    <title>Routing, Forwarding, and Masquerading</title>
+    <title>Routing, forwarding, and masquerading</title>
 
     <para>
      &firewalld; is not designed to run as a fully fledged router. The
@@ -681,7 +688,7 @@ dhcp
   </sect2>
 
   <sect2 xml:id="sec-security-firewall-firewalld-rpcports">
-   <title>Accessing Services Listening on Dynamic Ports</title>
+   <title>Accessing services listening on dynamic ports</title>
 
    <para>
     Some network services do not listen on predefined port numbers. Instead
@@ -720,7 +727,7 @@ dhcp
    </para>
 
    <sect3 xml:id="sec-security-firewall-firewalld-rpcports-static">
-    <title>Configuring Static Ports</title>
+    <title>Configuring static ports</title>
     <para>
      One possibility is to configure all involved network services to use
      fixed port numbers. Once this is done, the fixed ports can be opened in
@@ -733,11 +740,11 @@ dhcp
     </para>
 
     <table xml:id="tab-security-firewall-sysconfigports">
-     <title>Important Sysconfig Variables for Static Port Configuration</title>
+     <title>Important sysconfig variables for static port configuration</title>
      <tgroup cols="3">
-      <colspec colnum="1" colname="1" colwidth="3000*"/>
-      <colspec colnum="2" colname="2" colwidth="1000*"/>
-      <colspec colnum="3" colname="3" colwidth="2000*"/>
+      <colspec colnum="1" colname="1" colwidth="3*"/>
+      <colspec colnum="2" colname="2" colwidth="2*"/>
+      <colspec colnum="3" colname="3" colwidth="2*"/>
       <thead>
        <row>
         <entry>
@@ -871,7 +878,7 @@ dhcp
     </para>
 
     <example xml:id="ex-security-firewall-nfscallback">
-     <title>Callback Port Configuration for the <literal>nfs</literal> Kernel Module in <filename>/etc/modprobe.d/60-nfs.conf</filename></title>
+     <title>Callback port configuration for the <literal>nfs</literal> kernel module in <filename>/etc/modprobe.d/60-nfs.conf</filename></title>
 <screen>options nfs callback_tcpport=21005
 </screen>
     </example>
@@ -894,7 +901,7 @@ dhcp
     </para>
 
     <example xml:id="ex-security-firewall-newrpcservice">
-     <title>Commands to Define a new &firewalld; RPC Service for NFS</title>
+     <title>Commands to define a new &firewalld; RPC service for NFS</title>
 <screen>&prompt.root;<command>firewall-cmd --permanent --new-service=nfs-rpc</command>
 &prompt.root;<command>firewall-cmd --permanent --service=nfs-rpc --set-description="NFS related, statically configured RPC ports"</command>
 # add UDP and TCP ports for the given sequence
@@ -925,7 +932,7 @@ nfs-rpc
    </sect3>
 
    <sect3 xml:id="sec-security-firewall-firewalld-rpcports-helper">
-    <title>Using <package>firewall-rpcbind-helper</package> for Configuring Static Ports</title>
+    <title>Using <package>firewall-rpcbind-helper</package> for configuring static ports</title>
     <para>
      The steps to configure static ports as shown in the previous section can
      be simplified by using the &suse; helper tool
@@ -941,37 +948,46 @@ nfs-rpc
    </sect3>
   </sect2>
  </sect1>
- 
+
  <sect1 xml:id="sec-security-firewall-upgrade">
-     <title>Migrating From &susefirewall;</title>
-     <note>
-         <title>Creating a a &firewalld; Configuration for &ay;</title>
-     <para>
-         See the <citetitle>Firewall Configuration</citetitle> section of the &ayguide;
-         to learn how to create a &firewalld; configuration for &ay;.
-     </para>
- </note>
-     <para>
-         When upgrading from &sle; 12.x to &sle; &productnumber;, &susefirewall;
-         is not changed and remains active. There is no automatic migration, so you must
-         migrate to &firewalld; manually. &firewalld; includes a helper migration
-         script, <command>susefirewall2-to-firewalld</command>. Depending on the
-         complexity of your &susefirewall; configuration the script may perform a
-         perfect migration, or it may fail. Most likely it will partially succeed and you
-         will have to review your new &firewalld; configuration and make adjustments.
-     </para>
-     <para>
-         The resulting configuration will make &firewalld; behave somewhat like 
-         &susefirewall;. To take full advantage of &firewalld;'s features you may elect to 
-         create a new configuration, rather than trying to migrate your old configuration.
-         It is safe to run the <command>susefirewall2-to-firewalld</command> script
-         with no options, as it makes no permanent changes to your system. However, if
-         you are administering the system remotely you could get locked out.
-     </para>
-     <para>
-         Install and run <command>susefirewall2-to-firewalld</command>:
-     </para>
-     <screen>&prompt.root;zypper in susefirewall2-to-firewalld
+  <title>Migrating from &susefirewall;</title>
+  <note>
+   <title>Creating a &firewalld; configuration for &ay;</title>
+   <para>
+    See the <citetitle>Firewall Configuration</citetitle> section of the
+    &ayguide; to learn how to create a &firewalld; configuration for &ay;.
+   </para>
+  </note>
+  <remark>
+   FIXME: Very unsure if the following upgrade scenario has _any_ bearing on
+   Leap 15.2 anymore, since we don't even support upgrades from anything before
+   Leap 15.1. Not sure whether to just profile away the entire section.
+   - sknorr, 2020-07-02
+  </remark>
+  <para>
+   When upgrading from
+   <phrase os="sles;sled">any service pack of &productname; 12</phrase>
+   <phrase os="osuse">any version of &productname; before 15.0</phrase>
+   to &productname; &productnumber;, &susefirewall;
+   is not changed and remains active. There is no automatic migration, so you must
+   migrate to &firewalld; manually. &firewalld; includes a helper migration
+   script, <command>susefirewall2-to-firewalld</command>. Depending on the
+   complexity of your &susefirewall; configuration, the script may perform a
+   perfect migration, or it may fail. Most likely it will partially succeed and you
+   will have to review your new &firewalld; configuration and make adjustments.
+  </para>
+  <para>
+   The resulting configuration will make &firewalld; behave somewhat like
+   &susefirewall;. To take full advantage of &firewalld;'s features you may elect to
+   create a new configuration, rather than trying to migrate your old configuration.
+   It is safe to run the <command>susefirewall2-to-firewalld</command> script
+   with no options, as it makes no permanent changes to your system. However, if
+   you are administering the system remotely you could get locked out.
+  </para>
+  <para>
+   Install and run <command>susefirewall2-to-firewalld</command>:
+  </para>
+<screen>&prompt.root;zypper in susefirewall2-to-firewalld
 &prompt.root;susefirewall2-to-firewalld
 INFO: Reading the /etc/sysconfig/SuSEfirewall2 file
 INFO: Ensuring all firewall services are in a well-known state.
@@ -982,79 +998,78 @@ INFO: If you do not wish for this to happen, please stop the script now!
 INFO: Stopping firewalld
 INFO: Restarting SuSEfirewall2_init
 INFO: Restarting SuSEfirewall2
-INFO: DIRECT: Adding direct rule="ipv4 -t filter -A INPUT -p udp -m udp --dport 5353 -m pkttype 
+INFO: DIRECT: Adding direct rule="ipv4 -t filter -A INPUT -p udp -m udp --dport 5353 -m pkttype
   --pkt-type multicast -j ACCEPT"
 [...]
 INFO: Enabling direct rule=ipv6 -t filter -A INPUT -p udp -m udp --dport 546 -j ACCEPT
-INFO: Enabling direct rule=ipv6 -t filter -A INPUT -p udp -m udp --dport 5353 -m pkttype 
+INFO: Enabling direct rule=ipv6 -t filter -A INPUT -p udp -m udp --dport 5353 -m pkttype
   --pkt-type multicast -j ACCEPT
 INFO: Enable logging for denied packets
 INFO: ##########################################################
-INFO: 
+INFO:
 INFO: The dry-run has been completed. Please check the above output to ensure
 INFO: that everything looks good.
-INFO: 
+INFO:
 INFO: ###########################################################
 INFO: Stopping firewalld
 INFO: Restarting SuSEfirewall2_init
 INFO: Restarting SuSEfirewall2
 </screen>
-<para>
-    This results in a lot of output, which you may wish to direct to a file for easier review:
-</para>
-<screen>&prompt.root;susefirewall2-to-firewalld | tee newfirewallrules.txt
-</screen>
-<para>
-    The script supports these options:
-</para>
-<variablelist>
-    <varlistentry>
-        <term><command>-c</command></term>
-        <listitem>
-            <para>
-                Commit changes. The script will make changes to the system so make sure you only use 
-                this option if you are really happy with the proposed changes. This *will* reset your current 
-                &firewalld; configuration so make sure you make backups!
-            </para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term><command>-d</command></term>
-        <listitem>
-            <para>
-                Super noisy. Use it to file bug reports but be careful to mask sensitive information.
-            </para>
-        </listitem>
-    </varlistentry>    
-    <varlistentry>
-        <term><command>-h</command></term>
-        <listitem>
-            <para>
-                This message.
-            </para>
-        </listitem>
-    </varlistentry>  
-    <varlistentry>
-        <term><command>-q</command></term>
-        <listitem>
-            <para>
-                No output. Errors will not be printed either!
-            </para>
-        </listitem>
-    </varlistentry>       
-    <varlistentry>
-        <term><command>-v</command></term>
-        <listitem>
-            <para>
-                Verbose mode. It will print warnings and other informative messages. 
-            </para>
-        </listitem>
-    </varlistentry>     
- </variablelist>
-</sect1>         
+  <para>
+   This results in a lot of output, which you may wish to direct to a file for easier review:
+  </para>
+<screen>&prompt.root;susefirewall2-to-firewalld | tee newfirewallrules.txt</screen>
+  <para>
+   The script supports these options:
+  </para>
+  <variablelist>
+   <varlistentry>
+    <term><command>-c</command></term>
+    <listitem>
+     <para>
+      Commit changes. The script will make changes to the system, so make sure you only use
+      this option if you are really happy with the proposed changes. This <emphasis>will</emphasis>
+      reset your current &firewalld; configuration, so make sure you make backups!
+     </para>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term><command>-d</command></term>
+    <listitem>
+     <para>
+      Super noisy. Use it to file bug reports but be careful to mask sensitive information.
+     </para>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term><command>-h</command></term>
+    <listitem>
+     <para>
+      This message.
+     </para>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term><command>-q</command></term>
+    <listitem>
+     <para>
+      No output. Errors will not be printed either!
+     </para>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term><command>-v</command></term>
+     <listitem>
+      <para>
+       Verbose mode. It will print warnings and other informative messages.
+      </para>
+     </listitem>
+   </varlistentry>
+  </variablelist>
+ </sect1>
 
  <sect1 xml:id="sec-security-firewall-info">
-  <title>For More Information</title>
+  <title>For more information</title>
   <para>
    The most up-to-date information and other documentation about the &firewalld;
    package is found in <filename>/usr/share/doc/packages/firewalld</filename>.

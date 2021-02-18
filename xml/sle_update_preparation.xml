@@ -8,23 +8,28 @@
   xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Preparing the Upgrade</title>
+ <title>Preparing the upgrade</title>
  <info>
   <abstract>
    <para>
     Before starting the upgrade procedure, make sure your system is properly
     prepared. Among others, preparation involves backing up data and checking
-    the release notes.
+    the release notes. The following chapter guides through these steps.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
    <dm:translation>yes</dm:translation>
   </dm:docmanager>
  </info>
-
+<remark>jufa 2021-02-09: suggestion to give this chapter a facelift: 
+ Chapter 3: Preparing the upgrade - Intro - Procedure w check system version,
+ release notes, back-up, listing packages, create proposal</remark>
  <sect1 xml:id="sec-update-preparation-update">
-  <title>Make Sure the Current System Is Up-To-Date</title>
+  <title>Make sure the current system is up-to-date</title>
   <para>
+   <remark>jufa 2021-02-09: add what to do if the system is older? check what
+    is meant with patch level. check if update path is supported,
+    link to sec-upgrade-path-supported</remark>
    Upgrading the system is only supported from the most recent
    patch level. Make sure the latest system updates are installed by either
    running <command>zypper patch</command> or by starting the &yast; module
@@ -33,11 +38,20 @@
  </sect1>
 
  <sect1 xml:id="sec-update-preparation-relnotes">
-  <title>Read the Release Notes</title>
+  <title>Read the release notes</title>
   <para>
-   In the release notes you can find additional information on changes
-   since the previous release of &productname;. Check the release notes
-   to see whether:
+   Find a list of all changes, new features, and known issues in the
+   <link xlink:href="https://www.suse.com/releasenotes/">release notes</link>.
+   You can also find the release notes on the installation media in the
+   <filename>docu</filename> directory.
+  </para>
+   <para>
+   The release notes usually only contain the changes between two subsequent
+   releases. If you are skipping one or more Service Packs, check the release
+   notes of the skipped Service Packs as well.
+  </para>
+  <para>
+   Check the release notes to see whether:
   </para>
   <itemizedlist>
    <listitem>
@@ -56,40 +70,26 @@
     </para>
    </listitem>
   </itemizedlist>
-  <para>
-   The release notes also provide information that could not make it
-   into the manual on time. They also contain notes about known issues.
-  </para>
-  <para os="sles">
-   If you are skipping one or more Service Packs, check the release
-   notes of the skipped Service Packs as well. The release notes
-   usually only contain the changes between two subsequent releases.
-   You can miss important changes if you are only reading the
-   current release notes.
-  </para>
-  <para>
-   Find the current release notes online at
-   <link
-     xlink:href="https://www.suse.com/releasenotes/"/>.
-  </para>
-  <para>
-   Alternatively, find the release notes on the installation DVD in the
-   <filename>docu</filename> directory.
-  </para>
+
  </sect1>
  <sect1 xml:id="sec-update-preparation-backup">
-  <title>Make a Backup</title>
+  <title>Make a backup</title>
   <para>
-   Before updating, copy existing configuration files to a separate medium
-   (such as tape device, removable hard disk, etc.) to back up the data. This
-   primarily applies to files stored in <filename>/etc</filename> and some
+   Before upgrading, back up your data by copying the existing configuration
+   files to a separate medium (such as tape device, removable hard disk, etc.).
+   This primarily applies to files stored in <filename>/etc</filename> and some
    directories and files in <filename>/var</filename> and
    <filename>/opt</filename>. You may also want to write the user data in
    <filename>/home</filename> (the <envar>HOME</envar> directories) to a
-   backup medium. Back up this data as &rootuser;. Only &rootuser; has read
-   permissions for all local files.
+   backup medium.
   </para>
   <para>
+   Back up all data as &rootuser;. Only &rootuser; has sufficient permissions
+   for all local files.
+  </para>
+  <para>
+   <remark>jufa 2021-02-09: check if backup function still exists and how it
+    works. rework para accordingly: alternative for data back up</remark>
    If you have selected <guimenu>Update an Existing System</guimenu> as the
    installation mode in &yast;, you can choose to do a (system) backup at a
    later point in time. You can choose to include all modified files and files
@@ -100,90 +100,118 @@
   </para>
  </sect1>
  <sect1 xml:id="sec-update-preparation-packagelist">
-  <title>Listing Installed Packages and Repositories</title>
+  <title>Listing installed packages and repositories</title>
   <para>
-   It is often useful to save a list of installed packages, for example
+   <remark>jufa 2021-02-08: explain importance and purposeof this list.
+    Clarify if requirement or suggestion?
+    Used for reverting changes or to set-up new system?</remark>
+   You can save a list of installed packages, for example
    when doing a fresh install of a new major &slea; release or
    reverting to the old version.
   </para>
-  <para>
+  <note>
+   <para>
+    <remark>jufa: check if manual editing isstill relevant 2021-02-09</remark>
    Be aware that not all installed packages or used repositories are
    available in newer releases of &sle;. Some may have been renamed and
    others replaced. It is also possible that some packages are still
    available for legacy purposes while another package is used by
    default. Therefore some manual editing of the files might be
    necessary. This can be done with any text editor.
-  </para>
-  <para>
-   Create a file named <filename>repositories.bak.repo</filename> containing a
-   list of all used repositories:
-  </para>
-  <screen>&prompt.root;<command>zypper</command> lr -e repositories.bak</screen>
-  <para>
-   Also create a file named <filename>installed-software.bak</filename>
-   containing a list of all installed packages:
-  </para>
-  <screen>&prompt.root;<command>rpm</command> -qa --queryformat '%{NAME}\n' > installed-software.bak</screen>
-  <para>
+   </para>
+  </note>
+
+  <procedure>
+   <step>
+    <para>
+     Create a file named <filename>repositories.bak.repo</filename>
+     containing a list of all used repositories:
+    </para>
+    <screen>&prompt.root;<command>zypper</command> lr -e repositories.bak</screen>
+   </step>
+   <step>
+    <para>
+    Also create a file named <filename>installed-software.bak</filename>
+    containing a list of all installed packages:</para>
+    <screen>&prompt.root;<command>rpm</command> -qa --queryformat '%{NAME}\n' >
+     installed-software.bak</screen>
+   </step>
+   <step>
+   <para>
    Back up both files. The repositories and installed packages can be
    restored with the following commands:
   </para>
   <screen>&prompt.root;<command>zypper</command> ar repositories.bak.repo
-&prompt.root;<command>zypper</command> install $(cat installed-software.bak)</screen>
-
-  <note xml:id="note-update-prep-backup-package-amount">
-   <title>
-    Number of Packages Increases with an Update to a New Major Release
-   </title>
-   <para>
-    A system upgraded to a new major version
-    (SLE&nbsp;<replaceable>X+1</replaceable>) may contain more packages than
-    the initial system (SLE&nbsp;<replaceable>X</replaceable>). It will also
-    contain more packages than a fresh installation of
-    SLE&nbsp;<replaceable>X+1</replaceable> with the same pattern
-    selection. Reasons for this are:
-   </para>
-   <itemizedlist>
-    <listitem>
+&prompt.root;<command>zypper</command> install $(cat installed-software.bak)
+  </screen>
+    <note xml:id="note-update-prep-backup-package-amount">
+     <title>Number of packages increases with an update to a new major release</title>
      <para>
-      Packages were split to allow a more fine-grained package selection. For
-      example, 37 <package>texlive</package> packages on SLE 11 were split
-      into over 3000 packages on SLE 15.
+      A system upgraded to a new major version
+      (SLE&nbsp;<replaceable>X+1</replaceable>) may contain more packages than
+      the initial system (SLE&nbsp;<replaceable>X</replaceable>). It will also
+      contain more packages than a fresh installation of
+      SLE&nbsp;<replaceable>X+1</replaceable> with the same pattern
+      selection. Reasons for this are:
      </para>
-    </listitem>
-    <listitem>
-     <para>
-      When a package has been split, all new packages are
-      installed in the upgrade case to retain the same functionality as with
-      the previous version. However, the new default for a fresh installation
-      of SLE&nbsp;<replaceable>X+1</replaceable> may be to not install all
-      packages.
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      Legacy packages from SLE&nbsp;<replaceable>X</replaceable> may be kept
-      for compatibility reasons.
-     </para>
-    </listitem>
-    <listitem>
-     <para>
-      Package dependencies and the scope of patterns may have changed.
-     </para>
-    </listitem>
-   </itemizedlist>
-  </note>
+     <itemizedlist>
+      <listitem>
+       <para>
+        Packages were split to allow a more fine-grained package selection. For
+        example, 37 <package>texlive</package> packages on SLE 11 were split
+        into over 3000 packages on SLE 15.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        When a package has been split, all new packages are
+        installed in the upgrade case to retain the same functionality as with
+        the previous version. However, the new default for a fresh installation
+        of SLE&nbsp;<replaceable>X+1</replaceable> may be to not install all
+        packages.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Legacy packages from SLE&nbsp;<replaceable>X</replaceable> may be kept
+        for compatibility reasons.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        Package dependencies and the scope of patterns may have changed.
+       </para>
+      </listitem>
+     </itemizedlist>
+    </note>
+   </step>
+  </procedure>
  </sect1>
 
  <sect1 os="sles" xml:id="sec-update-preparation-sle11">
   <title>Upgrading from &productname; 11 SP4</title>
   <para>
-   If you are using MySQL, &postgresql; or Java MD5 based certificates on
+   If you are using MySQL, &postgresql; or Java MD5-based certificates on
    &productname; 11 SP4, prepare your system as described in the following
-   sections.
+   sections. In addition, make sure to check the other sections of this chapter
+   for further required preparations.
   </para>
+
+  <sect2 xml:id="sec-update-preparation-sle11-postgresql">
+   <title>Migrate your &postgresql; database</title>
+   <!-- This section is here for ID compatibility with old (15 SP2 and below)
+   documents & because you if you're upgrading from SLE 11, you definitely
+   will need the update, whereas on other OS's the upgrade is probably still
+   optional. -->
+   <para>
+    If you are using a &postgresql; database on &productname; 11, you need
+    to upgrade your database.
+    For more information, see <xref linkend="sec-update-preparation-postgresql"/>.
+   </para>
+  </sect2>
+
   <sect2 xml:id="sec-update-preparation-sle11-mariadb">
-   <title>Migrate Your MySQL Database</title>
+   <title>Migrate your MySQL database</title>
    <remark>toms 2015-09-03: already reviewed by Ondrej and Kristýna.</remark>
    <para>
     As of &sle; 12, &suse; switched from MySQL to MariaDB. Before you start any
@@ -220,8 +248,9 @@
     </step>
     <step>
      <para>
-      Perform your upgrade. After the upgrade, your former configuration file
-      <filename>/etc/my.cnf</filename> is still intact. You can find the new
+      Perform the &productname; upgrade.
+      After the upgrade, your former configuration file
+      <filename>/etc/my.cnf</filename> will still be intact. You can find the new
       configuration in the file <filename>/etc/my.cnf.rpmnew</filename>.
      </para>
     </step>
@@ -236,194 +265,31 @@
      <para>
       Make sure you start the MariaDB server:
      </para>
-     <screen>&prompt.root;<command>systemctl</command> start mysql</screen>
+     <screen>&prompt.root;<command>systemctl</command> start mariadb</screen>
      <para>
       If you want to start the MariaDB server on every boot, enable the
       service:
      </para>
-     <screen>&prompt.root;<command>systemctl</command> enable mysql</screen>
+     <screen>&prompt.root;<command>systemctl</command> enable mariadb</screen>
     </step>
     <step>
      <para>
       Verify that MariaDB is running properly by connecting to the database:
      </para>
-     <screen>&prompt.root;<command>mysql</command> -u root -p</screen>
-    </step>
-   </procedure>
-  </sect2>
-
-  <sect2 xml:id="sec-update-preparation-sle11-postgresql">
-   <title>Migrate Your &postgresql; Database</title>
-   <para>
-    A newer version of the &postgresql; database is shipped with &productname;
-    &productnumber;. Because of the
-    required migration work of the database, there is no automatic upgrade
-    process. As such, the switch from one version to another needs to be done
-    manually.
-   </para>
-   <para>
-    The migration process is conducted by the <command>pg_upgrade</command>
-    command which is an alternative method of the classic dump and reload. In
-    comparison with the <quote>dump &amp; reload</quote> method,
-    <command>pg_upgrade</command> makes the migration less time-consuming.
-   </para>
-   <para>
-    The program files for each &postgresql; version are stored in different,
-    version-dependent directories. For example, in <filename>/usr/lib/postgresql96/</filename>
-    for version 9.6 and in <filename>/usr/lib/postgresql10/</filename> for version 10.
-    Note that the versioning policy of &postgresql; has changed between the major
-    versions 9.6 and 10. For details, see <link
-    xlink:href="https://www.postgresql.org/support/versioning/"/>.
-   </para>
-   <important>
-    <title>Upgrading from &slea; 11</title>
-     <para>
-      When upgrading from &slea; 11, <systemitem>postgresql94</systemitem> will
-      be uninstalled and cannot be used for the database migration to a higher
-      &postgresql; version. Therefore in this case make sure to migrate the
-      &postgresql; database <emphasis>before</emphasis> you upgrade your system.
-    </para>
-   </important>
-   <para>
-    The procedure below describes the database migration from version 9.6 to 10. When
-    using a different version as start or target, replace the version numbers
-    accordingly.
-   </para>
-   <para>
-    To perform the database migration, do the following:
-   </para>
-   <procedure>
-    <step>
-     <para>
-      Make sure the following preconditions are fulfilled:
-     </para>
-     <itemizedlist>
-      <listitem>
-       <para>
-        If not already done, upgrade any package of the old &postgresql;
-        version to the latest release through a maintenance update.
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        Create a backup of your existing database.
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        Install the packages of the new &postgresql; major version. For
-        &slea; &product-ga; SP&product-sp; this means to install
-        <package>postgresql10-server</package>
-        and all the packages it depends on.
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        Install the package
-        <package>postgresql10-contrib</package>
-        which contains the command <command>pg_upgrade</command>.
-       </para>
-      </listitem>
-      <listitem>
-       <para>
-        Make sure you have enough free space in your &postgresql; data area,
-        which is <filename>/var/lib/pgsql/data</filename> by default. If space
-        is tight, try to reduce size with the following SQL command on each
-        database (can take very long!):
-       </para>
-       <screen>VACUUM FULL</screen>
-      </listitem>
-     </itemizedlist>
-    </step>
-    <step>
-     <para>
-      Stop the &postgresql; server with either:
-     </para>
-<screen>&prompt.root;<command>/usr/sbin/rcpostgresql</command> stop</screen>
-    <para>or</para>
-<screen>&prompt.root;systemctl stop postgresql.service</screen>
-    <para>(depending on the &slea; version you use as the start version for your upgrade).</para>
-    </step>
-    <step>
-     <para>
-      Rename your old data directory:
-     </para>
-     <screen>&prompt.root;<command>mv</command> /var/lib/pgsql/data /var/lib/pgsql/data.old</screen>
-    </step>
-    <step>
-     <para>
-      Initialize your new database instance either manually with <command>initdb</command>
-      or by starting and stopping PostgreSQL, which will do it automatically:
-     </para>
-<screen>&prompt.root;<command>/usr/sbin/rcpostgresql</command> start
-&prompt.root;<command>/usr/sbin/rcpostgresql</command> stop</screen>
-     <para>or</para>
-<screen>&prompt.root;systemctl start postgresql.service
-&prompt.root;systemctl stop postgresql.service</screen>
-     <para>(depending on the &slea; version you use as the start version for your upgrade).</para>
-    </step>
-    <step>
-     <para>
-      If you have changed your configuration files in the old version, consider
-      transferring these changes to the new configuration files. This may
-      affect the files <filename>postgresql.auto.conf</filename>,
-      <filename>postgresql.conf</filename>,<filename>pg_hba.conf</filename> and
-      <filename>pg_ident.conf</filename>. The old versions of these files are
-      located in <filename>/var/lib/pgsql/data.old/</filename>, the new
-      versions can be found in <filename>/var/lib/pgsql/data</filename>.
-     </para>
-     <para>
-      Note that just copying the old configuration files is not recommended,
-      because this may overwrite new options, new defaults and changed
-      comments.
-     </para>
-    </step>
-    <step>
-     <para>
-      Start the migration process as user <systemitem
-      class="username">postgres</systemitem>:
-     </para>
-     <screen>&prompt.root;su - postgres
-postgres &gt; <command>pg_upgrade</command> \
-  --old-datadir "/var/lib/pgsql/data.old" \
-  --new-datadir "/var/lib/pgsql/data" \
-  --old-bindir "/usr/lib/postgresql96/bin/" \
-  --new-bindir "/usr/lib/postgresql10/bin/"</screen>
-    </step>
-    <step>
-     <para>
-      Start your new database instance with either:
-     </para>
-<screen>&prompt.root;<command>/usr/sbin/rcpostgresql</command> start</screen>
-     <para>or</para>
-<screen>&prompt.root;systemctl start postgresql.service</screen>
-     <para>(depending on the &slea; version you use as the start version for your upgrade).</para>
-    </step>
-    <step>
-     <para>
-      Check if the migration was successful. The scope of the test depends on
-      your use case and there is no general tool to automate this step.
-     </para>
-    </step>
-    <step>
-     <para>
-      Remove any old &postgresql; packages and your old data directory:
-     </para>
-<screen>&prompt.root;<command>zypper</command> search -s postgresql96 | xargs zypper rm -u
-&prompt.root;<command>rm</command> -rf /var/lib/pgsql/data.old</screen>
+     <screen>&prompt.root;<command>mariadb</command> -u root -p</screen>
     </step>
    </procedure>
   </sect2>
 
   <sect2 xml:id="sec-update-preparation-sle11-ssl">
-   <title>Create Non-MD5 Server Certificates for Java Applications</title>
+   <title>Create non-MD5 server certificates for Java applications</title>
    <remark>toms 2016-07-27: from bsc#970153, c#24</remark>
+   <remark>jufa 2021-02-09: FIXME check if still relevant, check which versions are affected</remark>
    <para>
     During the update from SP1 to SP2, MD5-based certificates were disabled as
     part of a security fix. If you have certificates created as MD5, re-create
     your certificates with the following steps:
    </para>
-
    <procedure>
     <step>
      <para>
@@ -469,10 +335,187 @@ postgres &gt; <command>pg_upgrade</command> \
     </step>
    </procedure>
   </sect2>
+
+ </sect1>
+
+ <sect1 os="sles" xml:id="sec-update-preparation-postgresql">
+  <title>Migrate your &postgresql; database</title>
+  <para>
+   <!-- jsc#SLE-11279: PostgreSQL 12 is available in 15 SP2 and higher. -->
+   &productname; &productnumber; ships with the &postgresql; database versions
+   10 and 12.
+   <!-- FIXME cwickert 2020-12-01: v12 is default in SLE 15 SP2, make sure
+    this gets updated if we change the default in a later version or SP. -->
+   While Version 12 is the default, version 10 is still provided for upgrades
+   from earlier versions of &productname;.
+  </para>
+  <para>
+   Because of the required migration work of the database, there is no
+   automatic upgrade process. As such, the switch from one version to another
+   needs to be performed manually.
+  </para>
+  <para>
+   The migration process is conducted by the <command>pg_upgrade</command>
+   command which is an alternative method of the classic dump and reload. In
+   comparison with the <quote>dump &amp; reload</quote> method,
+   <command>pg_upgrade</command> makes the migration less time-consuming.
+  </para>
+  <para>
+   The program files for each &postgresql; version are stored in different,
+   version-dependent directories. For example, in <filename>/usr/lib/postgresql96/</filename>
+   for version 9.6, in <filename>/usr/lib/postgresql10/</filename> for version
+   10, and in <filename>/usr/lib/postgres12/</filename> for version 12.
+   Note that the versioning policy of &postgresql; has changed between the major
+   versions 9.6 and 10. For details, see <link
+   xlink:href="https://www.postgresql.org/support/versioning/"/>.
+  </para>
+  <important>
+   <title>Upgrading from &slea; 11</title>
+    <para>
+     When upgrading from &slea; 11, <systemitem>postgresql94</systemitem> will
+     be uninstalled and cannot be used for the database migration to a higher
+     &postgresql; version. Therefore in this case make sure to migrate the
+     &postgresql; database <emphasis>before</emphasis> you upgrade your system.
+   </para>
+  </important>
+  <para>
+   The procedure below describes the database migration from version 9.6 to 10. When
+   using a different version as start or target, replace the version numbers
+   accordingly.
+  </para>
+  <para>
+   To perform the database migration, do the following:
+  </para>
+  <procedure>
+   <step>
+    <para>
+     Make sure the following preconditions are fulfilled:
+    </para>
+    <itemizedlist>
+     <listitem>
+      <para>
+       If not already done, upgrade any package of the old &postgresql;
+       version to the latest release through a maintenance update.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Create a backup of your existing database.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Install the packages of the new &postgresql; major version. For
+       &slea; &product-ga; SP&product-sp; this means to install
+       <package>postgresql10-server</package>
+       and all the packages it depends on.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Install the package
+       <package>postgresql10-contrib</package>
+       which contains the command <command>pg_upgrade</command>.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Make sure you have enough free space in your &postgresql; data area,
+       which is <filename>/var/lib/pgsql/data</filename> by default. If space
+       is tight, try to reduce size with the following SQL command on each
+       database (can take very long!):
+      </para>
+      <screen>VACUUM FULL</screen>
+     </listitem>
+    </itemizedlist>
+   </step>
+   <step>
+    <para>
+     Stop the &postgresql; server with either:
+    </para>
+<screen>&prompt.root;<command>/usr/sbin/rcpostgresql</command> stop</screen>
+   <para>or</para>
+<screen>&prompt.root;systemctl stop postgresql.service</screen>
+   <para>(depending on the &slea; version you use as the start version for your upgrade).</para>
+   </step>
+   <step>
+    <para>
+     Rename your old data directory:
+    </para>
+    <screen>&prompt.root;<command>mv</command> /var/lib/pgsql/data /var/lib/pgsql/data.old</screen>
+   </step>
+   <step>
+    <para>
+     Initialize your new database instance either manually with <command>initdb</command>
+     or by starting and stopping PostgreSQL, which will do it automatically:
+    </para>
+<screen>&prompt.root;<command>/usr/sbin/rcpostgresql</command> start
+&prompt.root;<command>/usr/sbin/rcpostgresql</command> stop</screen>
+    <para>or</para>
+<screen>&prompt.root;systemctl start postgresql.service
+&prompt.root;systemctl stop postgresql.service</screen>
+    <para>(depending on the &slea; version you use as the start version for your upgrade).</para>
+   </step>
+   <step>
+    <para>
+     If you have changed your configuration files in the old version, consider
+     transferring these changes to the new configuration files. This may
+     affect the files <filename>postgresql.auto.conf</filename>,
+     <filename>postgresql.conf</filename>,<filename>pg_hba.conf</filename> and
+     <filename>pg_ident.conf</filename>. The old versions of these files are
+     located in <filename>/var/lib/pgsql/data.old/</filename>, the new
+     versions can be found in <filename>/var/lib/pgsql/data</filename>.
+    </para>
+    <para>
+     Note that just copying the old configuration files is not recommended,
+     because this may overwrite new options, new defaults and changed
+     comments.
+    </para>
+   </step>
+   <step>
+    <para>
+     Start the migration process as user <systemitem
+     class="username">postgres</systemitem>:
+    </para>
+    <screen>&prompt.root;su - postgres
+postgres &gt; <command>pg_upgrade</command> \
+ --old-datadir "/var/lib/pgsql/data.old" \
+ --new-datadir "/var/lib/pgsql/data" \
+ --old-bindir "/usr/lib/postgresql96/bin/" \
+ --new-bindir "/usr/lib/postgresql10/bin/"</screen>
+   </step>
+   <step>
+    <para>
+     Start your new database instance with either:
+    </para>
+<screen>&prompt.root;<command>/usr/sbin/rcpostgresql</command> start</screen>
+    <para>or</para>
+<screen>&prompt.root;systemctl start postgresql.service</screen>
+    <para>(depending on the &slea; version you use as the start version for your upgrade).</para>
+   </step>
+   <step>
+    <para>
+     Check if the migration was successful. The scope of the test depends on
+     your use case and there is no general tool to automate this step.
+    </para>
+   </step>
+   <step>
+    <para>
+     Remove any old &postgresql; packages and your old data directory:
+    </para>
+<screen>&prompt.root;<command>zypper</command> search -s postgresql96 | xargs zypper rm -u
+&prompt.root;<command>rm</command> -rf /var/lib/pgsql/data.old</screen>
+   </step>
+  </procedure>
+  <para>
+   For more information about upgrading databases or using alternative methods
+   such logical replication, refer to the official &postgresql; documentation
+   at <link xlink:href="https://www.postgresql.org/docs/10/upgrading.html"/>.
+  </para>
  </sect1>
 
  <sect1 xml:id="sec-update-preparation-vms">
-  <title>Shut Down Virtual Machine Guests</title>
+  <title>Shut down virtual machine guests</title>
   <para>
    If your machine serves as a &vmhost; for &kvm; or &xen;, make sure to
    properly shut down all running &vmguest;s prior to the update. Otherwise
@@ -480,51 +523,39 @@ postgres &gt; <command>pg_upgrade</command> \
   </para>
  </sect1>
 
- <!--<sect1 xml:id="sec-update-preparation-rmt">
-  <title>Check the <command>clientSetup4SMT.sh</command> Script on &rmt; Clients</title>
+ <sect1 xml:id="sec-update-preparation-rmt">
+  <title>Adjusting your &smt; client setup</title>
   <para>
-   If you are migrating your client OS that is registered against an &smt; server, you need to check if the version
-   of the <command>clientSetup4SMT.sh</command> script on your host is up to date.
-<command>clientSetup4SMT.sh</command> from older versions of &smt; cannot manage &smt; 12 clients.
-   If you apply software patches regularly on your &rmt; server, you can always find the latest version
-   of <command>clientSetup4SMT.sh</command> at <filename>&lt;SMT_HOSTNAME&gt;/repo/tools/clientSetup4SMT.sh</filename>.
+   If the machine you want to upgrade is registered as a client against an
+   &smt; server, take care of the following:
   </para>
- </sect1>-->
-
-  <sect1 xml:id="sec-update-preparation-rmt">
-   <title>Adjusting Your &smt; Client Setup</title>
-   <para>
-    If the machine you want to upgrade is registered as a client against an
-    &smt; server, take care of the following:
-   </para>
-   <para>
-    Check if the version of the <command>clientSetup4SMT.sh</command> script on
-    your host is up to date. <command>clientSetup4SMT.sh</command> from older
-    versions of &smt; cannot manage &smt; 12 clients. If you apply software
-    patches regularly on your SMT server, you can always find the latest version
-    of <command>clientSetup4SMT.sh</command> at
-    <filename>&lt;SMT_HOSTNAME&gt;/repo/tools/clientSetup4SMT.sh</filename>.
-   </para>
-
-   <para>
-    In case upgrading your machine to a higher version of &productname; fails,
-    de-register the machine from the &smt; server as described in
-    <xref linkend="pro-sec-update-prep-smt-de-register" xrefstyle="select:label"/>.
-    Afterward, restart the upgrade process.</para>
-   <procedure xml:id="pro-sec-update-prep-smt-de-register">
-    <title>De-registering a &sle; Client from an &smt; Server</title>
-     <step>
+  <para>
+   Check if the version of the <command>clientSetup4SMT.sh</command> script on
+   your host is up to date. <command>clientSetup4SMT.sh</command> from older
+   versions of &smt; cannot manage &smt; 12 clients. If you apply software
+   patches regularly on your &smt; server, you can always find the latest
+   version of <command>clientSetup4SMT.sh</command> at
+   <filename>&lt;SMT_HOSTNAME&gt;/repo/tools/clientSetup4SMT.sh</filename>.
+  </para>
+  <para>
+   In case upgrading your machine to a higher version of &productname; fails,
+   de-register the machine from the &smt; server as described in
+   <xref linkend="pro-sec-update-prep-smt-de-register" xrefstyle="select:label"/>.
+   Afterward, restart the upgrade process.</para>
+  <procedure xml:id="pro-sec-update-prep-smt-de-register">
+   <title>De-registering a &sle; client from an &smt; server</title>
+    <step>
+     <para>
+      Log in to the client machine.
+     </para>
+    </step>
+    <step>
+    <para>The following step depends on the current operating system of the client:</para>
+    <itemizedlist>
+     <listitem>
       <para>
-       Log in to the client machine.
+       For &sle; 11, execute the following commands:
       </para>
-     </step>
-     <step>
-     <para>The following step depends on the current operating system of the client:</para>
-     <itemizedlist>
-      <listitem>
-       <para>
-        For &sle; 11, execute the following commands:
-       </para>
 <screen>&prompt.sudo;suse_register -E
 &prompt.sudo;rm -f /etc/SUSEConnect
 &prompt.sudo;rm -rf /etc/zypp/credentials.d/*
@@ -535,62 +566,62 @@ postgres &gt; <command>pg_upgrade</command> \
 &prompt.sudo;rm -f /var/cache/SuseRegister/lastzmdconfig.cache
 &prompt.sudo;rm -f /etc/zmd/deviceid
 &prompt.sudo;rm -f /etc/zmd/secret</screen>
-      </listitem>
-      <listitem>
-       <para>
-        For &sle; 12, execute the following commands:
-       </para>
+     </listitem>
+     <listitem>
+      <para>
+       For &sle; 12, execute the following commands:
+      </para>
 <screen>&prompt.sudo;SUSEConnect --de-register
 &prompt.sudo;SUSEConnect --cleanup
 &prompt.sudo;rm -f /etc/SUSEConnect
 &prompt.sudo;rm -rf /etc/zypp/credentials.d/*
 &prompt.sudo;rm -rf /etc/zypp/repos.d/*
 &prompt.sudo;rm -f /etc/zypp/services.d/*</screen>
-      </listitem>
-     </itemizedlist>
-    </step>
-    <step>
-     <para>
-      Log in to the &smt; server.
-     </para>
-    </step>
-    <step>
-     <para>
-      Check if the client has successfully been de-registered by listing all
-      client registrations:
-     </para>
+     </listitem>
+    </itemizedlist>
+   </step>
+   <step>
+    <para>
+     Log in to the &smt; server.
+    </para>
+   </step>
+   <step>
+    <para>
+     Check if the client has successfully been de-registered by listing all
+     client registrations:
+    </para>
 <screen>&prompt.sudo;smt-list-registrations</screen>
-    </step>
-    <step>
-     <para>
-      If the client's host name is still listed in the output of this command,
-      get the client's <literal>Unique ID</literal> from the first column. (The
-      client might be listed with multiple IDs.)
-     </para>
-    </step>
-    <step>
-     <para>
-      Delete the registration for this client:
-     </para>
+   </step>
+   <step>
+    <para>
+     If the client's host name is still listed in the output of this command,
+     get the client's <literal>Unique ID</literal> from the first column. (The
+     client might be listed with multiple IDs.)
+    </para>
+   </step>
+   <step>
+    <para>
+     Delete the registration for this client:
+    </para>
 <screen>&prompt.sudo;smt-delete-registration -g <replaceable>UNIQUE_ID</replaceable></screen>
-    </step>
-     <step>
-     <para>
-      If the client is listed with multiple IDs, repeat the step above for each
-      of its unique IDs.
-     </para>
-    </step>
+   </step>
     <step>
-     <para>
-      Check if the client has now successfully been de-registered by re-running:
-     </para>
+    <para>
+     If the client is listed with multiple IDs, repeat the step above for each
+     of its unique IDs.
+    </para>
+   </step>
+   <step>
+    <para>
+     Check if the client has now successfully been de-registered by re-running:
+    </para>
 <screen>&prompt.sudo;smt-list-registrations</screen>
-    </step>
-   </procedure>
-  </sect1>
+   </step>
+  </procedure>
+ </sect1>
 
  <sect1 xml:id="sec-update-preparation-disk">
-  <title>Disk Space</title>
+  <title>Disk space</title>
 
   <para>
    Software tends to grow from version to version. Therefore,
@@ -602,7 +633,7 @@ postgres &gt; <command>pg_upgrade</command> \
   </para>
 
   <note>
-   <title>Automatic Check for Enough Space in &yast;</title>
+   <title>Automatic check for enough space in &yast;</title>
    <para>
     During the update procedure, &yast; will check how much free disk space is
     available and display a warning to the user if the installation may exceed
@@ -612,9 +643,9 @@ postgres &gt; <command>pg_upgrade</command> \
     update.
    </para>
   </note>
-
+  
   <sect2 xml:id="sec-update-preparation-disk-space">
-   <title>Checking Disk Space on Non-Btrfs File Systems</title>
+   <title>Checking disk space on non-Btrfs file systems</title>
    <para>
     Use the <command>df</command> command to list available disk space. For
     example, in <xref linkend="ex-update-df"/>, the root partition is
@@ -637,7 +668,7 @@ tmpfs          506M     0  506M   0% /dev/shm
   </sect2>
 
   <sect2 xml:id="sec-update-preparation-disk-btrfs-on-root">
-   <title>Checking Disk Space on Btrfs Root File Systems</title>
+   <title>Checking disk space on Btrfs root file systems</title>
    <!--
     taroth 2019-05-06: the following two paras are copied from
     storage_filesystem.xml, sec.filesystems.major.btrfs.suse.space,
@@ -697,15 +728,24 @@ tmpfs          506M     0  506M   0% /dev/shm
    </itemizedlist>
   </sect2>
  </sect1>
- <sect1 xml:id="sec-update-preparation-smt-to-rmt" os="sles">
-  <title>Upgrading a Subscription Management Tool (SMT) Server</title>
+
+ <sect1 xml:id="sec-autoyast-profiles" os="sles">
+  <title>Changes in &ay; profiles from &slea; 12 to 15</title>
   <para>
-   A server running SMT requires a special upgrade procedure. Please refer to
+   To learn how to migrate your &ay; profiles, see
+   <xref linkend="appendix-ay-12vs15"/>.
+  </para>
+ </sect1>
+
+ <sect1 xml:id="sec-update-preparation-smt-to-rmt" os="sles">
+  <title>Upgrading a &smtool; (&smt;) server</title>
+  <para>
+   A server running &smt; requires a special upgrade procedure. Please refer to
    <xref linkend="cha-rmt-migrate"/> in the &rmtguide;.
   </para>
  </sect1>
  <sect1 xml:id="sec-update-preparation-multiversion">
-  <title>Temporarily Disabling Kernel Multiversion Support</title>
+  <title>Temporarily disabling kernel multiversion support</title>
   <para>
    &productname; allows installing multiple kernel versions by enabling the
    respective settings in <filename>/etc/zypp/zypp.conf</filename>. Support
@@ -731,7 +771,7 @@ tmpfs          506M     0  506M   0% /dev/shm
   </para>
  </sect1>
  <sect1 xml:id="sec-update-preparation-ppc" os="sles" arch="power">
-  <title>IBM &ppc;: Starting an X Server</title>
+  <title>IBM &ppc;: starting an X server</title>
   <para>
    On &slsa; 12 for IBM &ppc; the display manager is configured not to start a
    local X Server by default. This setting was reversed on &slsa; 12

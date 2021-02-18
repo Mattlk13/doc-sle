@@ -10,7 +10,7 @@
   xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Backports of Source Code</title>
+ <title>Backports of source code</title>
  <info>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
    <dm:translation>yes</dm:translation>
@@ -33,7 +33,7 @@
   </abstract>
  </info>
  <sect1 xml:id="sec-update-backports-reasons-for">
-  <title>Reasons for Backporting</title>
+  <title>Reasons for backporting</title>
 
   <para>
    Upstream developers are primarily concerned with advancing the software they
@@ -125,7 +125,7 @@
   </itemizedlist>
  </sect1>
  <sect1 xml:id="sec-update-backports-reasons-against">
-  <title>Reasons against Backports</title>
+  <title>Reasons against backports</title>
 
   <para>
    It is a general policy rule that no new upstream versions of a package are
@@ -145,7 +145,7 @@
   </para>
  </sect1>
  <sect1 xml:id="sec-update-backports-implications">
-  <title>The Implications of Backports for Interpreting Version Numbers</title>
+  <title>The implications of backports for interpreting version numbers</title>
 
   <para>
    Because of the practice of backporting, one cannot simply compare version
@@ -173,7 +173,7 @@
   </para>
  </sect1>
  <sect1 xml:id="sec-update-backports-checks">
-  <title>Checking for Fixed Bugs and Backported Features</title>
+  <title>Checking for fixed bugs and backported features</title>
 
   <para>
    There are several locations where information regarding backported bug fixes
@@ -194,19 +194,17 @@
    <listitem>
     <para>
      The package changelog may contain entries like <literal>bsc#1234</literal>
-     (<quote><emphasis>B</emphasis>ugzilla
-     <emphasis>S</emphasis>use.<emphasis>C</emphasis>om</quote>) that refer to
-     bugs in &suse;'s Bugzilla tracking system or links to other bugtracking
-     systems. Because of confidentiality policies, not all such information may
-     be accessible to you.
+     (<quote><emphasis>B</emphasis>ugzilla<emphasis>S</emphasis>use.
+     <emphasis>C</emphasis>om</quote>) that refer to bugs in &suse;'s Bugzilla
+     tracking system or links to other bugtracking systems. Because of
+     confidentiality policies, not all such information may be accessible to you.
     </para>
    </listitem>
    <listitem>
     <para>
-     A package may contain a
-     <filename>/usr/share/doc/<replaceable>PACKAGENAME</replaceable>/README.SUSE</filename>
-     file which contains general, high-level information specific to the &suse;
-     package.
+     A package may contain a <filename>/usr/share/doc/<replaceable>PACKAGENAME
+     </replaceable>/README.SUSE</filename> file which contains general, high-level
+     information specific to the &suse; package.
     </para>
    </listitem>
    <listitem>
@@ -224,7 +222,7 @@
    <listitem>
     <para>
      For security bug fixes, consult the
-     <link xlink:href="http://www.suse.com/support/security/#1">&suse; security
+     <link xlink:href="https://www.suse.com/support/security/">&suse; security
      announcements</link>. These often refer to bugs through standardized names
      like <literal>CAN-2005-2495</literal> which are maintained by the
      <link xlink:href="http://cve.mitre.org">Common Vulnerabilities and

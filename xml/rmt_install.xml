@@ -9,14 +9,14 @@
          xmlns:xlink="http://www.w3.org/1999/xlink"
          version="5.0" xml:id="cha-rmt-installation">
 <!-- ==================================================================== -->
- <title>&rmt; Installation and Configuration</title>
+ <title>&rmt; installation and configuration</title>
  <para>
   &rmt; is included in &sls; starting with version 15. Install &rmt; directly
   during the installation of &productname; or install it on a running system.
   After the packages are installed, use &yast; to do an initial configuration.
  </para>
  <warning>
-  <title>&rmt; Server Will Conflict with Installation Server</title>
+  <title>&rmt; server will conflict with installation server</title>
   <para>
    Configuring a server to be an &rmt; server installs and configures the NGINX
    Web server, listening on port 80.
@@ -31,27 +31,24 @@
   </para>
  </warning>
  <sect1 xml:id="sec-rmt-storage-requirements">
-  <title>Storage Requirements</title>
+  <title>Storage requirements</title>
 
   <para>
-   Downloaded packages are stored in<filename>
-   /usr/share/rmt/public/repo</filename>, which is a symlink to
-   <filename>/var/lib/rmt/public/repo/SUSE/Products/</filename>. (You may
-   change this location by changing the symlink, and then updating the &rmt;
-   configuration files in <filename>/etc/nginx/vhosts.d/</filename> with the
-   new symlink.)
+   Downloaded packages are stored in
+   <filename>/usr/share/rmt/public/repo</filename>, which is a symbolic link to
+   <filename>/var/lib/rmt/public/repo/</filename>.
   </para>
 
   <para>
    The amount of storage your &rmt; server requires is dependent on several
    variables: the number of repositories and architectures that you mirror, and
    the number of products that are enabled. As a general guide, 1.5 times the
-   total size of all enabled repositories should be sufficient, which is about
+   total size of all enabled repositories should be sufficient. This is about
    200 GB per &sle; release, including all extensions.
   </para>
  </sect1>
  <sect1 xml:id="sec-rmt-installation-yast">
-  <title>Installation During System Installation</title>
+  <title>Installation during system installation</title>
 
   <para>
    To install it during installation, select the <package>rmt-server</package>
@@ -61,7 +58,7 @@
   </para>
 
   <figure>
-   <title>&rmt; Pattern</title>
+   <title>&rmt; pattern</title>
    <mediaobject>
     <imageobject role="fo">
      <imagedata fileref="rmt_installation.png" width="70%" format="PNG"/>
@@ -80,7 +77,7 @@
   </para>
  </sect1>
  <sect1 xml:id="sec-rmt-installation-zypper">
-  <title>Installation on Existing System</title>
+  <title>Installation on existing system</title>
 
   <para>
    To install &rmt; on a running &productname; installation, use
@@ -90,7 +87,7 @@
 <screen>&prompt.sudo;<command>zypper in rmt-server</command></screen>
  </sect1>
  <sect1 xml:id="sec-rmt-installation-yast-configuration">
-  <title>&rmt; Configuration with &yast;</title>
+  <title>&rmt; configuration with &yast;</title>
 
   <para>
    Configure &rmt; with &yast; as described in the following procedure. It is
@@ -136,14 +133,40 @@
     <para>
      When all common names are entered, select <guimenu>Next</guimenu>.
     </para>
+    <tip>
+     <title>Certificate locations for RMT</title>
+
+     <itemizedlist>
+      <listitem>
+       <para>
+        <filename>/etc/rmt/ssl/rmt-ca.crt</filename>
+       </para>
+       <para>
+        This is the CA certificate bundle that <command>yast2 rmt</command> uses to
+        certify the &rmt; server certificate. <command>yast2 rmt</command> will only
+        create this file if it doesn't already exist.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        <filename>/etc/rmt/ssl/rmt-server.crt</filename> and <filename>/etc/rmt/ssl/rmt-server.key</filename>
+       </para>
+       <para>
+        <command>yast2 rmt</command> will only generate a new server certificate and
+        private key if one doesn't already exist. To regenerate this certificate, please
+        reference <xref linkend="cha-manage-certificates-https" />.
+       </para>
+      </listitem>
+     </itemizedlist>
+    </tip>
    </step>
    <step>
     <para>
-     If &firewalld; is enabled on this system, enable the checkbox to open the
+     If &firewalld; is enabled on this system, enable the check box to open the
      required ports.
     </para>
     <figure>
-     <title>Enabling Ports in &firewalld;</title>
+     <title>Enabling ports in &firewalld;</title>
      <mediaobject>
       <imageobject role="fo">
        <imagedata fileref="rmt_firewalld.png" width="60%"/>
@@ -154,12 +177,12 @@
      </mediaobject>
     </figure>
     <para>
-     If &firewalld; is not enabled now and you plan to enabled it later, you
+     If &firewalld; is not enabled now and you plan to enable it later, you
      can always open relevant ports by running the <command>yast2 rmt</command>
      module.
     </para>
     <tip>
-     <title>Fine-tuning &firewalld; Settings</title>
+     <title>Fine-tuning &firewalld; settings</title>
      <para>
       By clicking <guimenu>Firewall Details</guimenu>, you can open the
       relevant ports for specific network interfaces only.
@@ -179,7 +202,7 @@
   </procedure>
   </sect1>
   <sect1>
-  <title>Enabling SLP Announcements</title>
+  <title>Enabling SLP announcements</title>
 
   <para>
    &rmt; includes the SLP service description file

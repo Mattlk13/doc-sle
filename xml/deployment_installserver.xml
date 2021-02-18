@@ -9,7 +9,7 @@
   xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Setting Up a Network Installation Source</title>
+ <title>Setting up a network installation source</title>
  <info>
   <abstract>
    <para>
@@ -31,7 +31,7 @@
  </para>
 
  <tip>
-  <title>Installation Server Operating System</title>
+  <title>Installation server operating system</title>
   <para>
    You can even use a Microsoft Windows machine as the installation server for
    your Linux deployment. See <xref linkend="sec-deployment-instserver-smb"/>
@@ -39,7 +39,7 @@
   </para>
  </tip>
  <sect1 xml:id="sec-deployment-instserver-sles9">
-  <title>Setting Up an Installation Server Using &yast;</title>
+  <title>Setting up an installation server using &yast;</title>
 
   <para>
    &yast; offers a graphical tool for creating network repositories. It
@@ -90,10 +90,10 @@
      the previous step, define wild cards and export options. The NFS server
      will be accessible under
      <literal>nfs://<replaceable>Server-IP</replaceable>/<replaceable>Name</replaceable></literal>.
-     Details of NFS and exports can be found in <xref linkend="cha-nfs"/>.
+     <phrase os="sles">Details of NFS and exports can be found in <xref linkend="cha-nfs"/>.</phrase>
     </para>
     <tip>
-     <title>Firewall Settings</title>
+     <title>Firewall settings</title>
      <para>
       Make sure that the firewall settings of your server system allow traffic
       on ports for HTTP, NFS, and FTP. If they currently do not, enable
@@ -116,7 +116,7 @@
      OpenSLP, activate the appropriate option.
     </para>
     <tip>
-     <title>Announcing the Repository</title>
+     <title>Announcing the repository</title>
      <para>
       Consider announcing your repository via OpenSLP if your network setup
       supports this option. This saves you from entering the network
@@ -134,7 +134,7 @@
      Configuration is accepted only if the repository name of the
      add-on CDs starts with the repository name of the installation
      media. In other words, if you chose <literal>SLES12SP1</literal>
-     as repository name for DVD1 then you should choose
+     as repository name for DVD1 then you should select
      <literal>SLES12SP1addon</literal> as repository name for DVD2.
     </para>
    </step>
@@ -170,27 +170,27 @@
    server module. Then select <guimenu>Add</guimenu> in the overview of existing
    repositories to configure the new repository.
   </para>
-  
+
   <warning>
-   <title>&yast; Installation Server Will Conflict with &rmt; Server</title>
+   <title>&yast; installation server will conflict with &rmt; server</title>
    <para>
     Configuring a server to be an installation server with &yast; automatically
-    installs and configures the Apache web server, listening on port 80.    
+    installs and configures the Apache Web server, listening on port 80.
    </para>
    <para>
     However, configuring a machine to be an &rmt; server (&rmtool;)
-    automatically installs the NGINX web server and configures it to listen on
-    port 80.   
+    automatically installs the NGINX Web server and configures it to listen on
+    port 80.
    </para>
    <para>
     Do not try to enable both these functions on the same server. It is not
     possible for a single server to host both simultaneously.
    </para>
   </warning>
-      
+
  </sect1>
  <sect1 xml:id="sec-deployment-instserver-nfs">
-  <title>Setting Up an NFS Repository Manually</title>
+  <title>Setting up an NFS repository manually</title>
 
   <important os="sled">
    <para>
@@ -227,35 +227,32 @@
     <para>
      Replace <replaceable>PRODUCT</replaceable> with an abbreviation of the
      product name and <replaceable>PRODUCTVERSION</replaceable> with a string
-     that contains the product name and version.
+     that contains the product name and version (for example, <filename>/srv/install/SLES/15.1</filename>).
     </para>
    </step>
    <step>
     <para>
-     For each DVD contained in the media kit execute the following commands:
+     For each installation medium contained in the media kit, execute the following commands:
     </para>
     <substeps performance="required">
      <step>
       <para>
-       Copy the entire content of the installation DVD into the installation
+       Copy the entire content of the installation medium into the installation
        server directory:
       </para>
-<screen>&prompt.root;cp -a /media/<replaceable>PATH_TO_YOUR_DVD_DRIVE</replaceable> .</screen>
+<screen>&prompt.root;cp -a /media/<replaceable>PATH_TO_YOUR_MEDIA_DRIVE</replaceable> .</screen>
       <para>
-       Replace <replaceable>PATH_TO_YOUR_DVD_DRIVE</replaceable> with the
-       actual path under which your DVD drive is addressed. Depending on the
-       type of drive used in your system, this can be
-       <filename>cdrom</filename>, <filename>cdrecorder</filename>,
-       <filename>dvd</filename>, or <filename>dvdrecorder</filename>.
+       Replace <replaceable>PATH_TO_YOUR_MEDIA_DRIVE</replaceable> with the
+       actual path under which your installation media drive is addressed.
       </para>
      </step>
      <step>
       <para>
-       Rename the directory to the DVD number:
+       Rename the directory to the medium number:
       </para>
-<screen>&prompt.root;mv <replaceable>PATH_TO_YOUR_DVD_DRIVE</replaceable> DVD<replaceable>X</replaceable></screen>
+<screen>&prompt.root;mv <replaceable>PATH_TO_YOUR_MEDIA_DRIVE</replaceable> DVD<replaceable>X</replaceable></screen>
       <para>
-       Replace <replaceable>X</replaceable> with the actual number of your DVD.
+       Replace <replaceable>X</replaceable> with the actual number of your installation medium.
       </para>
      </step>
     </substeps>
@@ -391,7 +388,7 @@ description=NFS Repository</screen>
   </para>
  </sect1>
  <sect1 xml:id="sec-deployment-instserver-ftp">
-  <title>Setting Up an FTP Repository Manually</title>
+  <title>Setting up an FTP repository manually</title>
 
   <para>
    Creating an FTP repository is very similar to creating an NFS repository. An
@@ -483,7 +480,7 @@ description=FTP Repository</screen>
   </procedure>
 
   <tip os="sles">
-   <title>Configuring an FTP Server with &yast;</title>
+   <title>Configuring an FTP server with &yast;</title>
    <para>
     If you prefer to use &yast; rather than manually configuring the FTP
     installation server, refer to <xref linkend="cha-ftp"/>.
@@ -491,7 +488,7 @@ description=FTP Repository</screen>
   </tip>
  </sect1>
  <sect1 xml:id="sec-deployment-instserver-http">
-  <title>Setting Up an HTTP Repository Manually</title>
+  <title>Setting up an HTTP repository manually</title>
 
   <para>
    Creating an HTTP repository is very similar to creating an NFS repository.
@@ -587,7 +584,7 @@ description=HTTP Repository</screen>
   </procedure>
  </sect1>
  <sect1 xml:id="sec-deployment-instserver-smb">
-  <title>Managing an SMB Repository</title>
+  <title>Managing an SMB repository</title>
 
   <para>
    Using SMB, you can import the installation sources from a Microsoft Windows
@@ -626,7 +623,7 @@ description=HTTP Repository</screen>
    <step>
     <para>
      Enter the <filename>INSTALL/<replaceable>PRODUCT</replaceable></filename>
-     directory and copy each DVD to a separate directory, such as
+     directory and copy each medium to a separate directory, such as
      <literal>DVD1</literal> and <literal>DVD2</literal>.
     </para>
    </step>
@@ -668,7 +665,7 @@ description=HTTP Repository</screen>
   </procedure>
  </sect1>
  <sect1 xml:id="sec-remote-installation-iso">
-  <title>Using ISO Images of the Installation Media on the Server</title>
+  <title>Using ISO images of the installation media on the server</title>
 
   <para>
    Instead of copying physical media into your server directory manually, you
@@ -699,7 +696,7 @@ description=HTTP Repository</screen>
    </step>
    <step>
     <para>
-     Create subdirectories for each DVD.
+     Create subdirectories for each installation medium.
     </para>
    </step>
    <step>

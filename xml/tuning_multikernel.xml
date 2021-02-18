@@ -9,7 +9,7 @@
   xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Installing Multiple Kernel Versions</title>
+ <title>Installing multiple kernel versions</title>
  <info>
   <abstract>
    <para>
@@ -34,7 +34,7 @@
  </info>
  <warning os="sles;sled">
 <!-- cannot think of a better heading... -->
-  <title>Support Entitlement</title>
+  <title>Support entitlement</title>
   <para>
    Be aware that you lose your entire support entitlement for the machine when
    installing a self-compiled or a third-party kernel. Only kernels shipped
@@ -43,7 +43,7 @@
   </para>
  </warning>
  <tip>
-  <title>Check Your Boot Loader Configuration Kernel</title>
+  <title>Check your boot loader configuration kernel</title>
   <para>
    It is recommended to check your boot loader configuration after having
    installed another kernel to set the default boot entry of your choice. See
@@ -51,7 +51,7 @@
   </para>
  </tip>
  <sect1 xml:id="sec-tuning-multikernel-enable">
-  <title>Enabling and Configuring Multiversion Support</title>
+  <title>Enabling and configuring multiversion support</title>
 
 <!-- bnc#891805: on sle 12 enabled by default -->
 
@@ -94,7 +94,7 @@
   </procedure>
 
   <warning>
-   <title>Kernel Module Packages (KMP)</title>
+   <title>Kernel module packages (KMP)</title>
    <para>
     Make sure that required vendor provided kernel modules (Kernel Module
     Packages) are also installed for the new updated kernel. The kernel update
@@ -105,7 +105,7 @@
   </warning>
 
   <sect2 xml:id="sec-tuning-multikernel-enable-keep">
-   <title>Automatically Deleting Unused Kernels</title>
+   <title>Automatically deleting unused kernels</title>
    <para>
     When frequently testing new kernels with multiversion support enabled, the
     boot menu quickly becomes confusing. Since a <filename>/boot</filename>
@@ -129,7 +129,7 @@
       comma-separated list of the following values:
      </para>
      <formalpara>
-      <title><literal><replaceable>4.4.126-48</replaceable></literal>:</title>
+      <title><literal><replaceable>5.3.18-8</replaceable></literal>:</title>
       <para>
        keep the kernel with the specified version number
       </para>
@@ -192,18 +192,18 @@
       </varlistentry>
       <varlistentry>
        <term><literal>
-         multiversion.kernels = latest,running,<replaceable>4.4.126-48</replaceable></literal>
+         multiversion.kernels = latest,running,<replaceable>5.3.18-8</replaceable></literal>
        </term>
        <listitem>
         <para>
          Keep the latest kernel, the one currently running, and
-         <replaceable>4.4.126-48</replaceable>.
+         <replaceable>5.3.18-8</replaceable>.
         </para>
        </listitem>
       </varlistentry>
      </variablelist>
      <tip>
-      <title>Keep the Running Kernel</title>
+      <title>Keep the running kernel</title>
       <para>
        Unless you are using a special setup, always keep the
        kernel marked <literal>running</literal>.
@@ -222,7 +222,7 @@
    </procedure>
   </sect2>
   <sect2 xml:id="sec-tuning-multikernel-deleteoldkernel">
-   <title>Use Case: Deleting an Old Kernel after Reboot Only</title>
+   <title>Use case: deleting an old kernel after reboot only</title>
    <para>
     You want to make sure that an old kernel will only be deleted after the
     system has rebooted successfully with the new kernel.
@@ -238,7 +238,7 @@
   </sect2>
 
   <sect2 xml:id="sec-tuning-multikernel-fallback">
-   <title>Use Case: Keeping Older Kernels as Fallback</title>
+   <title>Use case: keeping older kernels as fallback</title>
    <para>
     You want to keep one or more kernel versions to have one or more
     <quote>spare</quote> kernels.
@@ -261,7 +261,7 @@
   </sect2>
 
   <sect2 xml:id="sec-tuning-multikernel-specificversion">
-   <title>Use Case: Keeping a Specific Kernel Version</title>
+   <title>Use case: keeping a specific kernel version</title>
    <para>
     You make regular system updates and install new kernel versions. However,
     you are also compiling your own kernel version and want
@@ -270,17 +270,17 @@
    <para>
     Change the following line in <filename>/etc/zypp/zypp.conf</filename>:
    </para>
-<screen>multiversion.kernels = latest,3.12.28-4.20,running</screen>
+<screen>multiversion.kernels = latest,5.3.18-8,running</screen>
    <para>
     When you reboot your system after the installation of a new kernel, the
     system will keep two kernels: the new and running kernel (configured as
     <literal>latest,running</literal>) and your self-compiled kernel
-    (configured as <literal>3.12.28-4.20</literal>).
+    (configured as <literal>5.3.18-8</literal>).
    </para>
   </sect2>
  </sect1>
  <sect1 xml:id="sec-tuning-multikernel-yast">
-  <title>Installing/Removing Multiple Kernel Versions with &yast;</title>
+  <title>Installing/removing multiple kernel versions with &yast;</title>
   <para>
    You can install or remove multiple kernels with &yast;:
   </para>
@@ -299,7 +299,7 @@
      <guimenu>Multiversion Packages</guimenu> </menuchoice>.
     </para>
     <figure>
-     <title>The &yast; Software Manager: Multiversion View</title>
+     <title>The &yast; software manager: multiversion view</title>
      <mediaobject>
       <imageobject role="fo">
        <imagedata fileref="yast2_sw_multiversion.png" width="90%" format="PNG"/>
@@ -335,7 +335,7 @@
   </procedure>
  </sect1>
  <sect1 xml:id="sec-tuning-multikernel-zypper">
-  <title>Installing/Removing Multiple Kernel Versions with Zypper</title>
+  <title>Installing/removing multiple kernel versions with Zypper</title>
   <para>
    You can install or remove multiple kernels with <command>zypper</command>:
   </para>
@@ -347,17 +347,19 @@
     </para>
 <screen><?dbsuse-fo font-size="7pt"?>S | Name           | Type       | Version         | Arch   | Repository
 --+----------------+------------+-----------------+--------+-------------------
-v | kernel-default | package    | 2.6.32.10-0.4.1 | x86_64 | Alternative Kernel
-i | kernel-default | package    | 2.6.32.9-0.5.1  | x86_64 | (System Packages)
-  | kernel-default | srcpackage | 2.6.32.10-0.4.1 | noarch | Alternative Kernel
-i | kernel-default | package    | 2.6.32.9-0.5.1  | x86_64 | (System Packages)
-...</screen>
+i+ | kernel-default       | package | 5.3.18-8.2       | x86_64 | (System Packages)                    
+v  | kernel-default       | package | 5.3.18-10.1      | x86_64 | SLE-Module-Basesystem15-SP2-Pool     
+   | kernel-default-base  | package | 5.3.18-10.1.4.8  | x86_64 | SLE-Module-Basesystem15-SP2-Pool     
+   | kernel-default-devel | package | 5.3.18-10.1      | x86_64 | SLE-Module-Basesystem15-SP2-Pool     
+   | kernel-devel         | package | 5.3.18-10.1      | noarch | SLE-Module-Basesystem15-SP2-Pool     
+i  | kernel-firmware      | package | 20200107-3.12.1  | noarch | SLE-Module-Basesystem15-SP2-Pool     
+</screen>
    </step>
    <step>
     <para>
      Specify the exact version when installing:
     </para>
-<screen>&prompt.sudo;zypper in kernel-default-2.6.32.10-0.4.1</screen>
+<screen>&prompt.sudo;zypper in kernel-default-5.3.18-8.2</screen>
    </step>
    <step>
     <para>
@@ -404,7 +406,7 @@ kernel-repo</screen>
   </procedure>
 
   <warning>
-   <title>Installing from <literal>Kernel:HEAD</literal> May Break the System</title>
+   <title>Installing from <literal>Kernel:HEAD</literal> may break the system</title>
    <para>
     Installing a kernel from <literal>Kernel:HEAD</literal> should never be
     necessary, because important fixes are backported by &suse; and are made
